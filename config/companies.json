@@ -54,6 +54,43 @@
       "platform": "personio",
       "slug": "alqemgmbh",
       "careers_url": "https://alqemgmbh.jobs.personio.com"
+    },
+    {
+      "name": "RUDOLF",
+      "platform": "personio",
+      "slug": "rudolf",
+      "careers_url": "https://rudolf.jobs.personio.de"
+    },
+    {
+      "name": "HWR-Chemie",
+      "platform": "personio",
+      "slug": "hwrchemie",
+      "careers_url": "https://hwrchemie.jobs.personio.com"
+    },
+    {
+      "name": "JUNGLÜCK",
+      "platform": "personio",
+      "slug": "junglueck",
+      "careers_url": "https://junglueck.jobs.personio.com"
+    },
+    {
+      "name": "Proteros Biostructures",
+      "platform": "personio",
+      "slug": "proteros-biostructures-gmbh",
+      "careers_url": "https://proteros-biostructures-gmbh.jobs.personio.com"
+    },
+    {
+      "name": "Recipharm (Wasserburger Arzneimittelwerk)",
+      "platform": "personio",
+      "slug": "recipharm",
+      "careers_url": "https://recipharm.jobs.personio.de"
+    },
+    {
+      "name": "Siltronic",
+      "platform": "softgarden",
+      "slug": "siltronic",
+      "careers_url": "https://siltronic.career.softgarden.de",
+      "feed_url": "https://siltronic.career.softgarden.de/jobs.feed.json"
     }
   ]
 }
