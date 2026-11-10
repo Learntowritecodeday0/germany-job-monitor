@@ -24,6 +24,36 @@
       "platform": "ashby",
       "slug": "vaeridion",
       "careers_url": "https://jobs.ashbyhq.com/vaeridion"
+    },
+    {
+      "name": "Coriolis Pharma",
+      "platform": "personio",
+      "slug": "coriolis",
+      "careers_url": "https://coriolis.jobs.personio.com"
+    },
+    {
+      "name": "NanoTemper Technologies",
+      "platform": "personio",
+      "slug": "nanotemper",
+      "careers_url": "https://nanotemper.jobs.personio.com"
+    },
+    {
+      "name": "AMSilk",
+      "platform": "personio",
+      "slug": "amsilk",
+      "careers_url": "https://amsilk.jobs.personio.com"
+    },
+    {
+      "name": "Insempra",
+      "platform": "personio",
+      "slug": "insempra-gmbh",
+      "careers_url": "https://insempra-gmbh.jobs.personio.de"
+    },
+    {
+      "name": "alqem",
+      "platform": "personio",
+      "slug": "alqemgmbh",
+      "careers_url": "https://alqemgmbh.jobs.personio.com"
     }
   ]
 }
