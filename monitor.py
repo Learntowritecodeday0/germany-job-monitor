@@ -130,6 +130,65 @@ def parse_personio(company, root):
     return [normalize_personio(company, p) for p in root.findall("position")]
 
 
+def normalize_softgarden(company, element):
+    # softgarden's publicly advertised JSON-LD DataFeed uses DataFeedItem.item.
+    # A career site can include a single Place or multiple Place objects.
+    item = element.get("item") if isinstance(element, dict) else None
+    if not isinstance(item, dict) or not item.get("title"):
+        raise ValueError("Invalid softgarden JobPosting item")
+    ident = item.get("identifier") or {}
+    job_id = ident.get("value") if isinstance(ident, dict) else None
+    job_url = item.get("url")
+    if not isinstance(job_url, str) or not job_url.startswith("https://"):
+        raise ValueError("Missing valid softgarden job URL")
+    if job_id is None:
+        # Stable official job URLs are an acceptable fallback key.
+        job_id = job_url
+
+    place_list = item.get("jobLocation") or []
+    if isinstance(place_list, dict):
+        place_list = [place_list]
+    locations, countries = [], []
+    for place in place_list:
+        if not isinstance(place, dict):
+            continue
+        address = place.get("address") or {}
+        if not isinstance(address, dict):
+            continue
+        city = str(address.get("addressLocality") or "").strip()
+        region = str(address.get("addressRegion") or "").strip()
+        country = str(address.get("addressCountry") or "").strip()
+        locations.append(", ".join(x for x in (city, region, country) if x))
+        if country:
+            countries.append(country)
+    location = "; ".join(dict.fromkeys(x for x in locations if x))
+    if not location:
+        # A missing workplace must remain uncertain, not assumed to be Germany.
+        location = str(item.get("jobLocationType") or "")
+    return {
+        "key": f"softgarden:{company['slug']}:{job_id}",
+        "company": company["name"],
+        "title": str(item["title"]),
+        "location": location,
+        "country": countries[0] if len(set(countries)) == 1 else "",
+        "description": plain_text(item.get("description") or "")[:18000],
+        "url": job_url,
+        "published_at": item.get("datePosted"),
+        "source_modified_at": element.get("dateModified"),
+        "platform": "softgarden",
+    }
+
+
+def parse_softgarden(company, feed):
+    if not isinstance(feed, dict) or feed.get("@type") != "DataFeed":
+        raise ValueError("Unexpected softgarden job feed format")
+    elements = feed.get("dataFeedElement")
+    if not isinstance(elements, list):
+        raise ValueError("softgarden feed is missing dataFeedElement array")
+    # An actual empty feed is a valid zero-positions result.
+    return [normalize_softgarden(company, x) for x in elements]
+
+
 def fetch_company(company):
     slug = quote(company["slug"], safe="")
     provider = company["platform"]
@@ -147,6 +206,13 @@ def fetch_company(company):
         if not isinstance(items, list):
             raise ValueError("Unexpected Greenhouse response: missing jobs array")
         return [normalize_greenhouse(company, x) for x in items]
+    if provider == "softgarden":
+        # Public JSON-LD feed confirmed at the employer's own softgarden site.
+        # Do not use authenticated softgarden APIs or third-party aggregators.
+        feed_url = company.get("feed_url")
+        if not isinstance(feed_url, str) or not feed_url.startswith("https://"):
+            raise ValueError("Missing verified softgarden feed_url")
+        return parse_softgarden(company, get_json(feed_url))
     if provider == "personio":
         # Feed hostname is already grounded in the official employer career URL.
         url = company["careers_url"].rstrip("/") + "/xml?language=de"
@@ -200,7 +266,7 @@ def normalize_ashby(company, item):
     }
 
 
-GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "maisach"]
+GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach"]
 FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore", "coimbra", "portugal"]
 
 
