@@ -1,0 +1,29 @@
+{
+  "country": "Germany",
+  "companies": [
+    {
+      "name": "Marvel Fusion",
+      "platform": "greenhouse_eu",
+      "slug": "marvelfusion",
+      "careers_url": "https://job-boards.eu.greenhouse.io/marvelfusion"
+    },
+    {
+      "name": "CMBlu Energy",
+      "platform": "greenhouse_eu",
+      "slug": "engcmbluenergyag",
+      "careers_url": "https://job-boards.eu.greenhouse.io/engcmbluenergyag"
+    },
+    {
+      "name": "Black Semiconductor",
+      "platform": "ashby",
+      "slug": "blacksemiconductor",
+      "careers_url": "https://jobs.ashbyhq.com/blacksemiconductor"
+    },
+    {
+      "name": "VÆRIDION",
+      "platform": "ashby",
+      "slug": "vaeridion",
+      "careers_url": "https://jobs.ashbyhq.com/vaeridion"
+    }
+  ]
+}

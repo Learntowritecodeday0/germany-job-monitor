@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Germany Job Monitor</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div class="eyebrow">PERSONAL JOB SEARCH TOOL · PUBLIC CAREER POSTS</div>
+      <h1>Germany Job Monitor</h1>
+      <p>Selected employers. Early vacancy detection. Technical keyword triage.</p>
+    </header>
+    <div class="notice" role="note">This dashboard shows publicly advertised jobs. Ranking is a keyword aid, not a verified job-fit assessment. Never infer eligibility from the labels.</div>
+    <section class="summary" aria-label="Summary">
+      <article><strong id="total">—</strong><span>Open listings</span></article>
+      <article><strong id="priority">—</strong><span>Review first</span></article>
+      <article><strong id="sources">—</strong><span>Sources tracked</span></article>
+      <article><strong id="updated">—</strong><span>Last checked (Berlin)</span></article>
+    </section>
+    <section class="tools" aria-label="Filters">
+      <label>Search<input id="query" type="search" placeholder="e.g. DoE, nanoparticles, surface chemistry"></label>
+      <label>Priority<select id="band"><option value="all">All jobs</option><option value="Review first">Review first</option><option value="Possible">Possible</option><option value="Low">Low</option><option value="Not target">Not target</option></select></label>
+      <label>Company<select id="company"><option value="all">All companies</option></select></label>
+      <label><input type="checkbox" id="germanyOnly"> Verified German location only</label>
+    </section>
+    <div class="between"><h2>Current positions</h2><span id="count"></span></div>
+    <div id="status" aria-live="polite">Loading public job data…</div>
+    <section id="results" class="results" aria-label="Open positions"></section>
+    <div class="between"><h2>Source status</h2></div>
+    <section id="health" class="health"></section>
+    <footer>New means first detected by this tracker, not necessarily first published. Source updates are best-effort and may be delayed. No applications are submitted automatically.</footer>
+  </main>
+</body>
+</html>
