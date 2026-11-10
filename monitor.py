@@ -357,8 +357,8 @@ def normalize_ashby(company, item):
     }
 
 
-GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "zwickau", "monheim am rhein", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach"]
-FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore", "coimbra", "portugal"]
+GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "zwickau", "monheim am rhein", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach", "karlsfeld", "haar", "taufkirchen", "eresing", "esslingen", "heilbronn", "starnberg", "kronberg"]
+FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore", "coimbra", "portugal", "pilsen", "plzeň", "plzen", "czech republic", "czechia", "tschechien", "china", "shanghai", "ningbo", "innsbruck"]
 
 
 def location_status(job):
@@ -383,7 +383,7 @@ def location_status(job):
 # in jobs.json for optional manual review; the website hides the following by default.
 TRAINING_TITLES = [
     r"\bausbildung\b", r"\bauszubild", r"\bschülerpraktikum\b",
-    r"\bwerkstudent", r"\bworking student\b", r"\binternship\b",
+    r"\bwerkstudent", r"\bworking student\b", r"\bstudent\b", r"\binternship\b",
     r"\bpraktikum\b", r"\bpraktikant", r"\bstudent assistant\b",
     r"\bdual(?:es|e|er) studium\b", r"\bduales studium\b",
     r"\bapprentice", r"\blehrling\b", r"\bdual(?:e|er|es) student(?:in)?\b",
@@ -393,6 +393,23 @@ VOCATIONAL_ONLY_TITLES = [
     r"\bproduktionsmitarbeiter(?:in|innen)?\b", r"\blaborhelfer(?:in|innen)?\b",
     r"\blaborassistent(?:in|en|innen)?\b", r"\bpta\b", r"\bcta\b",
     r"\bmaschinen(?:führer|bediener)(?:in|innen)?\b",
+]
+
+
+# Strictly job-TITLE based exclusions. Do not search descriptions: otherwise
+# technical laboratory roles would be hidden for mentioning their HR,
+# procurement, or finance colleagues. These are USER PREFERENCES, not legal
+# ineligibility findings. The positions remain available in jobs.json.
+UNRELATED_JOB_FAMILY_TITLES = [
+    r"\b(?:hr|human resources|people\s*(?:&|and)\s*culture|people operations|people partner|head of people)\b",
+    r"\b(?:talent acquisition|talent sourcing|recruit(?:er|ing|ment)|personalwesen|personalreferent|personaladministration|personalsachbearbeit|personalentwickl|personalmanagement)\w*\b",
+    r"\b(?:finance|financial|finanz\w*|accounting|accountant|accounts payable|accounts receivable|buchhalt\w*|bilanzbuchhalt\w*|controll(?:er|ing)|treasury|payroll|lohnabrechnung|gehaltsabrechnung|tax manager)\b",
+    r"\b(?:procurement|purchasing|buyer|buyers|sourcing manager|einkauf\w*|einkäuf\w*|beschaffung\w*|strategic sourcing|supply chain manager|lagerlogistik|warehouse manager)\b",
+    r"\b(?:sales|salesperson|sales representative|sales manager|account executive|account manager|business development|commercial manager|marketing|growth manager|market development|social media|public relations|communications manager|event manager|vertrieb\w*|verkauf\w*|kundenakquise)\b",
+    r"\b(?:executive assistant|office manager|office administrator|administrative assistant|receptionist|front desk|team assistan\w*|büromanagement|assistenz der geschäftsführung|sachbearbeit\w*|customer support|customer success)\b",
+    r"\b(?:legal counsel|lawyer|rechtsanwalt|patent attorney|patentanwalt|paralegal|compliance officer|contract manager|steuerberater)\b",
+    r"\b(?:software engineer|software developer|frontend|front-end|backend|back-end|fullstack|full-stack|devops|it support|it administrator|erp implementation|embedded software|data engineer)\b",
+    r"\b(?:unsolicited application|spontaneous application|open application|initiativbewerbung|talent pool|general interest pool)\b",
 ]
 
 
@@ -408,6 +425,9 @@ def qualification_preference(job):
     if any(re.search(p, title, re.IGNORECASE) for p in VOCATIONAL_ONLY_TITLES):
         return {"career_track": "vocational", "hide_by_default": True,
                 "preference_note": "Vocationally oriented job title; verify degree requirement"}
+    if any(re.search(p, title, re.IGNORECASE) for p in UNRELATED_JOB_FAMILY_TITLES):
+        return {"career_track": "unrelated", "hide_by_default": True,
+                "preference_note": "Excluded job family by preference (not an eligibility determination)"}
     return {"career_track": "professional_or_unknown", "hide_by_default": False,
             "preference_note": "Degree requirement not automatically verified"}
 
@@ -451,7 +471,8 @@ def triage(job):
     general = _has_any_patterns(title, GENERAL_TECH_TITLE)
     senior = _has_any_patterns(title, SENIOR_TITLE)
     student = any(x in title for x in JOB_BLOCKERS)
-    unrelated = any(x in title for x in NON_TARGET_TITLES)
+    unrelated = (any(x in title for x in NON_TARGET_TITLES)
+                 or _has_any_patterns(title, UNRELATED_JOB_FAMILY_TITLES))
     # Hard requirements demonstrably absent from the documented experience.
     # This list is deliberately conservative and is not exhaustive.
     critical_gap = any(re.search(pattern, body) for pattern in (
@@ -555,10 +576,6 @@ def main():
         print("WARNING: No source returned successfully. Check workflow logs.", file=sys.stderr)
         return 1
     return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
 
 
 if __name__ == "__main__":
