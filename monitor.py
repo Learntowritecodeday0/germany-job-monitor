@@ -15,6 +15,7 @@ from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
+from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent
 STATE = ROOT / "data" / "state.json"
@@ -72,6 +73,63 @@ def get_json(url):
         return json.loads(raw.decode("utf-8"))
 
 
+def get_xml(url):
+    # Personio's public XML feed can be disabled by the employer; treat that as
+    # a source error, not as proof the employer has zero open vacancies.
+    req = Request(url, headers={"User-Agent": "PersonalJobMonitor/0.2 (public postings)", "Accept": "application/xml,text/xml"})
+    with urlopen(req, timeout=25) as response:
+        if response.status != 200:
+            raise ValueError(f"HTTP {response.status}")
+        raw = response.read(8_000_001)
+        if len(raw) > 8_000_000:
+            raise ValueError("Personio XML feed too large")
+    try:
+        return ET.fromstring(raw)
+    except ET.ParseError as exc:
+        raise ValueError(f"Invalid Personio XML feed: {exc}") from exc
+
+
+def normalize_personio(company, position):
+    def field(path):
+        node = position.find(path)
+        return " ".join(" ".join(node.itertext()).split()) if node is not None else ""
+
+    job_id = field("id")
+    title = field("name")
+    if not job_id or not title:
+        raise ValueError("Personio position missing id or name")
+    parts = []
+    for item in position.findall("./jobDescriptions/jobDescription"):
+        section = " ".join(item.findtext("name", default="").split())
+        value = item.find("value")
+        description = plain_text(" ".join(value.itertext())) if value is not None else ""
+        if description:
+            parts.append((section + ": " if section else "") + description)
+    # Personio's 'createdAt' is an ATS creation time, not a guaranteed public
+    # posting date. It must never be shown as 'first published'.
+    created = field("createdAt") or None
+    return {
+        "key": f"personio:{company['slug']}:{job_id}",
+        "company": company["name"],
+        "title": title,
+        "location": field("office") or field("location"),
+        "country": field("country"),
+        "description": " ".join(parts)[:18000],
+        "url": company["careers_url"].rstrip("/") + "/job/" + quote(job_id, safe=""),
+        "published_at": None,
+        "source_created_at": created,
+        "source_modified_at": None,
+        "platform": "personio",
+    }
+
+
+def parse_personio(company, root):
+    if root.tag not in ("workzag-jobs", "{https://personio.com}workzag-jobs"):
+        raise ValueError("Unexpected Personio XML root (feed may be disabled)")
+    # A valid empty feed is an authentic zero-jobs state.
+    return [normalize_personio(company, p) for p in root.findall("position")]
+
+
 def fetch_company(company):
     slug = quote(company["slug"], safe="")
     provider = company["platform"]
@@ -89,6 +147,10 @@ def fetch_company(company):
         if not isinstance(items, list):
             raise ValueError("Unexpected Greenhouse response: missing jobs array")
         return [normalize_greenhouse(company, x) for x in items]
+    if provider == "personio":
+        # Feed hostname is already grounded in the official employer career URL.
+        url = company["careers_url"].rstrip("/") + "/xml?language=de"
+        return parse_personio(company, get_xml(url))
     if provider == "ashby":
         url = f"https://api.ashbyhq.com/posting-api/job-board/{slug}"
         data = get_json(url)
@@ -138,21 +200,25 @@ def normalize_ashby(company, item):
     }
 
 
-GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg"]
-FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore"]
+GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "maisach"]
+FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore", "coimbra", "portugal"]
 
 
 def location_status(job):
     country = str(job.get("country") or "").strip().casefold()
     loc = str(job.get("location") or "").casefold()
-    # Mixed-location posts should be reviewed instead of silently filtered out.
-    if any(x in loc for x in GERMAN_CITIES) or any(x in loc for x in ["germany", "deutschland"]):
+    german_site = any(x in loc for x in GERMAN_CITIES) or any(x in loc for x in ["germany", "deutschland"])
+    foreign_site = any(x in loc for x in FOREIGN_COUNTRIES)
+    # Multi-country or ambiguous listings require worksite verification.
+    if german_site and foreign_site:
+        return "verify_location"
+    if foreign_site:
+        return "outside"
+    if german_site:
         return "germany"
     if country in ("germany", "de", "deu"):
         return "germany"
-    if country and country not in ("germany", "de", "deu"):
-        return "outside"
-    if any(x in loc for x in FOREIGN_COUNTRIES):
+    if country:
         return "outside"
     return "verify_location"
 
@@ -294,6 +360,10 @@ def main():
         print("WARNING: No source returned successfully. Check workflow logs.", file=sys.stderr)
         return 1
     return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
 
 
 if __name__ == "__main__":
