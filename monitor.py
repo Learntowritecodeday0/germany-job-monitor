@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import html
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from html.parser import HTMLParser
@@ -45,8 +46,16 @@ class PlainHTML(HTMLParser):
 
 
 def plain_text(value):
+    # Some Greenhouse boards return nested HTML entities. Decode before parsing
+    # so tags do not leak into keyword screening and the published JSON.
+    raw = str(value or "")
+    for _ in range(2):
+        decoded = html.unescape(raw)
+        if decoded == raw:
+            break
+        raw = decoded
     p = PlainHTML()
-    p.feed(str(value or ""))
+    p.feed(raw)
     return " ".join(html.unescape("".join(p.words)).split())
 
 
@@ -147,38 +156,82 @@ def location_status(job):
         return "outside"
     return "verify_location"
 
-# Job-text signals are only a triage aid, NOT a hiring-fit assessment.
+# Rule-based screening is only a triage aid, NOT a validated job-fit judgment.
+# Prioritize overlap in technical work, not generic "materials" or "process" words.
 SIGNALS = {
-    "Nanoparticles / silica": ["nanoparticle", "nanopartikel", "silica", "siO2", "sio₂", "sol-gel", "aerogel", "kolloid", "colloid", "particle synthesis", "partikelsynthese"],
-    "Formulation / dispersions": ["formulation", "formulierung", "dispersion", "emulsion", "suspension", "surfactant", "tensid", "stabilizer", "stabilisator"],
-    "Characterization": ["dls", "zeta potential", "zetapotenzial", "ft-ir", "ftir", "tga", "bet surface", "electron microscopy", "elektronenmikroskop", "particle characterization", "materialcharakterisierung", "material characterization"],
-    "Materials / surfaces": ["materials science", "materialwissenschaft", "oberflächenchemie", "surface functionalization", "surface modification", "materialentwicklung", "polymer", "cellulose", "zellulose"],
-    "Process / DoE": ["design of experiments", "versuchsplanung", "process development", "prozessentwicklung", "process optimization", "prozessoptimierung", "scale-up", "doe", "sol gel"],
+    "Nanoparticles / silica": ["nanoparticle", "nanopartikel", "silica", "sio2", "sio₂", "sol-gel", "aerogel", "kolloid", "colloid", "particle synthesis", "partikelsynthese"],
+    "Formulation / dispersions": ["formulation", "formulierung", "dispersion", "emulsion", "suspension", "surfactant", "tensid", "stabilizer", "stabilisator", "recipe formulation", "compounding trials"],
+    "Characterization": ["dls", "zeta potential", "zetapotenzial", "ft-ir", "ftir", "tga", "bet surface", "electron microscopy", "elektronenmikroskop", "scanning electron microscopy", "sem analysis", "particle characterization", "materialcharakterisierung", "material characterization"],
+    "Materials / surfaces": ["materials science", "materialwissenschaft", "oberflächenchemie", "surface functionalization", "surface modification", "materialentwicklung", "polymer", "cellulose", "zellulose", "material compounds"],
+    "Process / DoE": ["design of experiments", "versuchsplanung", "process development", "prozessentwicklung", "process optimization", "prozessoptimierung", "scale-up", "statistical experiment", "doe", "sol gel"],
 }
-JOB_BLOCKERS = ["working student", "werkstudent", "praktikant", "internship", "praktikum", "student assistant", "graduate internship"]
-SENIORITY = ["principal", "director", "head of", "vice president", "vp ", "chief ", "staff engineer", "senior manager"]
-NONTECHNICAL_TITLE = ["finance", "accounting", "business development", "recruiter", "recruiting", "human resources", "people partner", "sales manager", "procurement", "legal counsel", "marketing", "software engineer", "electrical engineer", "mechanical engineer"]
+
+# Do not promote student, unrelated occupations or domain-specific senior roles
+# merely because generic technical words occur in the full job description.
+JOB_BLOCKERS = ["working student", "werkstudent", "praktikant", "internship", "praktikum", "student assistant", "graduate internship", "mandatory internship"]
+NON_TARGET_TITLES = [
+    "finance", "account", "procurement", "einkäufer", "einkäuferin", "purchasing", "sales", "marketing", "recruit", "human resources", "people & culture", "people operations", "talent", "legal", "treasury", "controller", "business development", "software", "devops", "electrical", "electronic", "embedded", "mechanical", "structural", "aerodynamic", "aircraft performance", "pcb", "project manager - erp", "erp implementation", "automation engineer - facilities", "high-voltage systems", "battery algorithms", "bms hardware", "hse officer", "systems engineer", "product qualification", "senior quality manager", "grant projects", "general interest pool", "unsolicited application", "initiativbewerbung",
+]
+# Specific subjects where the documented CV has close hands-on overlap.
+DIRECT_TITLE = [
+    r"nanopart", r"silica", r"sio2", r"aerogel", r"colloid", r"kolloid", r"dispers", r"formulat", r"formulier", r"chemical develop", r"chemiker", r"material compounds", r"particle character", r"sem technician", r"sem operator", r"materialcharakteris",
+]
+GENERAL_TECH_TITLE = [
+    r"material", r"werkstoff", r"chem", r"scientist", r"research", r"r&d", r"process", r"prozess", r"developer", r"entwick", r"application", r"applikation", r"technician", r"techniker", r"labor", r"inspection", r"metrolog", r"microscop", r"analyt",
+]
+SENIOR_TITLE = [r"\bsenior\b", r"\bsmts\b", r"\bprincipal\b", r"\bdirector\b", r"\bhead of\b", r"\bteam lead\b", r"\bchief\b", r"\bvp\b", r"\bexpert\b"]
+
+
+def _has_any_patterns(text, patterns):
+    return any(re.search(p, text, re.IGNORECASE) for p in patterns)
 
 
 def triage(job):
-    title = (job.get("title") or "").casefold()
-    body = (job.get("description") or "").casefold()
-    topics = []
-    for group, words in SIGNALS.items():
-        if any(w.casefold() in title or w.casefold() in body for w in words):
-            topics.append(group)
-    title_relevant = any(w.casefold() in title for words in SIGNALS.values() for w in words)
-    if any(x in title for x in JOB_BLOCKERS):
+    title = str(job.get("title") or "").casefold()
+    body = plain_text(job.get("description") or "").casefold()
+    topics = [group for group, words in SIGNALS.items()
+              if any(word.casefold() in title or word.casefold() in body for word in words)]
+    direct = _has_any_patterns(title, DIRECT_TITLE)
+    general = _has_any_patterns(title, GENERAL_TECH_TITLE)
+    senior = _has_any_patterns(title, SENIOR_TITLE)
+    student = any(x in title for x in JOB_BLOCKERS)
+    unrelated = any(x in title for x in NON_TARGET_TITLES)
+    # Hard requirements demonstrably absent from the documented experience.
+    # This list is deliberately conservative and is not exhaustive.
+    critical_gap = any(re.search(pattern, body) for pattern in (
+        r"8[–\-]10 years of experience in aerospace",
+        r"8\+ years of.*isotope exchange",
+        r"background in isotope exchange chemistry",
+        r"5\+ years of experience in semiconductor inspection",
+        r"proven experience on at least one aircraft development program",
+        r"at least one aircraft development program",
+        r"hands-on experience with unpatterned wafer inspection",
+    ))
+
+    notes = []
+    if student:
         band = "Not target"
-    elif any(x in title for x in SENIORITY) or any(x in title for x in NONTECHNICAL_TITLE):
+        notes.append("Student or internship position")
+    elif unrelated:
         band = "Low"
-    elif len(topics) >= 2 and title_relevant:
+        notes.append("Different core profession")
+    elif critical_gap:
+        band = "Low"
+        notes.append("Essential sector-specific experience not documented")
+    elif senior:
+        band = "Possible" if direct and len(topics) >= 2 else "Low"
+        notes.append("Senior experience requirements require verification")
+    elif direct and len(topics) >= 2:
         band = "Review first"
-    elif len(topics) >= 2 or title_relevant:
+        notes.append("Strong overlap in title and technical tasks; verify full requirements")
+    elif (direct and topics) or (general and len(topics) >= 2):
         band = "Possible"
+        notes.append("Related technical work; assess essential requirements")
     else:
         band = "Low"
-    return {"match_band": band, "matched_topics": topics}
+        notes.append("Insufficient direct technical overlap")
+
+    return {"match_band": band, "matched_topics": topics, "triage_note": "; ".join(notes)}
 
 
 def update(config, state, at):
