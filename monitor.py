@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
+from urllib.parse import quote, urljoin, urlsplit
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 
@@ -89,6 +89,89 @@ def get_xml(url):
         raise ValueError(f"Invalid Personio XML feed: {exc}") from exc
 
 
+def get_html(url):
+    """Read public career-page HTML only; no authentication or browser bypass."""
+    req = Request(url, headers={
+        "User-Agent": "PersonalJobMonitor/0.3 (public postings)",
+        "Accept": "text/html",
+    })
+    with urlopen(req, timeout=25) as response:
+        if response.status != 200:
+            raise ValueError(f"HTTP {response.status}")
+        raw = response.read(4_000_001)
+    if len(raw) > 4_000_000:
+        raise ValueError("Personio career page too large")
+    return raw.decode("utf-8", errors="replace")
+
+
+class PersonioJobLinks(HTMLParser):
+    """Conservative fallback for public Personio pages without enabled XML."""
+    def __init__(self, careers_url):
+        super().__init__(convert_charrefs=True)
+        self.careers_url = careers_url
+        self.host = urlsplit(careers_url).netloc.casefold()
+        self.active = None
+        self.heading = False
+        self.items = {}
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "a" and self.active is None:
+            url = urljoin(self.careers_url, attrs.get("href", ""))
+            parts = urlsplit(url)
+            match = re.fullmatch(r"/job/(\d+)(?:/.*)?", parts.path.rstrip("/"))
+            if (match and parts.scheme == "https"
+                    and parts.netloc.casefold() == self.host):
+                self.active = {"id": match.group(1), "url": url,
+                               "text": [], "headings": []}
+                self.heading = False
+        elif self.active is not None and tag in ("h1", "h2", "h3", "h4"):
+            self.heading = True
+        elif self.active is not None and tag in ("br", "div", "span", "p", "li"):
+            self.active["text"].append(" ")
+
+    def handle_endtag(self, tag):
+        if self.active is not None and tag in ("h1", "h2", "h3", "h4"):
+            self.heading = False
+        if tag == "a" and self.active is not None:
+            item = self.active
+            item["title"] = " ".join(" ".join(item["headings"] or item["text"]).split())
+            if item["title"]:
+                self.items.setdefault(item["id"], item)
+            self.active = None
+            self.heading = False
+
+    def handle_data(self, data):
+        if self.active is not None:
+            self.active["text"].append(data)
+            if self.heading:
+                self.active["headings"].append(data)
+
+
+def parse_personio_html(company, page_html):
+    """Fallback never treats an unrecognized page as an empty job board."""
+    parser = PersonioJobLinks(company["careers_url"])
+    parser.feed(page_html)
+    if not parser.items:
+        raise ValueError("No public Personio job links found; do not infer zero jobs")
+    jobs = []
+    for job_id, item in parser.items.items():
+        jobs.append({
+            "key": f"personio:{company['slug']}:{job_id}",
+            "company": company["name"],
+            "title": item["title"],
+            "location": "",  # Cannot infer worksite from employer headquarters.
+            "country": "",
+            "description": "", # Full criteria not available in fallback.
+            "url": item["url"],
+            "published_at": None,
+            "source_modified_at": None,
+            "platform": "personio",
+            "source_mode": "html_fallback",
+        })
+    return jobs
+
+
 def normalize_personio(company, position):
     def field(path):
         node = position.find(path)
@@ -120,6 +203,7 @@ def normalize_personio(company, position):
         "source_created_at": created,
         "source_modified_at": None,
         "platform": "personio",
+        "employment_type": field("employmentType"),
     }
 
 
@@ -216,7 +300,14 @@ def fetch_company(company):
     if provider == "personio":
         # Feed hostname is already grounded in the official employer career URL.
         url = company["careers_url"].rstrip("/") + "/xml?language=de"
-        return parse_personio(company, get_xml(url))
+        try:
+            return parse_personio(company, get_xml(url))
+        except HTTPError as exc:
+            if exc.code != 404:
+                raise  # Do not circumvent access restrictions.
+            # Some employers publish a career page but disable the optional XML feed.
+            # Read publicly linked vacancies and flag that descriptions are unavailable.
+            return parse_personio_html(company, get_html(company["careers_url"]))
     if provider == "ashby":
         url = f"https://api.ashbyhq.com/posting-api/job-board/{slug}"
         data = get_json(url)
@@ -266,7 +357,7 @@ def normalize_ashby(company, item):
     }
 
 
-GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach"]
+GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "zwickau", "monheim am rhein", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach"]
 FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore", "coimbra", "portugal"]
 
 
@@ -287,6 +378,39 @@ def location_status(job):
     if country:
         return "outside"
     return "verify_location"
+
+# Preference filter is not a hiring-eligibility decision. All vacancies remain
+# in jobs.json for optional manual review; the website hides the following by default.
+TRAINING_TITLES = [
+    r"\bausbildung\b", r"\bauszubild", r"\bschülerpraktikum\b",
+    r"\bwerkstudent", r"\bworking student\b", r"\binternship\b",
+    r"\bpraktikum\b", r"\bpraktikant", r"\bstudent assistant\b",
+    r"\bdual(?:es|e|er) studium\b", r"\bduales studium\b",
+    r"\bapprentice", r"\blehrling\b", r"\bdual(?:e|er|es) student(?:in)?\b",
+]
+VOCATIONAL_ONLY_TITLES = [
+    r"\bchemielaborant(?:in|en|innen)?\b", r"\bpharmakant(?:in|en|innen)?\b",
+    r"\bproduktionsmitarbeiter(?:in|innen)?\b", r"\blaborhelfer(?:in|innen)?\b",
+    r"\blaborassistent(?:in|en|innen)?\b", r"\bpta\b", r"\bcta\b",
+    r"\bmaschinen(?:führer|bediener)(?:in|innen)?\b",
+]
+
+
+def qualification_preference(job):
+    title = str(job.get("title") or "")
+    if any(re.search(p, title, re.IGNORECASE) for p in TRAINING_TITLES):
+        return {"career_track": "training", "hide_by_default": True,
+                "preference_note": "Training, student or apprenticeship position"}
+    # Personio records some training jobs under employmentType=trainee.
+    if str(job.get("employment_type") or "").lower() == "intern":
+        return {"career_track": "training", "hide_by_default": True,
+                "preference_note": "Internship listing"}
+    if any(re.search(p, title, re.IGNORECASE) for p in VOCATIONAL_ONLY_TITLES):
+        return {"career_track": "vocational", "hide_by_default": True,
+                "preference_note": "Vocationally oriented job title; verify degree requirement"}
+    return {"career_track": "professional_or_unknown", "hide_by_default": False,
+            "preference_note": "Degree requirement not automatically verified"}
+
 
 # Rule-based screening is only a triage aid, NOT a validated job-fit judgment.
 # Prioritize overlap in technical work, not generic "materials" or "process" words.
@@ -394,12 +518,17 @@ def update(config, state, at):
                     "location_status": location_status(job),
                 })
                 job.update(triage(job))
+                job.update(qualification_preference(job))
+                if job["hide_by_default"]:
+                    job["match_band"] = "Not target"
+                    job["triage_note"] = job["preference_note"]
                 state["jobs"][key] = job
             # Only mark absent after a successful request. A failed source must retain its jobs.
             for key, job in state["jobs"].items():
                 if job.get("company") == name and key not in keys:
                     job["active"] = False
-            state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"]}
+            state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
+                                     "source_mode": "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else "structured_feed"}
             print(f"OK {name}: {len(keys)} German/unknown-location listings")
         except (HTTPError, URLError, ValueError, KeyError, TimeoutError, json.JSONDecodeError) as exc:
             state["sources"][name] = {**entry, "status": "error", "last_checked": at, "error": f"{type(exc).__name__}: {str(exc)[:160]}", "careers_url": company["careers_url"]}
