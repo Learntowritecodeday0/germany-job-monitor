@@ -1,8 +1,14 @@
 name: Check German career pages
 on:
   schedule:
-    - cron: "17 1,5,9,13,17,21 * * *"   # six checks per day; UTC
+    - cron: "17 1,5,9,13,17,21 * * *"   # Six checks daily, UTC (GitHub may delay runs)
   workflow_dispatch:
+    inputs:
+      send_test_email:
+        description: "Send one test email to verify alert setup"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -32,7 +38,16 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Check public job feeds
         run: python monitor.py
-      - name: Save detection history
+      - name: Email new high-priority vacancies
+        # A mail-provider outage must not prevent the public dashboard from updating.
+        continue-on-error: true
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          ALERT_TO: ${{ secrets.ALERT_TO }}
+          SEND_TEST_EMAIL: ${{ inputs.send_test_email }}
+        run: python notify.py
+      - name: Save detection and notification history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
