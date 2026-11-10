@@ -91,6 +91,66 @@
       "slug": "siltronic",
       "careers_url": "https://siltronic.career.softgarden.de",
       "feed_url": "https://siltronic.career.softgarden.de/jobs.feed.json"
+    },
+    {
+      "name": "Blackwave",
+      "platform": "personio",
+      "slug": "blackwave",
+      "careers_url": "https://blackwave.jobs.personio.com"
+    },
+    {
+      "name": "Planet A Foods",
+      "platform": "personio",
+      "slug": "planetafoods",
+      "careers_url": "https://planetafoods.jobs.personio.com"
+    },
+    {
+      "name": "tozero",
+      "platform": "personio",
+      "slug": "tozero",
+      "careers_url": "https://tozero.jobs.personio.com"
+    },
+    {
+      "name": "UniteLabs",
+      "platform": "personio",
+      "slug": "unitelabs",
+      "careers_url": "https://unitelabs.jobs.personio.com"
+    },
+    {
+      "name": "attocube systems",
+      "platform": "personio",
+      "slug": "attocube-systems-ag",
+      "careers_url": "https://attocube-systems-ag.jobs.personio.com"
+    },
+    {
+      "name": "DeepDrive",
+      "platform": "personio",
+      "slug": "deepdrive-gmbh",
+      "careers_url": "https://deepdrive-gmbh.jobs.personio.com"
+    },
+    {
+      "name": "NVision Quantum Technologies",
+      "platform": "personio",
+      "slug": "nvision-quantum-technologies",
+      "careers_url": "https://nvision-quantum-technologies.jobs.personio.com"
+    },
+    {
+      "name": "ProteinDistillery",
+      "platform": "personio",
+      "slug": "proteindistillery",
+      "careers_url": "https://proteindistillery.jobs.personio.com"
+    },
+    {
+      "name": "Reverion",
+      "platform": "personio",
+      "slug": "reverion",
+      "careers_url": "https://reverion.jobs.personio.com"
+    },
+    {
+      "name": "INERATEC",
+      "platform": "personio",
+      "slug": "ineratec-gmbh-1",
+      "careers_url": "https://ineratec-gmbh-1.jobs.personio.de"
     }
   ]
 }
