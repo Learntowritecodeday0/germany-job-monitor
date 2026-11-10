@@ -9,16 +9,19 @@ function chip(text, cls=''){return el('span','chip '+cls,text)}
 function render(){
   const search=ui.query.value.trim().toLocaleLowerCase(); const company=ui.company.value;const band=ui.band.value;
   const jobs=data.jobs.filter(j=>{const hay=[j.company,j.title,j.location,j.description,(j.matched_topics||[]).join(' ')].join(' ').toLocaleLowerCase();return (company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&(!search||hay.includes(search))});
-  jobs.sort((a,b)=>(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||(b.first_detected||'').localeCompare(a.first_detected||''));
+  const sourceDate=j=>(j.at_startup?(j.published_at||j.first_detected):(j.first_detected||j.published_at)||'');
+  jobs.sort((a,b)=>(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||sourceDate(b).localeCompare(sourceDate(a)));
   ui.results.replaceChildren();ui.count.textContent=`${jobs.length} shown`;
   if(!jobs.length){ui.results.append(el('p','muted','No positions match these filters. Try changing the filter or checking source health.'));return;}
   for(const job of jobs){
-    const card=el('article','job');const left=el('div');left.append(el('div','company',job.company),el('strong','',job.title),el('div','meta',`${job.location||'Location not specified'} · First detected ${berlinDate(job.first_detected)}`));
+    const card=el('article','job');const left=el('div');left.append(el('div','company',job.company),el('strong','',job.title),el('div','meta',`${job.location||'Location not specified'} · Source date ${berlinDate(job.published_at)} · First detected ${berlinDate(job.first_detected)}`));
     const tags=el('div','chips');const cls=job.match_band==='Review first'?'strong':job.match_band==='Possible'?'possible':'low';tags.append(chip(job.match_band,cls));
     if(!job.at_startup&&hoursSince(job.first_detected)>=0&&hoursSince(job.first_detected)<24)tags.append(chip('Detected in last 24h','strong'));
     if(job.location_status!=='germany')tags.append(chip('Verify country','possible'));
     for(const topic of (job.matched_topics||[]).slice(0,3))tags.append(chip(topic));
-    left.append(tags);card.append(left);const a=el('a','', 'Official listing');a.href=job.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);ui.results.append(card);
+    left.append(tags);
+    if((job.match_band==='Review first'||job.match_band==='Possible')&&job.triage_note)left.append(el('div','muted',job.triage_note));
+    card.append(left);const a=el('a','', 'Official listing');a.href=job.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);ui.results.append(card);
   }
 }
 async function main(){try{
