@@ -1,7 +1,102 @@
 {
-  "last_checked": "2026-11-10T14:10:21+00:00",
+  "last_checked": "2026-11-10T15:02:32+00:00",
   "notice": "Keyword triage only; verify essential requirements and location manually. 'First detected' is not the original publication date.",
   "jobs": [
+    {
+      "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/584ae693-6cc3-4019-a025-773696b81863",
+      "company": "VÆRIDION",
+      "title": "Senior Mechanical Systems Test Engineer (all genders)",
+      "location": "EDMO Manufacturing & Testing Facility",
+      "country": "Germany",
+      "description": "Your Mission: As a Senior Mechanical Systems Test Engineer (all genders), you will be responsible for the development, implementation, and operation of the Flight Control System (FCS) test environment (“Iron Bird”) at VÆRIDION. You will lead a major engineering project with significant cost and program impact, ensuring the successful development of a fully integrated test rig that enables system integration, validation, and certification of the aircraft’s primary and secondary flight control system. You will work at the interface of mechanical systems, actuation, control, and system integration, contributing directly to the development and certification of electric aircraft. Your Day-to-Day: - Test Strategy & System Responsibility - Take ownership of the test concept and strategy for the Flight Control System (FCS). - Define test requirements, architectures, and validation approaches for system-level testing. - Ensure alignment of all test activities with development, safety of flight, and certification objectives. - Iron Bird Development (Test Rig Project Leadership) - Lead the development, implementation, and commissioning of the FCS Iron Bird test rig. - Define system architecture, interfaces, and functional requirements of the test environment. - Manage the development of mechanical, electrical, and control system integration within the test rig. - Drive supplier selection, coordination, and technical oversight for test rig development (CAPEX project). - Ensure delivery of the test rig within program timelines, budget, and technical requirements. - Test Execution & System Validation - Plan and execute system-level test campaigns on the Iron Bird. - Ensure reliable, high-quality test data generation and reporting. - Analyse system behaviour and support validation of flight control performance and safety. - Support verification and certification activities. - Test Asset Ownership - Own the Iron Bird test asset, ensuring configuration control, readiness, and safe operation. - Establish processes for operation, maintenance, and continuous improvement of the test rig. - Ensure traceability and reproducibility of test configurations and results. - Cross-Functional Collaboration - Work closely with flight controls, systems engineering, structures, and test teams. - Interface with design engineers to ensure testability and integration readiness. - Support integration of hardware, actuators, sensors, and control systems. - Health, Safety & Compliance - Promote and uphold a strong safety culture in all test activities. - Ensure compliance with relevant safety standards, especially for complex mechanical systems. - Establish risk assessments, safe operating procedures, and training for test operations. Your Profile: - Degree in mechanical engineering, aerospace engineering, or a related field. - Extensive experience in testing and validation of complex mechanical or aerospace systems. - Proven experience in developing test rigs or large-scale test environments. - Experience in leading technical projects with high complexity and impact. - Strong understanding of mechanical systems, actuation, and mechanical flight control architectures. - Experience in system integration testing, ideally in aerospace applications. - Experience with development of test rigs, Iron Birds, or similar system-level test environments. - Knowledge of instrumentation, measurement systems, and data acquisition. - Understanding of certification-driven testing and validation processes. - Experience managing suppliers and external partners for engineering projects. - Strong ownership mindset and ability to drive complex projects to completion. - Excellent problem-solving and system-level thinking skills. - Strong communication and stakeholder management capabilities. - Ability to operate effectively in a fast-paced and evolving environment. - Fluent in English, German is a plus. We recognize that women and other under-represented groups are often overlooked in our industry. If you’re excited about this role but don’t meet every listed qualification, we still encourage you to apply. Talent and potential can’t always be captured in a checklist. Why us? - Be part of an ambitious team determined to shape the future of aviation. - We are an in-office company, but we value flexibility and trust employees to manage their schedules responsibly. This may include occasional remote work or adjusting hours to accommodate personal commitments. - Subsidized EGYM Wellpass membership: your (mental) health is important for us. - Enjoy a subsidized lunch with a 5€ company contribution per meal on office days. - Become a part of our success with virtual stock options. - Choose the option that suits your needs: either a free charging station for your electric car or a public transport job ticket as part of the Deutschlandticket. - Lease a high-quality bicycle or e-bike through our JobRad program and benefit from tax advantages. Whether for your daily commute or personal use, enjoy more mobility and sustainability. - Pension scheme to support your long-term financial security. - Work in one of our offices in Munich or Delft. Enjoy the modern Balan Campus in Munich or work inside the aerospace ecosystem at TU Delft. - Boost your professional as well as personal growth executing your own ideas and independent projects. - Join our internal social events and retreats (e.g. cooking, game nights, sports VÆRIDION was founded in 2021 to transform regional air travel with the Microliner, a 100% electric commercial aircraft. By delivering the most energy-efficient aircraft, we are building the future where clean, safe, and affordable electric aviation seamlessly connects people and businesses. We’re bringing together the brightest minds in aerospace, automotive engineering, and business to disrupt the aviation industry.",
+      "url": "https://jobs.ashbyhq.com/vaeridion/584ae693-6cc3-4019-a025-773696b81863",
+      "published_at": "2026-11-10T14:56:04.784+00:00",
+      "source_modified_at": null,
+      "platform": "ashby",
+      "first_detected": "2026-11-10T15:02:32+00:00",
+      "at_startup": false,
+      "last_seen": "2026-11-10T15:02:32+00:00",
+      "active": true,
+      "location_status": "germany",
+      "match_band": "Low",
+      "matched_topics": [],
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
+    },
+    {
+      "key": "personio:rudolf:1605996",
+      "company": "RUDOLF",
+      "title": "Schülerpraktikum (m/w/d)",
+      "location": "",
+      "country": "",
+      "description": "",
+      "url": "https://rudolf.jobs.personio.de/job/1605996",
+      "published_at": null,
+      "source_modified_at": null,
+      "platform": "personio",
+      "source_mode": "html_fallback",
+      "first_detected": "2026-11-10T15:02:32+00:00",
+      "at_startup": true,
+      "last_seen": "2026-11-10T15:02:32+00:00",
+      "active": true,
+      "location_status": "verify_location",
+      "match_band": "Not target",
+      "matched_topics": [],
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
+    },
+    {
+      "key": "personio:rudolf:1696535",
+      "company": "RUDOLF",
+      "title": "Initiativbewerbung (Festanstellung)",
+      "location": "",
+      "country": "",
+      "description": "",
+      "url": "https://rudolf.jobs.personio.de/job/1696535",
+      "published_at": null,
+      "source_modified_at": null,
+      "platform": "personio",
+      "source_mode": "html_fallback",
+      "first_detected": "2026-11-10T15:02:32+00:00",
+      "at_startup": true,
+      "last_seen": "2026-11-10T15:02:32+00:00",
+      "active": true,
+      "location_status": "verify_location",
+      "match_band": "Low",
+      "matched_topics": [],
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
+    },
+    {
+      "key": "personio:rudolf:2805325",
+      "company": "RUDOLF",
+      "title": "Produktionschemiker/-in (m/w/d)",
+      "location": "",
+      "country": "",
+      "description": "",
+      "url": "https://rudolf.jobs.personio.de/job/2805325",
+      "published_at": null,
+      "source_modified_at": null,
+      "platform": "personio",
+      "source_mode": "html_fallback",
+      "first_detected": "2026-11-10T15:02:32+00:00",
+      "at_startup": true,
+      "last_seen": "2026-11-10T15:02:32+00:00",
+      "active": true,
+      "location_status": "verify_location",
+      "match_band": "Low",
+      "matched_topics": [],
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
+    },
     {
       "key": "softgarden:siltronic:61472837",
       "company": "Siltronic",
@@ -15,12 +110,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Student or internship position",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:61473092",
@@ -35,12 +133,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Student or internship position",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:61493082",
@@ -55,12 +156,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:61493287",
@@ -75,12 +179,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61494867",
@@ -95,12 +202,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61494997",
@@ -115,12 +225,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61495117",
@@ -135,12 +248,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61495222",
@@ -155,12 +271,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61495742",
@@ -175,14 +294,17 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61525557",
@@ -197,12 +319,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61525927",
@@ -217,12 +342,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61526672",
@@ -237,12 +365,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61526867",
@@ -257,12 +388,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Vocationally oriented job title; verify degree requirement",
+      "career_track": "vocational",
+      "hide_by_default": true,
+      "preference_note": "Vocationally oriented job title; verify degree requirement"
     },
     {
       "key": "softgarden:siltronic:62354369",
@@ -277,12 +411,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:64068948",
@@ -297,12 +434,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:65035998",
@@ -317,12 +457,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:65282931",
@@ -337,12 +480,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:61495027",
@@ -357,12 +503,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:65774621",
@@ -377,12 +526,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:66076828",
@@ -397,12 +549,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:66191598",
@@ -417,12 +572,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:61495207",
@@ -437,12 +595,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "softgarden:siltronic:66212163",
@@ -457,12 +618,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:66615293",
@@ -477,12 +641,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:67588037",
@@ -497,12 +664,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:67836287",
@@ -517,12 +687,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:68000897",
@@ -537,12 +710,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:68061567",
@@ -557,12 +733,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:68120586",
@@ -577,12 +756,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:68318073",
@@ -597,12 +779,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:68441392",
@@ -617,12 +802,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:68645103",
@@ -637,12 +825,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "softgarden:siltronic:68659348",
@@ -657,12 +848,15 @@
       "platform": "softgarden",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2860340",
@@ -676,14 +870,18 @@
       "source_created_at": "2026-10-26T13:07:54+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "trainee",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
-      "match_band": "Low",
+      "location_status": "germany",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "personio:recipharm:2860891",
@@ -697,14 +895,18 @@
       "source_created_at": "2026-10-26T16:01:13+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "trainee",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
-      "match_band": "Low",
+      "location_status": "germany",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "personio:recipharm:2860892",
@@ -718,14 +920,18 @@
       "source_created_at": "2026-10-26T16:01:15+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "trainee",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
-      "match_band": "Low",
+      "location_status": "germany",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "personio:recipharm:2610556",
@@ -739,14 +945,18 @@
       "source_created_at": "2026-04-22T18:04:12+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2860894",
@@ -760,14 +970,18 @@
       "source_created_at": "2026-10-26T16:02:00+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "temporary",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
-      "match_band": "Low",
+      "location_status": "germany",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Vocationally oriented job title; verify degree requirement",
+      "career_track": "vocational",
+      "hide_by_default": true,
+      "preference_note": "Vocationally oriented job title; verify degree requirement"
     },
     {
       "key": "personio:recipharm:2875156",
@@ -781,14 +995,18 @@
       "source_created_at": "2026-11-04T11:21:26+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2757111",
@@ -802,14 +1020,18 @@
       "source_created_at": "2026-08-17T13:27:30+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2757078",
@@ -823,14 +1045,18 @@
       "source_created_at": "2026-08-17T13:20:02+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2836246",
@@ -844,14 +1070,18 @@
       "source_created_at": "2026-10-09T13:41:02+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2621530",
@@ -865,14 +1095,18 @@
       "source_created_at": "2026-05-03T17:36:24+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2881024",
@@ -886,14 +1120,18 @@
       "source_created_at": "2026-11-09T13:00:14+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
+      "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2610729",
@@ -907,14 +1145,18 @@
       "source_created_at": "2026-04-22T18:54:00+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2830985",
@@ -928,16 +1170,20 @@
       "source_created_at": "2026-10-06T17:50:50+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2611085",
@@ -951,14 +1197,18 @@
       "source_created_at": "2026-04-23T09:20:17+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2871928",
@@ -972,14 +1222,18 @@
       "source_created_at": "2026-11-02T17:07:00+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2690586",
@@ -993,14 +1247,18 @@
       "source_created_at": "2026-06-29T12:14:09+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2611081",
@@ -1014,14 +1272,18 @@
       "source_created_at": "2026-04-23T09:18:11+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2860901",
@@ -1035,14 +1297,18 @@
       "source_created_at": "2026-10-26T16:02:47+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "temporary",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
+      "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2860896",
@@ -1056,14 +1322,18 @@
       "source_created_at": "2026-10-26T16:02:03+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "temporary",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
-      "match_band": "Low",
+      "location_status": "germany",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Vocationally oriented job title; verify degree requirement",
+      "career_track": "vocational",
+      "hide_by_default": true,
+      "preference_note": "Vocationally oriented job title; verify degree requirement"
     },
     {
       "key": "personio:recipharm:2860903",
@@ -1077,14 +1347,18 @@
       "source_created_at": "2026-10-26T16:02:52+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "temporary",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
-      "location_status": "verify_location",
-      "match_band": "Low",
+      "location_status": "germany",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Vocationally oriented job title; verify degree requirement",
+      "career_track": "vocational",
+      "hide_by_default": true,
+      "preference_note": "Vocationally oriented job title; verify degree requirement"
     },
     {
       "key": "personio:recipharm:2869214",
@@ -1098,14 +1372,18 @@
       "source_created_at": "2026-10-30T11:57:47+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2862187",
@@ -1119,14 +1397,18 @@
       "source_created_at": "2026-10-27T09:58:18+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2610563",
@@ -1140,14 +1422,18 @@
       "source_created_at": "2026-04-22T18:32:19+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2844314",
@@ -1161,14 +1447,18 @@
       "source_created_at": "2026-10-15T10:20:16+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2830830",
@@ -1182,14 +1472,18 @@
       "source_created_at": "2026-10-06T16:35:03+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "temporary",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2611072",
@@ -1203,14 +1497,18 @@
       "source_created_at": "2026-04-23T09:10:10+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2610728",
@@ -1224,14 +1522,18 @@
       "source_created_at": "2026-04-22T18:51:17+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Vocationally oriented job title; verify degree requirement",
+      "career_track": "vocational",
+      "hide_by_default": true,
+      "preference_note": "Vocationally oriented job title; verify degree requirement"
     },
     {
       "key": "personio:recipharm:2882613",
@@ -1245,14 +1547,18 @@
       "source_created_at": "2026-11-10T10:39:26+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2610559",
@@ -1266,14 +1572,18 @@
       "source_created_at": "2026-04-22T18:13:52+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
-      "match_band": "Low",
+      "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Vocationally oriented job title; verify degree requirement",
+      "career_track": "vocational",
+      "hide_by_default": true,
+      "preference_note": "Vocationally oriented job title; verify degree requirement"
     },
     {
       "key": "personio:recipharm:2610733",
@@ -1287,14 +1597,18 @@
       "source_created_at": "2026-04-22T19:00:22+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "intern",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Internship listing",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Internship listing"
     },
     {
       "key": "personio:recipharm:2862379",
@@ -1308,14 +1622,18 @@
       "source_created_at": "2026-10-27T11:07:43+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2878785",
@@ -1329,14 +1647,18 @@
       "source_created_at": "2026-11-06T10:24:09+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2610730",
@@ -1350,16 +1672,20 @@
       "source_created_at": "2026-04-22T18:57:08+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2848761",
@@ -1373,14 +1699,18 @@
       "source_created_at": "2026-10-19T11:11:04+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2612665",
@@ -1394,14 +1724,18 @@
       "source_created_at": "2026-04-24T09:54:56+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2881526",
@@ -1415,16 +1749,20 @@
       "source_created_at": "2026-11-09T16:27:33+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2845677",
@@ -1438,14 +1776,18 @@
       "source_created_at": "2026-10-16T08:17:14+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2666447",
@@ -1459,16 +1801,20 @@
       "source_created_at": "2026-06-10T18:38:27+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:recipharm:2764519",
@@ -1482,14 +1828,18 @@
       "source_created_at": "2026-08-23T22:59:50+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "working_student",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:1143507",
@@ -1503,14 +1853,18 @@
       "source_created_at": "2023-06-06T09:15:49+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2763808",
@@ -1524,14 +1878,18 @@
       "source_created_at": "2026-08-21T16:25:43+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2869497",
@@ -1545,14 +1903,18 @@
       "source_created_at": "2026-10-30T13:32:52+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2871986",
@@ -1566,14 +1928,18 @@
       "source_created_at": "2026-11-02T17:51:30+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2743133",
@@ -1587,14 +1953,18 @@
       "source_created_at": "2026-08-05T16:33:05+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2871991",
@@ -1608,14 +1978,18 @@
       "source_created_at": "2026-11-02T18:02:26+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2827870",
@@ -1629,14 +2003,18 @@
       "source_created_at": "2026-10-05T13:18:43+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:828911",
@@ -1650,14 +2028,18 @@
       "source_created_at": "2022-09-21T15:01:01+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:1914202",
@@ -1671,14 +2053,18 @@
       "source_created_at": "2025-01-15T10:57:18+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:828910",
@@ -1692,14 +2078,18 @@
       "source_created_at": "2022-09-21T15:00:45+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2594606",
@@ -1713,14 +2103,18 @@
       "source_created_at": "2026-04-08T12:14:31+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:1645861",
@@ -1734,14 +2128,18 @@
       "source_created_at": "2024-07-23T08:27:26+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:2871993",
@@ -1755,14 +2153,18 @@
       "source_created_at": "2026-11-02T18:08:21+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:1388996",
@@ -1776,14 +2178,18 @@
       "source_created_at": "2024-01-15T15:21:59+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:proteros-biostructures-gmbh:1351832",
@@ -1797,14 +2203,18 @@
       "source_created_at": "2023-12-07T12:30:29+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:760286",
@@ -1818,14 +2228,18 @@
       "source_created_at": "2022-07-22T13:16:24+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2822850",
@@ -1839,16 +2253,20 @@
       "source_created_at": "2026-10-01T09:18:14+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2805729",
@@ -1862,14 +2280,18 @@
       "source_created_at": "2026-09-21T13:24:34+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2767588",
@@ -1883,14 +2305,18 @@
       "source_created_at": "2026-08-25T16:26:15+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:294943",
@@ -1904,14 +2330,18 @@
       "source_created_at": "2018-07-31T09:25:04+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2830436",
@@ -1925,14 +2355,18 @@
       "source_created_at": "2026-10-06T13:59:11+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2723352",
@@ -1946,14 +2380,18 @@
       "source_created_at": "2026-07-22T09:51:59+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "temporary",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2654591",
@@ -1967,14 +2405,18 @@
       "source_created_at": "2026-06-02T11:31:49+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2588106",
@@ -1988,16 +2430,20 @@
       "source_created_at": "2026-03-31T08:15:15+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2605277",
@@ -2011,16 +2457,20 @@
       "source_created_at": "2026-04-17T13:21:41+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:junglueck:2844714",
@@ -2034,14 +2484,18 @@
       "source_created_at": "2026-10-15T13:26:22+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "temporary",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:hwrchemie:2788874",
@@ -2055,14 +2509,18 @@
       "source_created_at": "2026-09-09T09:49:02+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:hwrchemie:2667538",
@@ -2076,14 +2534,18 @@
       "source_created_at": "2026-06-11T10:31:29+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:hwrchemie:2668626",
@@ -2097,14 +2559,18 @@
       "source_created_at": "2026-06-11T16:52:48+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T14:10:21+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:alqemgmbh:2542299",
@@ -2118,14 +2584,18 @@
       "source_created_at": "2026-02-24T12:53:57+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:alqemgmbh:2606728",
@@ -2139,14 +2609,18 @@
       "source_created_at": "2026-04-20T11:36:54+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:alqemgmbh:2551574",
@@ -2160,14 +2634,18 @@
       "source_created_at": "2026-03-03T11:04:06+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:alqemgmbh:2770824",
@@ -2181,14 +2659,18 @@
       "source_created_at": "2026-08-27T14:04:48+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:nanotemper:2873419",
@@ -2202,14 +2684,18 @@
       "source_created_at": "2026-11-03T11:55:31+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:nanotemper:2846495",
@@ -2223,14 +2709,18 @@
       "source_created_at": "2026-10-16T14:19:49+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:nanotemper:962041",
@@ -2244,14 +2734,18 @@
       "source_created_at": "2023-01-10T16:48:23+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:nanotemper:2745313",
@@ -2265,14 +2759,18 @@
       "source_created_at": "2026-08-07T09:12:04+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:insempra-gmbh:2882572",
@@ -2286,14 +2784,18 @@
       "source_created_at": "2026-11-10T10:26:16+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:insempra-gmbh:2814473",
@@ -2307,14 +2809,18 @@
       "source_created_at": "2026-09-25T09:19:10+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:coriolis:2776949",
@@ -2328,14 +2834,18 @@
       "source_created_at": "2026-09-01T15:49:57+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:amsilk:435877",
@@ -2349,14 +2859,18 @@
       "source_created_at": "2018-07-31T09:25:04+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "permanent",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "personio:amsilk:1585005",
@@ -2370,16 +2884,20 @@
       "source_created_at": "2024-06-03T09:13:35+00:00",
       "source_modified_at": null,
       "platform": "personio",
+      "employment_type": "intern",
       "first_detected": "2026-11-10T13:55:43+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/a4a596e6-5c68-4e93-906b-d1bddd3ac4c0",
@@ -2394,12 +2912,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/a1bb065f-e41b-4f07-8c42-0184274fb876",
@@ -2414,12 +2935,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "verify_location",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/7766e960-9ddd-4af7-8619-aaa14c161a13",
@@ -2434,12 +2958,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/7b7b007f-7aa8-4184-8d5d-4f7dfb1f8928",
@@ -2454,12 +2981,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/d4e939d8-081a-4e7e-a521-c4f436a8cd33",
@@ -2474,14 +3004,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/2db7e2e9-5069-441b-b866-ffbf6d5f09d6",
@@ -2496,12 +3029,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/b5951efa-20cf-49c7-b2f6-bcf82dea6fbd",
@@ -2516,12 +3052,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/0a42e9da-344b-4a97-8890-ae075be13527",
@@ -2536,12 +3075,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/4f7ba9c7-09b5-4c0c-8f96-9da3db8649e6",
@@ -2556,7 +3098,7 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
@@ -2564,7 +3106,10 @@
         "Materials / surfaces",
         "Process / DoE"
       ],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/aa297bc8-4e60-413b-8aa4-17f2cb9c495c",
@@ -2579,14 +3124,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/138bb24f-21cb-43d6-90f4-85199bf0ef6a",
@@ -2601,12 +3149,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/db9a75be-96db-4c84-b659-4c17bfca7331",
@@ -2621,12 +3172,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/6289fadb-1d66-4bdb-892d-ed34d761ea4f",
@@ -2641,12 +3195,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/373c8a96-f639-4590-b385-bd4e4f72098f",
@@ -2661,12 +3218,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/ef4cfd5a-e513-4437-a214-ef9b70427168",
@@ -2681,12 +3241,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/cd7142c4-c35b-4aaa-8ad0-2cb061a40219",
@@ -2701,12 +3264,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/69608941-3a0b-4934-90a8-4604d791dcf7",
@@ -2721,12 +3287,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/8036a9c4-aded-4c99-b1c1-69133ef9136b",
@@ -2741,14 +3310,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/dfcd0c28-e736-486b-b9f0-b37436f88c4b",
@@ -2763,14 +3335,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/e0cf9c29-bd53-41a3-820c-6a20d9193e0f",
@@ -2785,12 +3360,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/241c4583-ea4e-47e0-bb76-15faf0fe3a6d",
@@ -2805,12 +3383,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/55666787-85fe-454a-b17c-35bfe212c2ef",
@@ -2825,12 +3406,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/686a55dc-ec56-4bfb-9dee-0ad40b7f655a",
@@ -2845,12 +3429,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/2b13e7d1-e8c1-4c77-b42e-d9beb24a136d",
@@ -2865,12 +3452,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/62f7294c-a6a4-4b79-8bd3-45771ddf4ee5",
@@ -2885,12 +3475,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/cd7d246d-ee9b-4937-8e3e-419b60f98106",
@@ -2905,12 +3498,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/3dfcea06-8be4-4218-afd9-4f208b53fd29",
@@ -2925,12 +3521,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/11cd5a4f-b67b-495b-beda-90e991218a20",
@@ -2945,12 +3544,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/0740ecdc-9a36-4a34-a34b-1a31a3a93105",
@@ -2965,12 +3567,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/a989cd6f-d659-4c60-aa1a-59a10c50b5ab",
@@ -2985,12 +3590,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/f36ea994-fe27-4c4f-902b-eb24e1d0d406",
@@ -3005,12 +3613,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/bf4d5449-ac03-4cc5-b666-4b2f45d1e8db",
@@ -3025,14 +3636,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/57054a83-a69f-4b2f-ab1a-ba3b6a3a5f3f",
@@ -3047,12 +3661,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/9d4e4877-58c3-4a3b-ba9f-241989108316",
@@ -3067,12 +3684,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/aaca8efe-af9a-4234-b543-ee986715b605",
@@ -3087,7 +3707,7 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
@@ -3095,7 +3715,10 @@
         "Materials / surfaces",
         "Process / DoE"
       ],
-      "triage_note": "Essential sector-specific experience not documented"
+      "triage_note": "Essential sector-specific experience not documented",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/06eae2f3-3a7a-4f59-96c9-9804c3c794ec",
@@ -3110,12 +3733,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/2bd0190d-249a-48dd-8a16-61a3f802147f",
@@ -3130,12 +3756,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/c6f0ddbc-3a28-4616-9d6f-29f5d859b437",
@@ -3150,12 +3779,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/a8365a2e-0c99-4708-88b0-0b2ca9844e7d",
@@ -3170,12 +3802,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/6bbfafbf-71de-4ce5-a674-bebe88a8199c",
@@ -3190,12 +3825,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/8bfb8c45-ed89-4217-a5aa-c9e65cffbecd",
@@ -3210,12 +3848,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/beddf058-3dd2-417c-b11c-dc32fee4daef",
@@ -3230,12 +3871,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "verify_location",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/b069a8f9-b790-462f-85a1-13659b363391",
@@ -3250,12 +3894,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/8fff93de-9c7d-4346-a3be-232fa0c1b40f",
@@ -3270,12 +3917,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/6e2cbee0-c82d-4a27-a621-102b3aa42569",
@@ -3290,12 +3940,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/6016f811-6632-4d67-9bca-13ec1a2a05f4",
@@ -3310,12 +3963,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/85513b14-4b34-4e68-bd67-c51c124e4bf3",
@@ -3330,12 +3986,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "verify_location",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/1eab756d-c779-4c8a-bb85-72272c8acbf5",
@@ -3350,7 +4009,7 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
@@ -3359,7 +4018,10 @@
         "Materials / surfaces",
         "Process / DoE"
       ],
-      "triage_note": "Essential sector-specific experience not documented"
+      "triage_note": "Essential sector-specific experience not documented",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/fa0e535d-2ad2-4fad-82a7-a30ea71c3934",
@@ -3374,12 +4036,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "verify_location",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/6216e8d3-b4c0-40b8-a9a4-37b6cacb1459",
@@ -3394,12 +4059,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/3ce1874a-35b7-430e-bc5d-4466013cb6b1",
@@ -3414,12 +4082,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/807d1ddb-cbc5-46df-bd95-b8df9bba3566",
@@ -3434,12 +4105,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/76b86a54-b13e-494b-a219-f42e12de1f88",
@@ -3454,12 +4128,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/33302dda-906f-4fd1-9028-15c0d6947297",
@@ -3474,12 +4151,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:vaeridion:https://jobs.ashbyhq.com/vaeridion/7603ec65-ce12-488d-910f-36272e101ab3",
@@ -3494,12 +4174,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4707598101",
@@ -3514,12 +4197,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5031756101",
@@ -3534,12 +4220,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4559757101",
@@ -3554,12 +4243,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4881090101",
@@ -3574,12 +4266,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5001555101",
@@ -3594,12 +4289,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4970742101",
@@ -3614,12 +4312,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5001569101",
@@ -3634,14 +4335,17 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5020642101",
@@ -3656,12 +4360,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4954074101",
@@ -3676,12 +4383,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5026126101",
@@ -3696,12 +4406,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4994456101",
@@ -3716,12 +4429,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "verify_location",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5026177101",
@@ -3736,12 +4452,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5001929101",
@@ -3756,12 +4475,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4996314101",
@@ -3776,7 +4498,7 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
@@ -3785,7 +4507,10 @@
         "Materials / surfaces",
         "Process / DoE"
       ],
-      "triage_note": "Essential sector-specific experience not documented"
+      "triage_note": "Essential sector-specific experience not documented",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4940421101",
@@ -3800,14 +4525,17 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5026095101",
@@ -3822,14 +4550,17 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Characterization"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:4996345101",
@@ -3844,7 +4575,7 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
@@ -3852,7 +4583,10 @@
         "Characterization",
         "Materials / surfaces"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:marvelfusion:5031757101",
@@ -3867,12 +4601,15 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "greenhouse_eu:engcmbluenergyag:5020878101",
@@ -3887,7 +4624,7 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Review first",
@@ -3896,7 +4633,10 @@
         "Materials / surfaces",
         "Process / DoE"
       ],
-      "triage_note": "Strong overlap in title and technical tasks; verify full requirements"
+      "triage_note": "Strong overlap in title and technical tasks; verify full requirements",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:engcmbluenergyag:5008365101",
@@ -3911,7 +4651,7 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
@@ -3919,7 +4659,10 @@
         "Materials / surfaces",
         "Process / DoE"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "greenhouse_eu:engcmbluenergyag:4383480101",
@@ -3934,14 +4677,17 @@
       "platform": "greenhouse_eu",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/5388e634-3041-4964-aa02-271da327dd93",
@@ -3956,14 +4702,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/77ef36d1-53cd-4948-833f-732009c12d59",
@@ -3978,14 +4727,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/2bb2985b-7bc9-4648-a6f3-bdc73c490bd4",
@@ -4000,14 +4752,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Formulation / dispersions"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/e4155ed1-8e09-4933-9a94-5d02d3bcb3d1",
@@ -4022,12 +4777,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/5ee52aaa-1206-433a-b85c-f7d63b05bb88",
@@ -4042,14 +4800,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/801e33f1-c247-44c6-b1ef-f2c78f19e3a0",
@@ -4064,12 +4825,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/428c043e-eb9b-409c-b5d2-52d5a7a288f8",
@@ -4084,12 +4848,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/46437f92-a4dd-4efe-82a0-940098c6eca5",
@@ -4104,12 +4871,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/576705a0-6e52-4b27-9e6e-4ff59b419d54",
@@ -4124,12 +4894,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/f7c128ad-debf-427b-823f-5053fa2122c5",
@@ -4144,14 +4917,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/e15a326c-46f8-46d8-a4d8-5ae48dd18d8c",
@@ -4166,14 +4942,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/8a18c7e4-5a2f-4c50-8e03-5257d9d6b19c",
@@ -4188,12 +4967,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/e93d9c7c-c988-42a0-b6d1-423aa5924d5a",
@@ -4208,12 +4990,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/93ab8962-7354-4603-9231-28f05a64fe94",
@@ -4228,12 +5013,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/de2be195-d93d-4110-a95c-fec01c9ecb3c",
@@ -4248,12 +5036,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/5a445a4d-3646-47ff-ba37-4a5aed64e298",
@@ -4268,12 +5059,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/e437c3b0-656c-4782-92db-bc973aabe652",
@@ -4288,14 +5082,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/3a8100d4-f788-4130-bb82-21b49ed2966a",
@@ -4310,12 +5107,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/32273b1b-b9e1-452a-9ba9-d349888160fc",
@@ -4330,14 +5130,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/a06a59f9-1a4c-49e6-9f77-8f26c55964ab",
@@ -4352,14 +5155,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/3a96df5a-0e0c-4a7f-8187-2411d0c22dc9",
@@ -4374,14 +5180,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/ab9408dd-134e-489c-91b6-348fb74246b3",
@@ -4396,12 +5205,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "verify_location",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/11c60e98-036a-4ef2-aba9-3f49552b6d95",
@@ -4416,7 +5228,7 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
@@ -4424,7 +5236,10 @@
         "Materials / surfaces",
         "Process / DoE"
       ],
-      "triage_note": "Essential sector-specific experience not documented"
+      "triage_note": "Essential sector-specific experience not documented",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/54c165d9-fd87-40a1-b13c-3ffa2253db7d",
@@ -4439,14 +5254,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/9264c702-cc7d-4e40-a222-1a91441bf26b",
@@ -4461,14 +5279,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/24bbeade-9b77-48ee-905d-d5968edc1ba7",
@@ -4483,12 +5304,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/edebd7dd-0564-4f5f-9f5a-3bd8dd151f46",
@@ -4503,14 +5327,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Characterization"
       ],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/9322dac1-306f-476c-8421-d4765325e9c6",
@@ -4525,12 +5352,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/0aeacd2e-911c-4b6e-bf8a-4e2de4119314",
@@ -4545,12 +5375,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/80204795-85bd-4562-9641-46f0821bd3d7",
@@ -4565,12 +5398,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/2769f7a4-0d43-45fe-b6ad-b714c6363100",
@@ -4585,12 +5421,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/b50f3b06-c225-4608-b204-7a33118234d6",
@@ -4605,12 +5444,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/4f066f6c-276a-404c-95ac-abe434f911a1",
@@ -4625,14 +5467,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/9b8142e8-b24f-4267-8408-047ec76a7667",
@@ -4647,14 +5492,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/666cb4f0-9c87-4c6a-977a-d175fd29bc47",
@@ -4669,14 +5517,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Not target",
       "matched_topics": [
         "Materials / surfaces"
       ],
-      "triage_note": "Student or internship position"
+      "triage_note": "Training, student or apprenticeship position",
+      "career_track": "training",
+      "hide_by_default": true,
+      "preference_note": "Training, student or apprenticeship position"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/0b587b63-2222-4eb1-89a0-79862d37e114",
@@ -4691,7 +5542,7 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
@@ -4699,7 +5550,10 @@
         "Formulation / dispersions",
         "Materials / surfaces"
       ],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/cca2f41c-1b48-40b3-baf5-31baf258b321",
@@ -4714,12 +5568,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/2a8897e7-bbb2-408f-ad16-136d2523017a",
@@ -4734,7 +5591,7 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Review first",
@@ -4742,7 +5599,10 @@
         "Characterization",
         "Materials / surfaces"
       ],
-      "triage_note": "Strong overlap in title and technical tasks; verify full requirements"
+      "triage_note": "Strong overlap in title and technical tasks; verify full requirements",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/8784fddf-d9d2-4274-9986-1eb4c1f06097",
@@ -4757,12 +5617,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Senior experience requirements require verification"
+      "triage_note": "Senior experience requirements require verification",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/68fa8b21-6b25-4846-9578-52373a60280b",
@@ -4777,12 +5640,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/7ff6efe1-6f33-4b69-8d0d-7a3278a3bc03",
@@ -4797,14 +5663,17 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [
         "Process / DoE"
       ],
-      "triage_note": "Insufficient direct technical overlap"
+      "triage_note": "Insufficient direct technical overlap",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     },
     {
       "key": "ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/bf059343-9516-4ff5-a4bb-c7d4d48bac93",
@@ -4819,12 +5688,15 @@
       "platform": "ashby",
       "first_detected": "2026-11-10T12:29:15+00:00",
       "at_startup": true,
-      "last_seen": "2026-11-10T14:10:21+00:00",
+      "last_seen": "2026-11-10T15:02:32+00:00",
       "active": true,
       "location_status": "germany",
       "match_band": "Low",
       "matched_topics": [],
-      "triage_note": "Different core profession"
+      "triage_note": "Different core profession",
+      "career_track": "professional_or_unknown",
+      "hide_by_default": false,
+      "preference_note": "Degree requirement not automatically verified"
     }
   ],
   "sources": [
@@ -4832,120 +5704,136 @@
       "name": "Marvel Fusion",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 18,
-      "careers_url": "https://job-boards.eu.greenhouse.io/marvelfusion"
+      "careers_url": "https://job-boards.eu.greenhouse.io/marvelfusion",
+      "source_mode": "structured_feed"
     },
     {
       "name": "CMBlu Energy",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 3,
-      "careers_url": "https://job-boards.eu.greenhouse.io/engcmbluenergyag"
+      "careers_url": "https://job-boards.eu.greenhouse.io/engcmbluenergyag",
+      "source_mode": "structured_feed"
     },
     {
       "name": "Black Semiconductor",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 42,
-      "careers_url": "https://jobs.ashbyhq.com/blacksemiconductor"
+      "careers_url": "https://jobs.ashbyhq.com/blacksemiconductor",
+      "source_mode": "structured_feed"
     },
     {
       "name": "VÆRIDION",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
-      "count": 55,
-      "careers_url": "https://jobs.ashbyhq.com/vaeridion"
+      "last_checked": "2026-11-10T15:02:32+00:00",
+      "count": 56,
+      "careers_url": "https://jobs.ashbyhq.com/vaeridion",
+      "source_mode": "structured_feed"
     },
     {
       "name": "Coriolis Pharma",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 1,
-      "careers_url": "https://coriolis.jobs.personio.com"
+      "careers_url": "https://coriolis.jobs.personio.com",
+      "source_mode": "structured_feed"
     },
     {
       "name": "NanoTemper Technologies",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 4,
-      "careers_url": "https://nanotemper.jobs.personio.com"
+      "careers_url": "https://nanotemper.jobs.personio.com",
+      "source_mode": "structured_feed"
     },
     {
       "name": "AMSilk",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 2,
-      "careers_url": "https://amsilk.jobs.personio.com"
+      "careers_url": "https://amsilk.jobs.personio.com",
+      "source_mode": "structured_feed"
     },
     {
       "name": "Insempra",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 2,
-      "careers_url": "https://insempra-gmbh.jobs.personio.de"
+      "careers_url": "https://insempra-gmbh.jobs.personio.de",
+      "source_mode": "structured_feed"
     },
     {
       "name": "alqem",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 4,
-      "careers_url": "https://alqemgmbh.jobs.personio.com"
+      "careers_url": "https://alqemgmbh.jobs.personio.com",
+      "source_mode": "structured_feed"
     },
     {
       "name": "RUDOLF",
-      "status": "error",
-      "last_checked": "2026-11-10T14:10:21+00:00",
-      "error": "HTTPError: HTTP Error 404: Not Found",
-      "careers_url": "https://rudolf.jobs.personio.de"
+      "initialized": true,
+      "status": "ok",
+      "last_checked": "2026-11-10T15:02:32+00:00",
+      "count": 3,
+      "careers_url": "https://rudolf.jobs.personio.de",
+      "source_mode": "html_fallback"
     },
     {
       "name": "HWR-Chemie",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 3,
-      "careers_url": "https://hwrchemie.jobs.personio.com"
+      "careers_url": "https://hwrchemie.jobs.personio.com",
+      "source_mode": "structured_feed"
     },
     {
       "name": "JUNGLÜCK",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 11,
-      "careers_url": "https://junglueck.jobs.personio.com"
+      "careers_url": "https://junglueck.jobs.personio.com",
+      "source_mode": "structured_feed"
     },
     {
       "name": "Proteros Biostructures",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 15,
-      "careers_url": "https://proteros-biostructures-gmbh.jobs.personio.com"
+      "careers_url": "https://proteros-biostructures-gmbh.jobs.personio.com",
+      "source_mode": "structured_feed"
     },
     {
       "name": "Recipharm (Wasserburger Arzneimittelwerk)",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 39,
-      "careers_url": "https://recipharm.jobs.personio.de"
+      "careers_url": "https://recipharm.jobs.personio.de",
+      "source_mode": "structured_feed"
     },
     {
       "name": "Siltronic",
       "initialized": true,
       "status": "ok",
-      "last_checked": "2026-11-10T14:10:21+00:00",
+      "last_checked": "2026-11-10T15:02:32+00:00",
       "count": 33,
-      "careers_url": "https://siltronic.career.softgarden.de"
+      "careers_url": "https://siltronic.career.softgarden.de",
+      "source_mode": "structured_feed"
     }
   ]
 }
