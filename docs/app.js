@@ -6,6 +6,63 @@ const hoursSince = s => s ? (Date.now()-new Date(s).getTime())/36e5 : Infinity;
 const sortWeight = { 'Review first':0, 'Possible':1, 'Low':2, 'Not target':3 };
 function el(tag, className, text){let a=document.createElement(tag);if(className)a.className=className;if(text!==undefined)a.textContent=String(text);return a}
 function chip(text, cls=''){return el('span','chip '+cls,text)}
+
+// Fallback for deployments where the job snapshot lacks the newer worksite_* fields.
+// Use the vacancy's advertised location; never infer a worksite from employer HQ.
+const FALLBACK_CITY_REGIONS = [["Brandenburg an der Havel","Brandenburg","Germany"],["Inning am Ammersee","Bayern","Germany"],["Wasserburg am Inn","Bayern","Germany"],["Frankfurt am Main","Hessen","Germany"],["Unterschleißheim","Bayern","Germany"],["Oberpfaffenhofen","Bayern","Germany"],["Fürstenfeldbruck","Bayern","Germany"],["Oberschleißheim","Bayern","Germany"],["Friedrichshafen","Baden-Württemberg","Germany"],["Kaiserslautern","Rheinland-Pfalz","Germany"],["Aschaffenburg","Bayern","Germany"],["Braunschweig","Niedersachsen","Germany"],["Ludwigshafen","Rheinland-Pfalz","Germany"],["Fort Collins","Colorado","United States"],["Martinsried","Bayern","Germany"],["Taufkirchen","Bayern","Germany"],["Schweinfurt","Bayern","Germany"],["Rüsselsheim","Hessen","Germany"],["Bremerhaven","Bremen","Germany"],["Saarbrücken","Saarland","Germany"],["Gräfelfing","Bayern","Germany"],["Geretsried","Bayern","Germany"],["Regensburg","Bayern","Germany"],["Burghausen","Bayern","Germany"],["Wasserburg","Bayern","Germany"],["Ingolstadt","Bayern","Germany"],["Kaufbeuren","Bayern","Germany"],["Heidelberg","Baden-Württemberg","Germany"],["Oberkochen","Baden-Württemberg","Germany"],["Reutlingen","Baden-Württemberg","Germany"],["Ravensburg","Baden-Württemberg","Germany"],["Düsseldorf","Nordrhein-Westfalen","Germany"],["Leverkusen","Nordrhein-Westfalen","Germany"],["Hildesheim","Niedersachsen","Germany"],["Greifswald","Mecklenburg-Vorpommern","Germany"],["Zoetermeer","Zuid-Holland","Netherlands"],["Germering","Bayern","Germany"],["Karlsfeld","Bayern","Germany"],["Starnberg","Bayern","Germany"],["Nuremberg","Bayern","Germany"],["Memmingen","Bayern","Germany"],["Landsberg","Bayern","Germany"],["Stuttgart","Baden-Württemberg","Germany"],["Karlsruhe","Baden-Württemberg","Germany"],["Esslingen","Baden-Württemberg","Germany"],["Heilbronn","Baden-Württemberg","Germany"],["Pforzheim","Baden-Württemberg","Germany"],["Frankfurt","Hessen","Germany"],["Darmstadt","Hessen","Germany"],["Wiesbaden","Hessen","Germany"],["Bielefeld","Nordrhein-Westfalen","Germany"],["Paderborn","Nordrhein-Westfalen","Germany"],["Magdeburg","Sachsen-Anhalt","Germany"],["Osnabrück","Niedersachsen","Germany"],["Göttingen","Niedersachsen","Germany"],["Wolfsburg","Niedersachsen","Germany"],["Oldenburg","Niedersachsen","Germany"],["Flensburg","Schleswig-Holstein","Germany"],["Amsterdam","Noord-Holland","Netherlands"],["Innsbruck","Tirol","Austria"],["Garching","Bayern","Germany"],["Puchheim","Bayern","Germany"],["Freising","Bayern","Germany"],["Wessling","Bayern","Germany"],["Penzberg","Bayern","Germany"],["Würzburg","Bayern","Germany"],["Erlangen","Bayern","Germany"],["Nürnberg","Bayern","Germany"],["Augsburg","Bayern","Germany"],["Bayreuth","Bayern","Germany"],["Emmering","Bayern","Germany"],["Freiburg","Baden-Württemberg","Germany"],["Tübingen","Baden-Württemberg","Germany"],["Konstanz","Baden-Württemberg","Germany"],["Mannheim","Baden-Württemberg","Germany"],["Kronberg","Hessen","Germany"],["Dortmund","Nordrhein-Westfalen","Germany"],["Duisburg","Nordrhein-Westfalen","Germany"],["Freiberg","Sachsen","Germany"],["Chemnitz","Sachsen","Germany"],["Hannover","Niedersachsen","Germany"],["Schwerin","Mecklenburg-Vorpommern","Germany"],["Shanghai","Shanghai","China"],["München","Bayern","Germany"],["Planegg","Bayern","Germany"],["Neuried","Bayern","Germany"],["Maisach","Bayern","Germany"],["Weßling","Bayern","Germany"],["Gauting","Bayern","Germany"],["Alzenau","Bayern","Germany"],["Eresing","Bayern","Germany"],["Marburg","Hessen","Germany"],["Giessen","Hessen","Germany"],["Cologne","Nordrhein-Westfalen","Germany"],["Schwelm","Nordrhein-Westfalen","Germany"],["Münster","Nordrhein-Westfalen","Germany"],["Krefeld","Nordrhein-Westfalen","Germany"],["Dresden","Sachsen","Germany"],["Leipzig","Sachsen","Germany"],["Zwickau","Sachsen","Germany"],["Görlitz","Sachsen","Germany"],["Möckern","Sachsen-Anhalt","Germany"],["Hamburg","Hamburg","Germany"],["Koblenz","Rheinland-Pfalz","Germany"],["Rostock","Mecklenburg-Vorpommern","Germany"],["Potsdam","Brandenburg","Germany"],["Cottbus","Brandenburg","Germany"],["Homburg","Saarland","Germany"],["Toronto","Ontario","Canada"],["Coimbra","Coimbra","Portugal"],["Munich","Bayern","Germany"],["Coburg","Bayern","Germany"],["Singen","Baden-Württemberg","Germany"],["Kassel","Hessen","Germany"],["Gießen","Hessen","Germany"],["Aachen","Nordrhein-Westfalen","Germany"],["Bochum","Nordrhein-Westfalen","Germany"],["Plauen","Sachsen","Germany"],["Dessau","Sachsen-Anhalt","Germany"],["Berlin","Berlin","Germany"],["Bremen","Bremen","Germany"],["Lübeck","Schleswig-Holstein","Germany"],["Erfurt","Thüringen","Germany"],["Weimar","Thüringen","Germany"],["Vienna","Wien","Austria"],["Zurich","Zürich","Switzerland"],["Zürich","Zürich","Switzerland"],["London","England","United Kingdom"],["Warsaw","Mazowieckie","Poland"],["Pilsen","Plzeňský kraj","Czechia"],["Ningbo","Zhejiang","China"],["Hanau","Hessen","Germany"],["Fulda","Hessen","Germany"],["Essen","Nordrhein-Westfalen","Germany"],["Halle","Sachsen-Anhalt","Germany"],["Mainz","Rheinland-Pfalz","Germany"],["Trier","Rheinland-Pfalz","Germany"],["Delft","Zuid-Holland","Netherlands"],["Paris","Île-de-France","France"],["Plzeň","Plzeňský kraj","Czechia"],["Haar","Bayern","Germany"],["Köln","Nordrhein-Westfalen","Germany"],["Bonn","Nordrhein-Westfalen","Germany"],["Kiel","Schleswig-Holstein","Germany"],["Jena","Thüringen","Germany"],["Gera","Thüringen","Germany"],["Wien","Wien","Austria"],["Ulm","Baden-Württemberg","Germany"]];
+const FALLBACK_STATE_NAMES = {"Bayern":["Bavaria","Bayern"],"Baden-Württemberg":["Baden-Württemberg","Baden-Wuerttemberg","Baden Wurttemberg"],"Hessen":["Hesse","Hessen"],"Nordrhein-Westfalen":["North Rhine-Westphalia","Nordrhein-Westfalen","NRW"],"Sachsen":["Saxony","Sachsen"],"Sachsen-Anhalt":["Saxony-Anhalt","Sachsen-Anhalt"],"Niedersachsen":["Lower Saxony","Niedersachsen"],"Rheinland-Pfalz":["Rhineland-Palatinate","Rheinland-Pfalz"],"Thüringen":["Thuringia","Thüringen"],"Brandenburg":["Brandenburg"],"Schleswig-Holstein":["Schleswig-Holstein"],"Berlin":["Berlin"],"Hamburg":["Hamburg"],"Bremen":["Bremen"]};
+const FALLBACK_COUNTRIES = {"Germany":["Germany","Deutschland","DEU"],"Netherlands":["Netherlands","Nederland"],"United States":["United States","USA","U.S.A."],"Austria":["Austria","Österreich"],"Switzerland":["Switzerland","Schweiz"],"France":["France"],"United Kingdom":["United Kingdom","UK"],"Belgium":["Belgium"],"Canada":["Canada"],"Poland":["Poland"],"Portugal":["Portugal"],"Czechia":["Czech Republic","Czechia","Tschechien"],"India":["India"],"China":["China"]};
+function hasLocationTerm(haystack, term){
+  const n=String(haystack||'').normalize('NFC');
+  const t=String(term||'').normalize('NFC');
+  const escaped=t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return new RegExp('(^|[^\\p{L}\\p{N}])'+escaped+'(?=$|[^\\p{L}\\p{N}])','iu').test(n);
+}
+function inferCountry(raw){
+  const text=String(raw||'');
+  if(/^(DE|DEU)$/i.test(text.trim()))return 'Germany';
+  if(/^(NL)$/i.test(text.trim()))return 'Netherlands';
+  for(const [country,aliases] of Object.entries(FALLBACK_COUNTRIES)){
+    if(aliases.some(a=>hasLocationTerm(text,a)))return country;
+  }
+  return null;
+}
+function inferSite(raw,hint){
+  const text=String(raw||'').trim();
+  for(const [city,state,country] of FALLBACK_CITY_REGIONS){
+    if(hasLocationTerm(text,city))return {city,state,country,text};
+  }
+  const country=inferCountry(text)||hint||null;
+  let state=null;
+  if(country==='Germany'){
+    for(const [region,aliases] of Object.entries(FALLBACK_STATE_NAMES)){
+      if(aliases.some(a=>hasLocationTerm(text,a))){state=region;break;}
+    }
+  }
+  return {city:null,state,country,text};
+}
+function inferLocationForDisplay(job){
+  const raw=String(job.location||'').trim();
+  const countryHint=inferCountry(job.country||'');
+  const parts=raw?raw.split(/\s*;\s*|\s+\|\s+|\s+\/\s+/).map(s=>s.trim()).filter(Boolean):[''];
+  const sites=parts.map(s=>inferSite(s,countryHint));
+  const multi=sites.length>1;
+  const countries=[...new Set(sites.map(s=>s.country).filter(Boolean))].sort();
+  const inferred={city:multi?null:sites[0].city,state:multi?null:sites[0].state,country:multi?(countries.join(' / ')||null):sites[0].country,sites,multiple:multi,note:multi?'Multiple advertised locations; confirm the actual worksite':(sites[0].city?'':'City not confirmed from the advertised location'),raw,fromFallback:true};
+  const serverSites=Array.isArray(job.worksite_sites)?job.worksite_sites:[];
+  const serverHasValues=Boolean(job.worksite_city||job.worksite_state||job.worksite_country||serverSites.some(s=>s.city||s.state||s.country));
+  if(!serverHasValues)return inferred;
+  return {
+    city:job.worksite_city||inferred.city,
+    state:job.worksite_state||inferred.state,
+    country:job.worksite_country||inferred.country,
+    sites:serverSites.length?serverSites:inferred.sites,
+    multiple:job.worksite_multiple===true||inferred.multiple,
+    note:job.worksite_note||inferred.note,
+    raw,fromFallback:false
+  };
+}
+
 function render(){
   const search=ui.query.value.trim().toLocaleLowerCase(); const company=ui.company.value;const band=ui.band.value;const technicalBand=ui.technicalBand.value;
   const jobs=data.jobs.filter(j=>{const hay=[j.company,j.title,j.location,j.description,(j.matched_topics||[]).join(' '),(j.method_overlap||[]).join(' '),(j.technical_gaps_to_verify||[]).join(' '),(j.core_documented_tasks||[]).join(' '),(j.core_specializations_to_verify||[]).join(' '),j.worksite_city||'',j.worksite_state||'',j.worksite_country||''].join(' ').toLocaleLowerCase();const level=j.technical_review||'';const techOk=technicalBand==='all'||(technicalBand==='multiple'&&level.startsWith('Multiple'))||(technicalBand==='some'&&level.startsWith('Some'))||(technicalBand==='adjacent'&&level.startsWith('Adjacent'))||(technicalBand==='limited'&&(level.startsWith('Limited')||level==='Outside preferred job families'))||(technicalBand==='unknown'&&level.startsWith('Insufficient'));return techOk&&(company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&(!ui.degreeFocus.checked||!j.hide_by_default)&&(!search||hay.includes(search))});
@@ -15,11 +72,14 @@ function render(){
   if(!jobs.length){ui.results.append(el('p','muted','No positions match these filters. Try changing the filter or checking source health.'));return;}
   for(const job of jobs){
     const card=el('article','job');const left=el('div');left.append(el('div','company',job.company),el('strong','',job.title));
+    const worksite=inferLocationForDisplay(job);
     const place=(value)=>value||'Not specified';
-    left.append(el('div','meta',`City: ${job.worksite_multiple?'Multiple':place(job.worksite_city)} · State: ${job.worksite_multiple?'Multiple':place(job.worksite_state)} · Country: ${place(job.worksite_country)}`));
-    if(job.worksite_multiple && (job.worksite_sites||[]).length){
-      left.append(el('div','muted','Advertised worksites: '+job.worksite_sites.map(p=>`${p.city||'City unspecified'}, ${p.state||'State unspecified'}, ${p.country||'Country unspecified'}`).join(' ; ')));
-    } else if(job.worksite_note){left.append(el('div','muted',job.worksite_note));}
+    left.append(el('div','meta',`City: ${worksite.multiple?'Multiple':place(worksite.city)} · State: ${worksite.multiple?'Multiple':place(worksite.state)} · Country: ${place(worksite.country)}`));
+    if(worksite.multiple && worksite.sites.length){
+      left.append(el('div','muted','Advertised worksites: '+worksite.sites.map(p=>`${p.city||'City unspecified'}, ${p.state||'State unspecified'}, ${p.country||'Country unspecified'}`).join(' ; ')));
+    } else if(!worksite.city && worksite.raw){
+      left.append(el('div','muted','Location as advertised: '+worksite.raw));
+    } else if(worksite.note && !worksite.city){left.append(el('div','muted',worksite.note));}
     left.append(el('div','meta',`Source date ${berlinDate(job.published_at)} · First detected ${berlinDate(job.first_detected)}`));
     const tags=el('div','chips');const cls=job.match_band==='Review first'?'strong':job.match_band==='Possible'?'possible':'low';tags.append(chip(job.match_band,cls));
     if(job.technical_review){const methodCls=job.technical_review.startsWith('Multiple')?'strong':job.technical_review.startsWith('Some')||job.technical_review.startsWith('Adjacent')?'possible':'low';tags.append(chip(job.technical_review,methodCls))}
