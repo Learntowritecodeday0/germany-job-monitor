@@ -117,6 +117,31 @@ function render(){
     }else{
       left.append(el('div','muted','Detailed criteria unavailable: no evidence counts calculated'));
     }
+    const priorityReview=job.qualification_priority;
+    if(priorityReview?.status==='parsed'){
+      const groups=[['explicit','Explicit requirement wording'],
+        ['preferred','Preferred qualifications'],
+        ['learnable','Employer allows learning'],
+        ['listed','Listed qualifications — priority unspecified']];
+      const explicitCount=(priorityReview.explicit||[]).length+(priorityReview.experience_flags||[]).length;
+      const totalDetected=groups.reduce((n,[key])=>n+(priorityReview[key]||[]).length,0)+(priorityReview.experience_flags||[]).length;
+      const details=el('details','requirement-review');
+      details.append(el('summary','',`Requirement wording: ${explicitCount} explicit · ${(priorityReview.preferred||[]).length} preferred · ${(priorityReview.learnable||[]).length} learnable · ${(priorityReview.listed||[]).length} unspecified`));
+      if(!totalDetected){details.append(el('div','muted','No recognized requirement categories; verify the full job advertisement.'));}
+      for(const [key,label] of groups){
+        const items=priorityReview[key]||[];
+        if(items.length){
+          const summary=items.map(item=>`${item.name} (${item.documented?'documented':'not documented in current experience record'})`).join(' · ');
+          details.append(el('div','muted',`${label}: ${summary}`));
+        }
+      }
+      for(const flag of (priorityReview.experience_flags||[]).slice(0,3)){
+        details.append(el('div','muted',`Explicit experience threshold — verify: ${flag.text}`));
+      }
+      left.append(details);
+    }else if(priorityReview?.status==='unavailable'){
+      left.append(el('div','muted','Qualification wording: insufficient description'));
+    }
     if((job.core_specializations_to_verify||[]).length){
       left.append(el('div','muted','Core specialization gaps to verify: '+job.core_specializations_to_verify.slice(0,3).join(' · ')));
     }
