@@ -8,6 +8,7 @@ from __future__ import annotations
 import html
 import json
 import re
+import time
 import sys
 from datetime import datetime, timezone
 from html.parser import HTMLParser
@@ -89,13 +90,13 @@ def get_xml(url):
         raise ValueError(f"Invalid Personio XML feed: {exc}") from exc
 
 
-def get_html(url):
+def get_html(url, timeout=25):
     """Read public career-page HTML only; no authentication or browser bypass."""
     req = Request(url, headers={
         "User-Agent": "PersonalJobMonitor/0.3 (public postings)",
         "Accept": "text/html",
     })
-    with urlopen(req, timeout=25) as response:
+    with urlopen(req, timeout=timeout) as response:
         if response.status != 200:
             raise ValueError(f"HTTP {response.status}")
         raw = response.read(4_000_001)
@@ -171,6 +172,232 @@ def parse_personio_html(company, page_html):
         })
     return jobs
 
+
+
+class PersonioDetailHTML(HTMLParser):
+    """Extract public, visible job details and structured JobPosting metadata.
+
+    Do not treat arbitrary page text, navigation, or marketing copy as a job
+    description. The parser deliberately leaves incomplete pages title-only.
+    """
+    BLOCKS = {"h1", "h2", "h3", "h4", "p", "div", "li", "section", "br"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self._in_main = False
+        self._in_body = False
+        self._hidden = 0
+        self._in_ld = False
+        self._ld_parts = []
+        self.json_ld = []
+        self._head_tag = None
+        self._head_text = []
+        self.headings = []
+        self.main_text = []
+        self.body_text = []
+
+    def _put(self, value):
+        if self._in_body:
+            self.body_text.append(value)
+        if self._in_main:
+            self.main_text.append(value)
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if tag == "main":
+            self._in_main = True
+        if tag == "body":
+            self._in_body = True
+        if tag == "script":
+            if attributes.get("type", "").lower() == "application/ld+json":
+                self._in_ld = True
+                self._ld_parts = []
+            else:
+                self._hidden += 1
+        elif tag in ("style", "noscript", "svg"):
+            self._hidden += 1
+        if tag in ("h1", "h2", "h3", "h4") and not self._hidden:
+            self._head_tag = tag
+            self._head_text = []
+            self._put("\n## ")
+        if tag in self.BLOCKS and tag not in ("h1", "h2", "h3", "h4") and not self._hidden:
+            self._put("\n")
+
+    def handle_endtag(self, tag):
+        if tag == "script":
+            if self._in_ld:
+                self.json_ld.append("".join(self._ld_parts))
+                self._in_ld = False
+            elif self._hidden:
+                self._hidden -= 1
+        elif tag in ("style", "noscript", "svg") and self._hidden:
+            self._hidden -= 1
+        if tag == self._head_tag:
+            heading = " ".join("".join(self._head_text).split())
+            if heading:
+                self.headings.append((tag, heading))
+                self._put("\n")
+            self._head_tag = None
+            self._head_text = []
+        if tag in self.BLOCKS and not self._hidden:
+            self._put("\n")
+        if tag == "main":
+            self._in_main = False
+        if tag == "body":
+            self._in_body = False
+
+    def handle_data(self, data):
+        if self._in_ld:
+            self._ld_parts.append(data)
+            return
+        if self._hidden:
+            return
+        self._put(data)
+        if self._head_tag:
+            self._head_text.append(data)
+
+
+def _jobposting_nodes(obj):
+    """Find JobPosting objects in public JSON-LD, including @graph arrays."""
+    if isinstance(obj, list):
+        for child in obj:
+            yield from _jobposting_nodes(child)
+    elif isinstance(obj, dict):
+        types = obj.get("@type", [])
+        types = [types] if isinstance(types, str) else types
+        if isinstance(types, list) and "JobPosting" in types:
+            yield obj
+        if "@graph" in obj:
+            yield from _jobposting_nodes(obj["@graph"])
+
+
+def _personio_location_from_jsonld(posting):
+    places = posting.get("jobLocation") or []
+    places = places if isinstance(places, list) else [places]
+    locations, countries = [], []
+    for place in places:
+        if not isinstance(place, dict):
+            continue
+        addr = place.get("address") or {}
+        if not isinstance(addr, dict):
+            continue
+        town = str(addr.get("addressLocality") or "").strip()
+        region = str(addr.get("addressRegion") or "").strip()
+        country = addr.get("addressCountry") or ""
+        if isinstance(country, dict):
+            country = country.get("name") or ""
+        country = str(country).strip()
+        label = ", ".join(x for x in (town, region, country) if x)
+        if label:
+            locations.append(label)
+        if country:
+            countries.append(country)
+    return "; ".join(dict.fromkeys(locations)), countries[0] if len(set(countries)) == 1 and countries else ""
+
+
+PERSONIO_SECTION_START = re.compile(
+    r"(?:your\s+mission|your\s+role|your\s+tasks|your\s+responsibilities|"
+    r"your\s+profile|your\s+qualifications|ihre\s+aufgaben|deine\s+aufgaben|"
+    r"das\s+erwartet\s+(?:sie|dich)|was\s+sie\s+erwartet|aufgaben|tätigkeiten|"
+    r"anforderungen|ihr\s+profil|dein\s+profil|qualifikationen)", re.I)
+PERSONIO_SECTION_END = re.compile(
+    r"(?:why\s+us|warum\s+wir|was\s+wir\s+bieten|benefits?|"
+    r"kontakt(?:information(?:en)?)?|contact\s+information|about\s+us|über\s+uns|"
+    r"jetzt\s+bewerben|apply\s+now)", re.I)
+
+
+def _personio_section_description(text):
+    """Return only task/profile sections, not footer or unrelated page copy."""
+    chunks = re.split(r"(?=\n## )", text)
+    capture = False
+    parts = []
+    for chunk in chunks:
+        match = re.match(r"\s*##\s*([^\n]+)", chunk)
+        heading = match.group(1).strip(" ?!:.\t") if match else ""
+        if heading and PERSONIO_SECTION_END.fullmatch(heading):
+            if capture:
+                break
+            continue
+        if heading and PERSONIO_SECTION_START.fullmatch(heading):
+            capture = True
+        if capture:
+            parts.append(chunk)
+    result = " ".join(" ".join(parts).split())
+    return result[:18000] if len(result) >= 120 else ""
+
+
+def _personio_visible_location(text):
+    # The worksite must be explicitly visible near the job heading, not inferred
+    # from company address or a location mentioned deep in a job description.
+    prefix = text[:900]
+    match = re.search(r"\bDE\s*\|\s*Office\s*-\s*([A-ZÄÖÜ][\wÄÖÜäöüß .-]{1,70})", prefix)
+    if match:
+        place = re.split(r"(?:Full[- ]?time|Part[- ]?time|\bRemote\b|\n|##)", match.group(1))[0].strip(" ,;")
+        if place:
+            return f"{place}, Germany", "Germany"
+    match = re.search(r"\b([A-ZÄÖÜ][\wÄÖÜäöüß .-]{1,60}),\s*(Deutschland|Germany)\b", prefix)
+    if match:
+        return f"{match.group(1).strip()}, {match.group(2)}", "Germany"
+    return "", ""
+
+
+def enrich_personio_fallback_job(job, page_html):
+    """Enrich one fallback item from its public official detail page.
+
+    A title-only item remains title-only unless a recognizable, substantive
+    job description is found. Never infer eligibility or worksite from company HQ.
+    """
+    parser = PersonioDetailHTML()
+    parser.feed(page_html)
+    # Reject a detail page for another job, such as a redirect to a new listing.
+    h1 = next((text for tag, text in parser.headings if tag == "h1"), "")
+    if h1 and plain_text(h1).casefold() != plain_text(job["title"]).casefold():
+        return job
+    description = ""
+    location = ""
+    country = ""
+    posted = None
+    for block in parser.json_ld:
+        try:
+            records = list(_jobposting_nodes(json.loads(block)))
+        except (ValueError, TypeError):
+            continue
+        for record in records:
+            ld_title = plain_text(record.get("title") or "")
+            if ld_title and ld_title.casefold() != plain_text(job["title"]).casefold():
+                continue
+            description = plain_text(record.get("description") or "")[:18000]
+            location, country = _personio_location_from_jsonld(record)
+            posted = record.get("datePosted") or None
+            if description:
+                break
+        if description:
+            break
+    visible = "".join(parser.main_text) if len("".join(parser.main_text).strip()) > 120 else "".join(parser.body_text)
+    if not description:
+        description = _personio_section_description(visible)
+    if not location:
+        location, country = _personio_visible_location(visible)
+    if description and len(description) >= 120:
+        return {**job, "description": description, "location": location,
+                "country": country, "published_at": posted,
+                "source_mode": "html_detail"}
+    # Location can be useful even when the source lacks job details; missing
+    # description still prevents automatic priority email notification.
+    return {**job, "location": location, "country": country}
+
+
+def enrich_personio_fallback(jobs, *, max_pages=30):
+    """Fetch detail pages conservatively; preserve failed or incomplete jobs."""
+    for index, job in enumerate(jobs[:max_pages]):
+        try:
+            result = enrich_personio_fallback_job(job, get_html(job["url"], timeout=12))
+            jobs[index] = result
+        except (HTTPError, URLError, ValueError, TimeoutError, UnicodeError) as exc:
+            print(f"DETAIL UNAVAILABLE {job['company']} {job['key']}: {type(exc).__name__}", file=sys.stderr)
+        if index < min(len(jobs), max_pages) - 1:
+            time.sleep(0.4)  # Be polite to small company career sites.
+    return jobs
 
 def normalize_personio(company, position):
     def field(path):
@@ -305,8 +532,8 @@ def fetch_company(company):
         except HTTPError as exc:
             if exc.code != 404:
                 raise  # Do not circumvent access restrictions.
-            # Some employers publish a career page but disable the optional XML feed.
-            # Read publicly linked vacancies and flag that descriptions are unavailable.
+            # Fetch the public job links first. update() separately enriches
+            # their detail pages without altering this stable listing reader.
             return parse_personio_html(company, get_html(company["careers_url"]))
     if provider == "ashby":
         url = f"https://api.ashbyhq.com/posting-api/job-board/{slug}"
@@ -522,6 +749,8 @@ def update(config, state, at):
         was_initialized = bool(entry.get("initialized"))
         try:
             seen = fetch_company(company)
+            if company["platform"] == "personio" and any(j.get("source_mode") == "html_fallback" for j in seen):
+                seen = enrich_personio_fallback(seen)
             keys = set()
             for job in seen:
                 if job.get("location") is None:
@@ -549,7 +778,10 @@ def update(config, state, at):
                 if job.get("company") == name and key not in keys:
                     job["active"] = False
             state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
-                                     "source_mode": "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else "structured_feed"}
+                                     "source_mode": ("html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
+                                                     "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "structured_feed"),
+                                     "details_extracted": sum(j.get("source_mode") == "html_detail" for j in seen),
+                                     "title_only_count": sum(j.get("source_mode") == "html_fallback" for j in seen)}
             print(f"OK {name}: {len(keys)} German/unknown-location listings")
         except (HTTPError, URLError, ValueError, KeyError, TimeoutError, json.JSONDecodeError) as exc:
             state["sources"][name] = {**entry, "status": "error", "last_checked": at, "error": f"{type(exc).__name__}: {str(exc)[:160]}", "careers_url": company["careers_url"]}
@@ -576,6 +808,10 @@ def main():
         print("WARNING: No source returned successfully. Check workflow logs.", file=sys.stderr)
         return 1
     return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
 
 
 if __name__ == "__main__":
