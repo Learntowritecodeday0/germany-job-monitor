@@ -42,6 +42,12 @@ jobs:
         run: python screening.py
       - name: Add evidence-led technical overlap and gap notes
         run: python fit_review.py
+      - name: Review main responsibilities and specialized requirements
+        run: python core_review.py
+      - name: Separate job city, state and country
+        run: python location_detail.py
+      - name: Count documented expertise, method and general overlaps
+        run: python competency_review.py
       - name: Email new high-priority vacancies
         # A mail-provider outage must not prevent the public dashboard from updating.
         continue-on-error: true
@@ -69,4 +75,3 @@ jobs:
       - name: Publish website
         id: deployment
         uses: actions/deploy-pages@v4
-
