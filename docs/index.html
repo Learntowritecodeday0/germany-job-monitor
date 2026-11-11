@@ -15,7 +15,7 @@
       <h1>Germany Job Monitor</h1>
       <p>Selected employers. Early vacancy detection. Technical keyword triage.</p>
     </header>
-    <div class="notice" role="note">This dashboard shows publicly advertised jobs. Technical evidence tags show method overlap and possible gaps, not verified hiring fit or eligibility.</div>
+    <div class="notice" role="note">This dashboard shows public vacancies. Technical / Methods / General counts represent documented overlap among recognized items in the advertisement, not all essential requirements or hiring eligibility. A 0/0 means no identifiable item in that category; —/— means incomplete details.</div>
     <section class="summary" aria-label="Summary">
       <article><strong id="total">—</strong><span>All tracked vacancies</span></article>
       <article><strong id="priority">—</strong><span>Review first</span></article>
@@ -25,10 +25,10 @@
     <section class="tools" aria-label="Filters">
       <label>Search<input id="query" type="search" placeholder="e.g. DoE, nanoparticles, surface chemistry"></label>
       <label>Priority<select id="band"><option value="all">All jobs</option><option value="Review first">Review first</option><option value="Possible">Possible</option><option value="Low">Low</option><option value="Not target">Not target</option></select></label>
-      <label>Technical evidence<select id="technicalBand"><option value="all">All levels</option><option value="multiple">Multiple method overlaps</option><option value="some">Some method overlap</option><option value="adjacent">Adjacent only</option><option value="limited">Limited overlap</option><option value="unknown">Insufficient details</option></select></label>
+      <label>Technical expertise<select id="technicalBand"><option value="all">All levels</option><option value="some">At least one documented expertise</option><option value="none">No documented expertise</option><option value="unknown">Insufficient details</option></select></label>
       <label>Company<select id="company"><option value="all">All companies</option></select></label>
       <label><input type="checkbox" id="germanyOnly"> Verified German location only</label>
-      <label><input type="checkbox" id="degreeFocus" checked> Hide training, vocational roles, and unrelated jobs (HR, finance, procurement, etc.)</label>
+      <label><input type="checkbox" id="degreeFocus" checked> Hide training, non-chemistry software/motor engineering, HR, finance and other unrelated roles</label>
     </section>
     <div class="between"><h2>Current positions</h2><span id="count"></span></div>
     <div id="status" aria-live="polite">Loading public job data…</div>
