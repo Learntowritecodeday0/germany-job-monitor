@@ -30,11 +30,35 @@
       <label><input type="checkbox" id="germanyOnly"> Verified German location only</label>
       <label><input type="checkbox" id="degreeFocus" checked> Hide training, non-chemistry software/motor engineering, HR, finance and other unrelated roles</label>
     </section>
+    <section class="tracking-tools" aria-label="Application history">
+      <label class="tracking-check"><input type="checkbox" id="showApplied"> Show previously applied jobs</label>
+      <button type="button" id="exportApplied">Export application history</button>
+      <label class="import-control">Import history <input type="file" id="importApplied" accept=".json,application/json" aria-label="Import application history JSON"></label>
+      <span class="tracking-note" id="appliedStatus" aria-live="polite">Application marks are stored in this browser only. Export a backup before switching devices or clearing browser data.</span>
+    </section>
     <div class="between"><h2>Current positions</h2><span id="count"></span></div>
+    <nav class="pagination-controls" aria-label="Job results pages">
+      <label>Jobs per page <select id="pageSize"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select></label>
+      <span id="pageInfo">Page 1</span>
+      <button type="button" id="prevPage">Previous</button><button type="button" id="nextPage">Next</button>
+    </nav>
     <div id="status" aria-live="polite">Loading public job data…</div>
     <section id="results" class="results" aria-label="Open positions"></section>
     <div class="between"><h2>Source status</h2></div>
     <section id="health" class="health"></section>
+    <section class="manual-sources" aria-labelledby="manual-heading">
+      <h2 id="manual-heading">Research institutions and employers — manual watchlist</h2>
+      <p>These official career sites are not yet integrated into automatic vacancy checks or email alerts. Their status is separate from the source count.</p>
+      <ul>
+        <li><a href="https://jobs.fraunhofer.de/" target="_blank" rel="noopener noreferrer">Fraunhofer institutes, including ISC and IVV</a></li>
+        <li><a href="https://www.ivv.fraunhofer.de/de/jobs-karriere.html" target="_blank" rel="noopener noreferrer">Fraunhofer IVV — Freising / Dresden</a></li>
+        <li><a href="https://www.lmu.de/de/die-lmu/arbeiten-an-der-lmu/stellenportal/wissenschaft/" target="_blank" rel="noopener noreferrer">LMU Munich — academic roles</a></li>
+        <li><a href="https://www.uni-augsburg.de/de/jobs-und-karriere/stellenangebote/" target="_blank" rel="noopener noreferrer">University of Augsburg — vacancies</a></li>
+        <li><a href="https://www.helmholtz-munich.de/en/career/jobs" target="_blank" rel="noopener noreferrer">Helmholtz Munich — scientific and technical roles</a></li>
+        <li><a href="https://fibrecoat.de/careers/" target="_blank" rel="noopener noreferrer">FibreCoat — Aachen, fibre materials and processing</a></li>
+        <li><a href="https://jobs.wacker.com/" target="_blank" rel="noopener noreferrer">WACKER — chemistry and materials</a></li>
+      </ul>
+    </section>
     <footer>New means first detected by this tracker, not necessarily first published. Source updates are best-effort and may be delayed. No applications are submitted automatically.</footer>
   </main>
 </body>

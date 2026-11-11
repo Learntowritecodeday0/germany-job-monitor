@@ -11,6 +11,7 @@ import re
 import time
 import sys
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -500,6 +501,59 @@ def parse_softgarden(company, feed):
     return [normalize_softgarden(company, x) for x in elements]
 
 
+def parse_rss(company, root):
+    """Read an official RSS/Atom job feed without treating feed-wide descriptions as job detail evidence."""
+    jobs = []
+    ns = {"a": "http://www.w3.org/2005/Atom"}
+    if root.tag.split("}")[-1].lower() == "rss":
+        entries = root.findall("./channel/item")
+        for entry in entries:
+            title = plain_text(entry.findtext("title"))
+            link = (entry.findtext("link") or "").strip()
+            guid = (entry.findtext("guid") or link).strip()
+            desc = plain_text(entry.findtext("description"))[:18000]
+            published_raw = entry.findtext("pubDate")
+            published = None
+            if published_raw:
+                try:
+                    published = parsedate_to_datetime(published_raw).astimezone(timezone.utc).isoformat()
+                except (ValueError, TypeError, OverflowError):
+                    published = None
+            if not title or not link.startswith("https://"):
+                continue
+            jobs.append({"key": f"rss:{company['slug']}:{guid}", "company": company['name'],
+                "title": title, "location": "", "country": "", "description": desc,
+                "url": link, "published_at": published, "source_modified_at": None,
+                "platform": "rss", "source_mode": "rss_summary"})
+    elif root.tag.split("}")[-1].lower() == "feed":
+        for entry in root.findall("a:entry", ns):
+            title = plain_text(entry.findtext("a:title", default="", namespaces=ns))
+            link = next((x.attrib.get("href", "") for x in entry.findall("a:link", ns)
+                         if x.attrib.get("rel", "alternate") == "alternate"), "")
+            guid = entry.findtext("a:id", default=link, namespaces=ns)
+            desc = plain_text(entry.findtext("a:summary", default="", namespaces=ns) or
+                              entry.findtext("a:content", default="", namespaces=ns))[:18000]
+            published = entry.findtext("a:published", default=None, namespaces=ns) or entry.findtext("a:updated", default=None, namespaces=ns)
+            if not title or not link.startswith("https://"):
+                continue
+            jobs.append({"key": f"rss:{company['slug']}:{guid}", "company": company['name'],
+                "title": title, "location": "", "country": "", "description": desc,
+                "url": link, "published_at": published, "source_modified_at": None,
+                "platform": "rss", "source_mode": "rss_summary"})
+    else:
+        raise ValueError("Not a recognized RSS or Atom feed")
+    # An empty job feed is possible; the root must still have valid channel/feed structure.
+    return jobs
+
+
+def title_fingerprint(job):
+    title = str(job.get("title") or "").casefold()
+    title = re.sub(r"\((?:all genders|m/w/d|f/m/d|m/f/d|w/m/d|d/m/w|all gender[s]?)\)", "", title)
+    title = re.sub(r"[^\w]+", " ", title, flags=re.UNICODE)
+    company = re.sub(r"[^\w]+", " ", str(job.get("company") or "").casefold())
+    return f"{company.strip()}|{title.strip()}"
+
+
 def fetch_company(company):
     slug = quote(company["slug"], safe="")
     provider = company["platform"]
@@ -517,6 +571,11 @@ def fetch_company(company):
         if not isinstance(items, list):
             raise ValueError("Unexpected Greenhouse response: missing jobs array")
         return [normalize_greenhouse(company, x) for x in items]
+    if provider == "rss":
+        feed_url = company.get("feed_url", "")
+        if not feed_url.startswith("https://"):
+            raise ValueError("Missing official RSS feed URL")
+        return parse_rss(company, get_xml(feed_url))
     if provider == "softgarden":
         # Public JSON-LD feed confirmed at the employer's own softgarden site.
         # Do not use authenticated softgarden APIs or third-party aggregators.
@@ -614,6 +673,7 @@ TRAINING_TITLES = [
     r"\bpraktikum\b", r"\bpraktikant", r"\bstudent assistant\b",
     r"\bdual(?:es|e|er) studium\b", r"\bduales studium\b",
     r"\bapprentice", r"\blehrling\b", r"\bdual(?:e|er|es) student(?:in)?\b",
+    r"\bpromotionsstelle\b", r"\bdoktorand(?:in|en)?\b", r"\bph\.?d\.?\s+(?:student|candidate|position)\b",
 ]
 VOCATIONAL_ONLY_TITLES = [
     r"\bchemielaborant(?:in|en|innen)?\b", r"\bpharmakant(?:in|en|innen)?\b",
@@ -639,6 +699,12 @@ UNRELATED_JOB_FAMILY_TITLES = [
     # Software SDK roles do not overlap with experimental chemistry.
     r"\b(?:python|java|javascript|typescript|c\+\+|sdk)\s+(?:software\s+)?(?:sdk\s+)?(?:engineer|developer|architect|programmer)\b",
     r"\b(?:sdk|api)\s+(?:integration\s+)?(?:engineer|developer|architect)\b",
+    # Design-only photonics, avionics, algorithms, and electrical architectures.
+    r"\b(?:photonic(?:s)?\s+(?:integrated\s+)?circuit\s+design(?:er)?|photonic(?:s)?\s+circuit|pic\s+design(?:er)?)\b",
+    r"\b(?:algorithm(?:s)?\s+engineer|engineer\s+[-–]\s+algorithms|battery\s+algorithms|control\s+algorithms)\b",
+    r"\b(?:electronics?\s+(?:systems?\s+)?architect|architect\s+(?:of\s+)?electronics?|hardware\s+architect|avionics\s+architect|fpga\s+(?:engineer|architect|designer))\b",
+    r"\b(?:pcb\s+(?:layout\s+)?(?:engineer|designer|architect)|embedded\s+(?:systems?\s+)?architect|firmware\s+(?:engineer|developer))\b",
+    r"\b(?:hardware\s+systems?\s+manager|head\s+of\s+(?:electronics|software|it|avionics))\b",
     r"\b(?:unsolicited application|spontaneous application|open application|initiativbewerbung|talent pool|general interest pool)\b",
 ]
 
@@ -772,12 +838,18 @@ def update(config, state, at):
                 key = job["key"]
                 keys.add(key)
                 old = state["jobs"].get(key)
+                was_reopened = bool(old and old.get("active") is False)
                 job.update({
                     "first_detected": old["first_detected"] if old else at,
                     "at_startup": old["at_startup"] if old else not was_initialized,
                     "last_seen": at,
                     "active": True,
                     "location_status": location_status(job),
+                    "fingerprint": title_fingerprint(job),
+                    # A confirmed reappearance requires a previously successful scan
+                    # where this exact posting key had disappeared.
+                    "reopen_count": (old or {}).get("reopen_count", 0) + (1 if was_reopened else 0),
+                    "reopened_at": at if was_reopened else (old or {}).get("reopened_at"),
                 })
                 job.update(triage(job))
                 job.update(qualification_preference(job))
@@ -820,10 +892,6 @@ def main():
         print("WARNING: No source returned successfully. Check workflow logs.", file=sys.stderr)
         return 1
     return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
 
 
 if __name__ == "__main__":

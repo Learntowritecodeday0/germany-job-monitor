@@ -181,6 +181,49 @@
       "platform": "personio",
       "slug": "kcx",
       "careers_url": "https://kcx.jobs.personio.de"
+    },
+    {
+      "name": "Technische Universität München — wissenschaftliche Stellen",
+      "platform": "rss",
+      "slug": "tum-wissenschaftler",
+      "careers_url": "https://jobs.mytum.de/jobs/",
+      "feed_url": "https://jobs.mytum.de/jobs/wissenschaftler/asRss"
+    },
+    {
+      "name": "Proxima Fusion",
+      "platform": "ashby",
+      "slug": "proxima-fusion",
+      "careers_url": "https://jobs.ashbyhq.com/proxima-fusion"
+    },
+    {
+      "name": "Uncountable",
+      "platform": "ashby",
+      "slug": "uncountable",
+      "careers_url": "https://jobs.ashbyhq.com/uncountable"
+    },
+    {
+      "name": "Emil Kiessling",
+      "platform": "personio",
+      "slug": "emil-kiessling-gmbh",
+      "careers_url": "https://emil-kiessling-gmbh.jobs.personio.de"
+    },
+    {
+      "name": "Dr. Franz Köhler Chemie",
+      "platform": "personio",
+      "slug": "dr-franz-koehler-chemie-gmbh",
+      "careers_url": "https://dr-franz-koehler-chemie-gmbh.jobs.personio.de"
+    },
+    {
+      "name": "traceless materials",
+      "platform": "personio",
+      "slug": "traceless-materials-gmbh",
+      "careers_url": "https://traceless-materials-gmbh.jobs.personio.com"
+    },
+    {
+      "name": "DyeMansion",
+      "platform": "personio",
+      "slug": "dyemansion-gmbh",
+      "careers_url": "https://dyemansion-gmbh.jobs.personio.com"
     }
   ]
 }

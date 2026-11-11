@@ -1,9 +1,79 @@
 'use strict';
-const ui = Object.fromEntries(['query','band','technicalBand','company','germanyOnly','degreeFocus','results','count','total','priority','sources','updated','health','status'].map(id=>[id, document.getElementById(id)]));
+const ui = Object.fromEntries(['query','band','technicalBand','company','germanyOnly','degreeFocus','results','count','total','priority','sources','updated','health','status','showApplied','exportApplied','importApplied','appliedStatus','pageSize','pageInfo','prevPage','nextPage'].map(id=>[id, document.getElementById(id)]));
 let data = {jobs:[],sources:[]};
 const berlinDate = s => {if(!s) return 'Not yet';const d=new Date(s);return Number.isNaN(+d)?'Unknown':new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(d)};
 const hoursSince = s => s ? (Date.now()-new Date(s).getTime())/36e5 : Infinity;
 const sortWeight = { 'Review first':0, 'Possible':1, 'Low':2, 'Not target':3 };
+// Browser-only application history. The public Pages website has no authenticated
+// database: use Export/Import to carry marks between browsers or devices.
+const HISTORY_KEY='germany-job-monitor:applications:v1';
+let appliedRecords={};
+let pageNumber=1;
+function canStore(){try{return typeof localStorage!=='undefined'}catch(e){return false}}
+function restoreHistory(){
+  if(!canStore())return {};
+  try{
+    const obj=JSON.parse(localStorage.getItem(HISTORY_KEY)||'{}');
+    return obj&&typeof obj==='object'&&obj.version===1&&obj.records&&typeof obj.records==='object'&&!Array.isArray(obj.records)?obj.records:{};
+  }catch(e){return {}}
+}
+function saveHistory(){
+  if(!canStore()){ui.appliedStatus.textContent='Browser storage unavailable. Application history will not persist; export a backup.';return;}
+  try{localStorage.setItem(HISTORY_KEY,JSON.stringify({version:1,records:appliedRecords}));}
+  catch(e){ui.appliedStatus.textContent='Could not save application marks. Browser storage may be disabled.';}
+}
+function compactTitle(s){return String(s||'').toLocaleLowerCase().replace(/\((?:m\/w\/d|w\/m\/d|f\/m\/d|m\/f\/d|all genders?)\)/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim()}
+function fingerprint(j){return compactTitle(j.company)+'|'+compactTitle(j.title)}
+function findPriorApplication(job){
+  const direct=appliedRecords[job.key];
+  if(direct)return {record:direct,direct:true};
+  const fp=fingerprint(job);
+  const matches=Object.values(appliedRecords).filter(r=>r&&r.fingerprint===fp&&r.key!==job.key);
+  matches.sort((a,b)=>String(b.applied_at||'').localeCompare(String(a.applied_at||'')));
+  return matches.length?{record:matches[0],direct:false}:null;
+}
+function dateAfter(a,b){return a&&b&&Number.isFinite(Date.parse(a))&&Number.isFinite(Date.parse(b))&&Date.parse(a)>Date.parse(b)}
+function applicationStatus(job){
+  const ref=findPriorApplication(job);
+  if(!ref)return {applied:false,repost:false,reason:''};
+  const r=ref.record;
+  if(!ref.direct){
+    return {applied:false,repost:dateAfter(job.first_detected,r.applied_at),reason:'Similar title previously applied; verify whether this is a repost or another opening'};
+  }
+  if(dateAfter(job.reopened_at,r.applied_at))return {applied:true,repost:true,reason:'This listing disappeared and later reappeared after the recorded application'};
+  if(dateAfter(job.published_at,r.applied_at))return {applied:true,repost:true,reason:'Advertised publication date is later than the recorded application — verify reposting'};
+  return {applied:true,repost:false,reason:'Applied on '+new Date(r.applied_at).toLocaleDateString('en-GB')};
+}
+function markApplied(job){
+  appliedRecords[String(job.key)]={key:String(job.key),company:String(job.company||''),title:String(job.title||''),
+    fingerprint:fingerprint(job),applied_at:new Date().toISOString(),url:String(job.url||'')};
+  saveHistory();render();
+}
+function unmarkApplied(job){delete appliedRecords[String(job.key)];saveHistory();render();}
+function exportHistory(){
+  const text=JSON.stringify({version:1,exported_at:new Date().toISOString(),records:appliedRecords},null,2);
+  const blob=new Blob([text],{type:'application/json'});const href=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=href;a.download='germany-job-monitor-applications.json';document.body.append(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(href),1000);
+}
+async function importHistory(file){
+  if(!file)return;
+  if(file.size>2_000_000){ui.appliedStatus.textContent='Import rejected: file exceeds 2 MB.';return;}
+  try{
+    const obj=JSON.parse(await file.text());
+    if(obj.version!==1||!obj.records||typeof obj.records!=='object'||Array.isArray(obj.records))throw new Error('Unexpected export format');
+    const incoming=Object.entries(obj.records);
+    if(incoming.length>5000)throw new Error('Too many records');
+    let n=0;
+    for(const [key,r] of incoming){
+      if(!key||key.length>512||!r||r.key!==key||typeof r.title!=='string'||typeof r.company!=='string'||!Number.isFinite(Date.parse(r.applied_at)))continue;
+      appliedRecords[key]={key,company:r.company.slice(0,250),title:r.title.slice(0,500),fingerprint:fingerprint(r),
+        applied_at:r.applied_at,url:typeof r.url==='string'?r.url.slice(0,1500):''};n++;
+    }
+    saveHistory();render();ui.appliedStatus.textContent=`Imported ${n} application records. Stored locally in this browser.`;
+  }catch(e){ui.appliedStatus.textContent='Import failed: '+e.message;}
+}
+
 function el(tag, className, text){let a=document.createElement(tag);if(className)a.className=className;if(text!==undefined)a.textContent=String(text);return a}
 function chip(text, cls=''){return el('span','chip '+cls,text)}
 
@@ -100,13 +170,19 @@ function render(){
     const evidence=(scores?Object.values(scores).flatMap(x=>[...(x.supported||[]),...(x.verify||[])]):[]);
     const hay=[j.company,j.title,j.location,j.description,...evidence,j.worksite_city||'',j.worksite_state||'',j.worksite_country||''].join(' ').toLocaleLowerCase();
     const techOk=technicalBand==='all'||(technicalBand==='some'&&scores&&scores.technical.matched>0)||(technicalBand==='none'&&scores&&scores.technical.matched===0)||(technicalBand==='unknown'&&!scores);
-    return techOk&&(company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&(!ui.degreeFocus.checked||!j.hide_by_default)&&(!search||hay.includes(search));
+    const app=applicationStatus(j);
+    const appliedVisible=ui.showApplied?.checked||!app.applied||app.repost;
+    return appliedVisible&&techOk&&(company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&(!ui.degreeFocus.checked||!j.hide_by_default)&&(!search||hay.includes(search));
   });
   const sourceDate=j=>(j.at_startup?(j.published_at||j.first_detected):(j.first_detected||j.published_at)||'');
-  jobs.sort((a,b)=>(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||sourceDate(b).localeCompare(sourceDate(a)));
-  ui.results.replaceChildren();const hidden = ui.degreeFocus.checked ? data.jobs.filter(j=>j.hide_by_default).length : 0;ui.count.textContent=`${jobs.length} shown${hidden ? ` · ${hidden} filtered by preference` : ''}`;
+  jobs.sort((a,b)=>Number(applicationStatus(b).repost)-Number(applicationStatus(a).repost)||(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||sourceDate(b).localeCompare(sourceDate(a)));
+  ui.results.replaceChildren();const hidden = ui.degreeFocus.checked ? data.jobs.filter(j=>j.hide_by_default).length : 0;
+  const perPage=Number(ui.pageSize?.value)||50;const pages=Math.max(1,Math.ceil(jobs.length/perPage));pageNumber=Math.min(Math.max(1,pageNumber),pages);
+  ui.count.textContent=`${jobs.length} matching${hidden ? ` · ${hidden} filtered by preference` : ''}`;
+  if(ui.pageInfo)ui.pageInfo.textContent=`Page ${pageNumber} of ${pages} · ${jobs.length?((pageNumber-1)*perPage+1):0}–${Math.min(pageNumber*perPage,jobs.length)} of ${jobs.length}`;
+  if(ui.prevPage)ui.prevPage.disabled=pageNumber<=1;if(ui.nextPage)ui.nextPage.disabled=pageNumber>=pages;
   if(!jobs.length){ui.results.append(el('p','muted','No positions match these filters. Try changing the filter or checking source health.'));return;}
-  for(const job of jobs){
+  for(const job of jobs.slice((pageNumber-1)*perPage,pageNumber*perPage)){
     const card=el('article','job');const left=el('div');left.append(el('div','company',job.company),el('strong','',job.title));
     const worksite=inferLocationForDisplay(job);
     const place=(value)=>value||'Not specified';
@@ -130,7 +206,11 @@ function render(){
     }
     const edu=job.education_review;
     if(edu?.possible_overqualified) tags.append(chip('Possible overqualified','possible'));
+    const applied=applicationStatus(job);
+    if(applied.repost)tags.append(chip('Previously applied · check repost','possible'));
+    else if(applied.applied)tags.append(chip('Applied','low'));
     left.append(tags);
+    if(applied.repost)left.append(el('p','repost-note',applied.reason));
     const notices=[];
     if(!job.at_startup&&hoursSince(job.first_detected)>=0&&hoursSince(job.first_detected)<24){
       notices.push({label:'New detection',text:'First detected within the last 24 hours'});
@@ -226,7 +306,14 @@ function render(){
     if(!supported.length&&!verify.length&&(job.match_band==='Review first'||job.match_band==='Possible')&&job.triage_note){
       left.append(el('p','muted',job.triage_note));
     }
-    card.append(left);const a=el('a','', 'Official listing');a.href=job.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);ui.results.append(card);
+    card.append(left);
+    const actions=el('div','job-actions');
+    const a=el('a','', 'Official listing');a.href=job.url;a.target='_blank';a.rel='noopener noreferrer';actions.append(a);
+    const applyButton=el('button','applied-button',applied.applied?(applied.repost?'Mark reapplied':'Undo applied mark'):(applied.repost?'Mark applied again':'Mark applied'));
+    applyButton.type='button';applyButton.addEventListener('click',()=>{
+      if(applied.applied&&!applied.repost)unmarkApplied(job);else markApplied(job);
+    });
+    actions.append(applyButton);card.append(actions);ui.results.append(card);
   }
 }
 async function main(){try{
@@ -235,6 +322,13 @@ async function main(){try{
   const names=[...new Set(jobs.map(j=>j.company))].sort();for(const name of names){const opt=document.createElement('option');opt.value=name;opt.textContent=name;ui.company.append(opt)}
   for(const source of (data.sources||[])){const item=el('div');const mode=source.source_mode==='html_fallback'?` · ${source.details_extracted||0} full descriptions · ${source.title_only_count||0} title-only`:(source.source_mode==='html_detail'?` · ${source.details_extracted||0} full descriptions from job pages`:'');item.append(el('strong','',source.name),el('div',source.status==='ok'?'muted':'error',source.status==='ok'?`${source.count} tracked${mode} · Last checked ${berlinDate(source.last_checked)}`:`Error: ${source.error||'Unreachable'}`));ui.health.append(item)}
   if(!(data.sources||[]).length)ui.health.append(el('div','muted','No source checks yet. Run the monitoring workflow.'));
-  for(const key of ['query','band','technicalBand','company','germanyOnly','degreeFocus'])ui[key].addEventListener('input',render);render();
+  for(const key of ['query','band','technicalBand','company','germanyOnly','degreeFocus','showApplied','pageSize'])ui[key].addEventListener('input',()=>{pageNumber=1;render()});
+  ui.prevPage.addEventListener('click',()=>{pageNumber=Math.max(1,pageNumber-1);render();ui.pageInfo.scrollIntoView({block:'nearest'});});
+  ui.nextPage.addEventListener('click',()=>{pageNumber+=1;render();ui.pageInfo.scrollIntoView({block:'nearest'});});
+  ui.exportApplied.addEventListener('click',exportHistory);
+  ui.importApplied.addEventListener('change',async()=>{await importHistory(ui.importApplied.files?.[0]);ui.importApplied.value='';});
+  appliedRecords=restoreHistory();
+  if(!canStore())ui.appliedStatus.textContent='Browser storage is disabled; application marks may not persist.';
+  render();
 }catch(err){ui.status.textContent=`Cannot load vacancy data: ${err.message}`;ui.results.append(el('p','muted','Check that a monitoring run has completed successfully.'))}}
 main();
