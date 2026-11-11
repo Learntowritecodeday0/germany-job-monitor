@@ -33,6 +33,27 @@ class EvidenceReviewTests(unittest.TestCase):
         self.assertIn('Sector-specific years of experience', a['technical_gaps_to_verify'])
         self.assertNotEqual(a['technical_review'], 'Multiple method overlaps')
 
+    def test_sem_edx_not_mistaken_for_dispersion_formulation(self):
+        a = fit_review.review_job(job('SEM Technician',
+            'Your Role: Perform Scanning Electron Microscopy and Energy-Dispersive X-ray Spectroscopy (EDX). '
+            'What You Bring: Hands-on SEM experience and electron microscopy sample preparation.'))
+        self.assertIn('Materials characterization', a['method_overlap'])
+        self.assertNotIn('Formulation / dispersion work', a['method_overlap'])
+        self.assertEqual(a['technical_review'], 'Some method overlap')
+
+    def test_real_dispersion_work_still_matches(self):
+        a = fit_review.review_job(job('Formulation Scientist',
+            'Your tasks: Develop stable aqueous dispersions and emulsion formulations with surfactants. '
+            'Your Profile: Experience with colloid chemistry.'))
+        self.assertIn('Formulation / dispersion work', a['method_overlap'])
+
+    def test_composite_winding_is_flagged_as_separate_domain(self):
+        a = fit_review.review_job(job('R&D Engineer – Composite Winding Process',
+            'Your tasks: Use DoE for winding process optimization. '
+            'Your Profile: Experience with filament winding, composite winding and pre-preg layup required.'))
+        self.assertIn('DoE / experimental design', a['method_overlap'])
+        self.assertIn('Composite winding / layup processes', a['technical_gaps_to_verify'])
+
     def test_sem_method_vs_instrument_design(self):
         a=fit_review.review_job(job('SEM Technician',
             'Your tasks: Conduct SEM analysis and sample preparation to evaluate microstructure and surface properties across experimental material samples. Your Profile: Degree in chemistry or materials science and practical microscopy experience.'))
