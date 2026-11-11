@@ -43,7 +43,9 @@ TECHNICAL = [
 METHODS = [
     ('DoE / experimental design', True, [r'\bdoe\b',r'\bdesign of experiments\b',r'\bversuchsplan\w*\b']),
     ('DLS / zeta potential', True, [r'\bdls\b',r'\bdynamic light scattering\b',r'\bzeta[ -]?(?:potential|potenzial)\b']),
-    ('SEM / EDS microscopy', True, [r'\bsem\b',r'\bscanning electron microsc\w*\b',r'\b(?:edx|eds)\b',r'\benergy[- ]dispersive x[- ]ray\b']),
+    ('SEM microscopy', True, [r'\bsem\b',r'\bscanning electron microsc\w*\b']),
+    ('EDS / EDX elemental analysis', True, [r'\b(?:edx|eds)\b',r'\benergy[- ]dispersive x[- ]ray\b']),
+    ('Focused ion beam (FIB)', False, [r'\bFIB\b',r'\bfocused ion beam\b']),
     ('TEM', True, [r'\btem\b',r'\btransmission electron microscop\w*\b']),
     ('FTIR', True, [r'\b(?:ftir|ft-ir)\b',r'\bfourier[- ]transform infrared\b']),
     ('TGA / DSC', True, [r'\b(?:tga|dsc)\b',r'\bthermogravimetr\w*\b',r'\bdifferential scanning calorimetr\w*\b']),
@@ -54,6 +56,7 @@ METHODS = [
     ('Laboratory synthesis scale-up', True, [r'\bscale[- ]?up\b',r'\bupscal\w*\b',r'\bskalier\w*\b']),
     ('Emulsion preparation and process-variable studies', True, [r'\bemulsification\b',r'\bemulsion (?:prepar\w*|formulat\w*|develop\w*)\b',r'\bemulsionsherstell\w*\b']),
     ('UV–Vis spectroscopy', True, [r'\buv[ -]?vis\b',r'\buv visible spectroscopy\b']),
+    ('Electrochemical testing / characterization', False, [r'\belectrochem(?:ical|isch\w*) (?:test\w*|characteriz\w*|evaluat\w*|measur\w*|pr[uü]f\w*|analys\w*)\b',r'\belektrochemisch\w* (?:pr[uü]f\w*|mess\w*|analys\w*)\b']),
     ('Electrochemical impedance / cyclic voltammetry', False, [r'\beis\b',r'\belectrochemical impedance\b',r'\bcyclic voltammetr\w*\b',r'\bzyklische voltammetr\w*\b']),
     ('HPLC / LC-MS / GC-MS', False, [r'\bhplc\b',r'\blc[- ]?ms\b',r'\bgc[- ]?ms\b']),
     ('Industrial composite winding techniques', False, [r'\bfilament winding\b',r'\b(?:composite|fiber|fibre) winding\b',r'\bwickelverfahren\b']),
@@ -143,3 +146,4 @@ def main() -> int:
 
 if __name__ == '__main__':
     raise SystemExit(main())
+
