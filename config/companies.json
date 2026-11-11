@@ -151,6 +151,36 @@
       "platform": "personio",
       "slug": "ineratec-gmbh-1",
       "careers_url": "https://ineratec-gmbh-1.jobs.personio.de"
+    },
+    {
+      "name": "Gauss Fusion",
+      "platform": "personio",
+      "slug": "gauss",
+      "careers_url": "https://gauss.jobs.personio.com"
+    },
+    {
+      "name": "QuantumDiamonds",
+      "platform": "personio",
+      "slug": "quantum-diamond",
+      "careers_url": "https://quantum-diamond.jobs.personio.com"
+    },
+    {
+      "name": "KLB Kötztal Lacke + Beschichtungen",
+      "platform": "personio",
+      "slug": "klb",
+      "careers_url": "https://klb.jobs.personio.de"
+    },
+    {
+      "name": "OTTO-CHEMIE",
+      "platform": "personio",
+      "slug": "otto-chemie",
+      "careers_url": "https://otto-chemie.jobs.personio.de"
+    },
+    {
+      "name": "Koch-Chemie",
+      "platform": "personio",
+      "slug": "kcx",
+      "careers_url": "https://kcx.jobs.personio.de"
     }
   ]
 }

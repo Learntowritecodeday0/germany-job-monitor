@@ -62,3 +62,9 @@
   .requirement-body { padding: 12px; }
   .requirement-counts { font-size: 11.5px; }
 }
+
+/* Education is the first and most visible qualifications category. */
+.education-group { background:#edf4fa; border:1px solid #cadeeb; border-radius:8px; padding:11px 12px; margin-bottom:14px; }
+.education-group .qualification-group-title { color:#173e5d; font-size:13px; }
+.education-group .qualification-list { color:#263d51; }
+.possible-overqualified { color:#865b16; }

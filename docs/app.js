@@ -128,6 +128,8 @@ function render(){
       const cat=score?.[key];
       tags.append(chip(`${label} ${!cat?'?':cat.total?`${cat.matched}/${cat.total}`:'—'}`,cat&&cat.total&&cat.matched===cat.total?'strong':cat&&cat.matched>0?'possible':'low'));
     }
+    const edu=job.education_review;
+    if(edu?.possible_overqualified) tags.append(chip('Possible overqualified','possible'));
     left.append(tags);
     const notices=[];
     if(!job.at_startup&&hoursSince(job.first_detected)>=0&&hoursSince(job.first_detected)<24){
@@ -174,11 +176,39 @@ function render(){
       const chevron=el('span','requirement-chevron');chevron.append(el('span','requirement-chevron-icon','▶'));summary.append(chevron);
       const summaryText=el('span','requirement-text');
       summaryText.append(el('strong','requirement-label','Qualification requirements'));
-      summaryText.append(el('span','requirement-counts',`${explicitCount} explicit · ${(priorityReview.preferred||[]).length} preferred · ${(priorityReview.learnable||[]).length} learnable · ${(priorityReview.listed||[]).length} unspecified`));
+      const hasEducation=edu?.status==='identified';
+      summaryText.append(el('span','requirement-counts',`${hasEducation?'Education specified · ':''}${explicitCount} explicit · ${(priorityReview.preferred||[]).length} preferred · ${(priorityReview.learnable||[]).length} learnable · ${(priorityReview.listed||[]).length} unspecified`));
       summary.append(summaryText);
       details.append(summary);
       const body=el('div','requirement-body');
-      if(!totalDetected)body.append(el('p','muted','No requirement categories recognized. Check the official advertisement.'));
+      // Education comes before technical, method, and general qualifications.
+      // When a job states only experience, no artificial education row is shown.
+      if(hasEducation){
+        const section=el('section','qualification-group education-group');
+        section.append(el('h4','qualification-group-title','Education / Studium & Ausbildung'));
+        const list=el('ul','qualification-list');
+        if(edu.minimum_evidence){
+          const li=el('li','qualification-item');
+          li.append(el('strong','',`Advertised education: ${edu.minimum_level || 'Level not determined'}. `));
+          li.append(el('span','',edu.minimum_evidence));
+          list.append(li);
+        }
+        if(edu.preferred_evidence){
+          const li=el('li','qualification-item');
+          li.append(el('strong','',`Preferred: ${edu.preferred_level || 'Level not determined'}. `));
+          li.append(el('span','',edu.preferred_evidence));
+          list.append(li);
+        }
+        for(const alternative of (edu.alternative_routes||[]).slice(0,2))list.append(el('li','qualification-item',alternative));
+        if(edu.possible_overqualified){
+          const li=el('li','qualification-item');
+          li.append(el('strong','possible-overqualified','Possible overqualified — '));
+          li.append(el('span','', 'Only a vocational qualification is identified. This may be a career-level mismatch, not an automatic rejection.'));
+          list.append(li);
+        }
+        section.append(list);body.append(section);
+      }
+      if(!totalDetected&&!hasEducation)body.append(el('p','muted','No requirement categories recognized. Check the official advertisement.'));
       for(const [key,label] of groups)appendQualificationGroup(body,label,priorityReview[key]||[]);
       if(expFlags.length){
         const section=el('section','qualification-group');

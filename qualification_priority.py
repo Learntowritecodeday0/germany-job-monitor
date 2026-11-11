@@ -21,9 +21,10 @@ PUBLIC = ROOT / 'docs/jobs.json'
 # Analyse only the qualification/profile section; job tasks and boilerplate are
 # not treated as automatic employment requirements.
 PROFILE_FALLBACK = re.compile(
-    r'\b(?:minimum qualifications|preferred qualifications|job requirements|'
-    r'requirements|qualifications|was du mitbringst|das bringst du mit|'
-    r'was sie mitbringen)\s*:', re.I)
+    r'(?:\b(?:minimum qualifications|preferred qualifications|job requirements|'
+    r'requirements|qualifications|was du mitbringst|das bringst du mit)\s*:'
+    r'|\b(?:was sie mitbringen(?: sollten)?|das bringen sie mit|'
+    r'qualification and educational requirements|what you need to succeed)\b\s*:?)', re.I)
 FOOTER = re.compile(
     r'\b(?:our work culture|why us|why join us|what we offer|benefits|'
     r'perks|our benefits|we recognize that|equal opportunity|'
@@ -108,10 +109,14 @@ def _display_name(name: str, clause: str) -> str:
 
 
 def priority_review(job: dict) -> dict:
+    # Import here to keep education parsing separate from the existing
+    # requirements catalog without a module import cycle.
+    from education_review import education_review
+    degree = education_review(job)
     raw = str(job.get('description') or '')
     profile, has_profile = qualification_section(raw)
     if job.get('source_mode') == 'html_fallback' or len(plain_text(raw)) < 120 or not has_profile or not profile:
-        return {'qualification_priority': {
+        return {'education_review': degree, 'qualification_priority': {
             'status': 'unavailable', 'explicit': [], 'preferred': [],
             'learnable': [], 'listed': [], 'experience_flags': [],
             'note': 'A full identifiable qualifications section is unavailable.'
@@ -153,7 +158,7 @@ def priority_review(job: dict) -> dict:
             summary = re.sub(r'\s+', ' ', segment).strip()
             experience_flags.append({'kind': 'explicit minimum', 'text': summary[:195],
                                      'verification': 'Check relevant industry and years of experience'})
-    return {'qualification_priority': {
+    return {'education_review': degree, 'qualification_priority': {
         'status': 'parsed', **bucket, 'experience_flags': experience_flags[:5],
         'note': ('Only explicit priority wording is used. Other qualifications are listed with '
                  'priority unclear; absence of documented experience is not a legal or hiring decision.')
