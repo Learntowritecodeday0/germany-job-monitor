@@ -7,6 +7,36 @@ const sortWeight = { 'Review first':0, 'Possible':1, 'Low':2, 'Not target':3 };
 function el(tag, className, text){let a=document.createElement(tag);if(className)a.className=className;if(text!==undefined)a.textContent=String(text);return a}
 function chip(text, cls=''){return el('span','chip '+cls,text)}
 
+// Card sections use structured text nodes instead of injecting employer content as HTML.
+function evidenceSection(title, items, type='evidence'){
+  if(!items.length)return null;
+  const section=el('section','evidence-section '+type);
+  section.append(el('h3','evidence-heading',title));
+  const list=el('ul','evidence-list');
+  for(const item of items){
+    const li=el('li','evidence-item');
+    if(item.label)li.append(el('strong','evidence-label',item.label+': '));
+    li.append(el('span','',item.text));
+    list.append(li);
+  }
+  section.append(list);
+  return section;
+}
+function appendQualificationGroup(parent, title, items){
+  if(!items.length)return;
+  const section=el('section','qualification-group');
+  section.append(el('h4','qualification-group-title',title));
+  const list=el('ul','qualification-list');
+  for(const item of items){
+    const li=el('li','qualification-item');
+    li.append(el('span','qualification-name',item.name));
+    li.append(el('span',item.documented?'evidence-status documented':'evidence-status unverified',item.documented?'Documented':'Not in experience record'));
+    list.append(li);
+  }
+  section.append(list);
+  parent.append(section);
+}
+
 // Fallback for deployments where the job snapshot lacks the newer worksite_* fields.
 // Use the vacancy's advertised location; never infer a worksite from employer HQ.
 const FALLBACK_CITY_REGIONS = [["Brandenburg an der Havel","Brandenburg","Germany"],["Inning am Ammersee","Bayern","Germany"],["Wasserburg am Inn","Bayern","Germany"],["Frankfurt am Main","Hessen","Germany"],["Unterschleißheim","Bayern","Germany"],["Oberpfaffenhofen","Bayern","Germany"],["Fürstenfeldbruck","Bayern","Germany"],["Oberschleißheim","Bayern","Germany"],["Friedrichshafen","Baden-Württemberg","Germany"],["Kaiserslautern","Rheinland-Pfalz","Germany"],["Aschaffenburg","Bayern","Germany"],["Braunschweig","Niedersachsen","Germany"],["Ludwigshafen","Rheinland-Pfalz","Germany"],["Fort Collins","Colorado","United States"],["Martinsried","Bayern","Germany"],["Taufkirchen","Bayern","Germany"],["Schweinfurt","Bayern","Germany"],["Rüsselsheim","Hessen","Germany"],["Bremerhaven","Bremen","Germany"],["Saarbrücken","Saarland","Germany"],["Gräfelfing","Bayern","Germany"],["Geretsried","Bayern","Germany"],["Regensburg","Bayern","Germany"],["Burghausen","Bayern","Germany"],["Wasserburg","Bayern","Germany"],["Ingolstadt","Bayern","Germany"],["Kaufbeuren","Bayern","Germany"],["Heidelberg","Baden-Württemberg","Germany"],["Oberkochen","Baden-Württemberg","Germany"],["Reutlingen","Baden-Württemberg","Germany"],["Ravensburg","Baden-Württemberg","Germany"],["Düsseldorf","Nordrhein-Westfalen","Germany"],["Leverkusen","Nordrhein-Westfalen","Germany"],["Hildesheim","Niedersachsen","Germany"],["Greifswald","Mecklenburg-Vorpommern","Germany"],["Zoetermeer","Zuid-Holland","Netherlands"],["Germering","Bayern","Germany"],["Karlsfeld","Bayern","Germany"],["Starnberg","Bayern","Germany"],["Nuremberg","Bayern","Germany"],["Memmingen","Bayern","Germany"],["Landsberg","Bayern","Germany"],["Stuttgart","Baden-Württemberg","Germany"],["Karlsruhe","Baden-Württemberg","Germany"],["Esslingen","Baden-Württemberg","Germany"],["Heilbronn","Baden-Württemberg","Germany"],["Pforzheim","Baden-Württemberg","Germany"],["Frankfurt","Hessen","Germany"],["Darmstadt","Hessen","Germany"],["Wiesbaden","Hessen","Germany"],["Bielefeld","Nordrhein-Westfalen","Germany"],["Paderborn","Nordrhein-Westfalen","Germany"],["Magdeburg","Sachsen-Anhalt","Germany"],["Osnabrück","Niedersachsen","Germany"],["Göttingen","Niedersachsen","Germany"],["Wolfsburg","Niedersachsen","Germany"],["Oldenburg","Niedersachsen","Germany"],["Flensburg","Schleswig-Holstein","Germany"],["Amsterdam","Noord-Holland","Netherlands"],["Innsbruck","Tirol","Austria"],["Garching","Bayern","Germany"],["Puchheim","Bayern","Germany"],["Freising","Bayern","Germany"],["Wessling","Bayern","Germany"],["Penzberg","Bayern","Germany"],["Würzburg","Bayern","Germany"],["Erlangen","Bayern","Germany"],["Nürnberg","Bayern","Germany"],["Augsburg","Bayern","Germany"],["Bayreuth","Bayern","Germany"],["Emmering","Bayern","Germany"],["Freiburg","Baden-Württemberg","Germany"],["Tübingen","Baden-Württemberg","Germany"],["Konstanz","Baden-Württemberg","Germany"],["Mannheim","Baden-Württemberg","Germany"],["Kronberg","Hessen","Germany"],["Dortmund","Nordrhein-Westfalen","Germany"],["Duisburg","Nordrhein-Westfalen","Germany"],["Freiberg","Sachsen","Germany"],["Chemnitz","Sachsen","Germany"],["Hannover","Niedersachsen","Germany"],["Schwerin","Mecklenburg-Vorpommern","Germany"],["Shanghai","Shanghai","China"],["München","Bayern","Germany"],["Planegg","Bayern","Germany"],["Neuried","Bayern","Germany"],["Maisach","Bayern","Germany"],["Weßling","Bayern","Germany"],["Gauting","Bayern","Germany"],["Alzenau","Bayern","Germany"],["Eresing","Bayern","Germany"],["Marburg","Hessen","Germany"],["Giessen","Hessen","Germany"],["Cologne","Nordrhein-Westfalen","Germany"],["Schwelm","Nordrhein-Westfalen","Germany"],["Münster","Nordrhein-Westfalen","Germany"],["Krefeld","Nordrhein-Westfalen","Germany"],["Dresden","Sachsen","Germany"],["Leipzig","Sachsen","Germany"],["Zwickau","Sachsen","Germany"],["Görlitz","Sachsen","Germany"],["Möckern","Sachsen-Anhalt","Germany"],["Hamburg","Hamburg","Germany"],["Koblenz","Rheinland-Pfalz","Germany"],["Rostock","Mecklenburg-Vorpommern","Germany"],["Potsdam","Brandenburg","Germany"],["Cottbus","Brandenburg","Germany"],["Homburg","Saarland","Germany"],["Toronto","Ontario","Canada"],["Coimbra","Coimbra","Portugal"],["Munich","Bayern","Germany"],["Coburg","Bayern","Germany"],["Singen","Baden-Württemberg","Germany"],["Kassel","Hessen","Germany"],["Gießen","Hessen","Germany"],["Aachen","Nordrhein-Westfalen","Germany"],["Bochum","Nordrhein-Westfalen","Germany"],["Plauen","Sachsen","Germany"],["Dessau","Sachsen-Anhalt","Germany"],["Berlin","Berlin","Germany"],["Bremen","Bremen","Germany"],["Lübeck","Schleswig-Holstein","Germany"],["Erfurt","Thüringen","Germany"],["Weimar","Thüringen","Germany"],["Vienna","Wien","Austria"],["Zurich","Zürich","Switzerland"],["Zürich","Zürich","Switzerland"],["London","England","United Kingdom"],["Warsaw","Mazowieckie","Poland"],["Pilsen","Plzeňský kraj","Czechia"],["Ningbo","Zhejiang","China"],["Hanau","Hessen","Germany"],["Fulda","Hessen","Germany"],["Essen","Nordrhein-Westfalen","Germany"],["Halle","Sachsen-Anhalt","Germany"],["Mainz","Rheinland-Pfalz","Germany"],["Trier","Rheinland-Pfalz","Germany"],["Delft","Zuid-Holland","Netherlands"],["Paris","Île-de-France","France"],["Plzeň","Plzeňský kraj","Czechia"],["Haar","Bayern","Germany"],["Köln","Nordrhein-Westfalen","Germany"],["Bonn","Nordrhein-Westfalen","Germany"],["Kiel","Schleswig-Holstein","Germany"],["Jena","Thüringen","Germany"],["Gera","Thüringen","Germany"],["Wien","Wien","Austria"],["Ulm","Baden-Württemberg","Germany"]];
@@ -99,54 +129,72 @@ function render(){
       tags.append(chip(`${label} ${!cat?'?':cat.total?`${cat.matched}/${cat.total}`:'—'}`,cat&&cat.total&&cat.matched===cat.total?'strong':cat&&cat.matched>0?'possible':'low'));
     }
     left.append(tags);
+    const notices=[];
     if(!job.at_startup&&hoursSince(job.first_detected)>=0&&hoursSince(job.first_detected)<24){
-      left.append(el('div','muted','First detected within the last 24 hours'));
+      notices.push({label:'New detection',text:'First detected within the last 24 hours'});
     }
-    if(job.location_status!=='germany')left.append(el('div','muted','Worksite country requires verification'));
-    if(job.source_mode==='html_fallback')left.append(el('div','muted','Title-only source; full requirements unavailable'));
-    if(job.hide_by_default)left.append(el('div','muted','Outside selected job families (hidden by default)'));
+    if(job.location_status!=='germany')notices.push({label:'Location',text:'Worksite country requires verification'});
+    if(job.source_mode==='html_fallback')notices.push({label:'Source',text:'Title-only listing; full requirements unavailable'});
+    if(job.hide_by_default)notices.push({label:'Role family',text:'Outside selected job families (hidden by default)'});
     for(const flag of (job.screening_flags||[]).filter(s=>!s.startsWith('Title-only')).slice(0,3)){
-      left.append(el('div','muted','Review flag: '+flag));
+      notices.push({label:'Review flag',text:flag});
     }
+
+    const supported=[];
+    const verify=[];
     if(score){
       for(const [key,label] of [['technical','Technical'],['method','Methods'],['general','General']]){
         const c=score[key];
-        if(c?.supported?.length)left.append(el('div','muted',`${label} documented: ${c.supported.slice(0,4).join(' · ')}`));
-        if(c?.verify?.length)left.append(el('div','muted',`${label} to verify: ${c.verify.slice(0,4).join(' · ')}`));
+        if(c?.supported?.length)supported.push({label,text:c.supported.slice(0,4).join(' · ')});
+        if(c?.verify?.length)verify.push({label,text:c.verify.slice(0,4).join(' · ')});
       }
     }else{
-      left.append(el('div','muted','Detailed criteria unavailable: no evidence counts calculated'));
+      notices.push({label:'Technical evidence',text:'Detailed criteria unavailable; no counts calculated'});
     }
+    // Core specialization gaps often restate the technical category. Do not duplicate them.
+    if((job.core_specializations_to_verify||[]).length && !score?.technical?.verify?.length){
+      verify.push({label:'Core specialization',text:job.core_specializations_to_verify.slice(0,3).join(' · ')});
+    }
+    const evidence=evidenceSection('Documented experience',supported,'supported');
+    if(evidence)left.append(evidence);
+    const concerns=evidenceSection('Needs verification',verify,'verify');
+    if(concerns)left.append(concerns);
+    const notes=evidenceSection('Other review notes',notices,'notes');
+    if(notes)left.append(notes);
+
     const priorityReview=job.qualification_priority;
     if(priorityReview?.status==='parsed'){
-      const groups=[['explicit','Explicit requirement wording'],
-        ['preferred','Preferred qualifications'],
-        ['learnable','Employer allows learning'],
-        ['listed','Listed qualifications — priority unspecified']];
-      const explicitCount=(priorityReview.explicit||[]).length+(priorityReview.experience_flags||[]).length;
-      const totalDetected=groups.reduce((n,[key])=>n+(priorityReview[key]||[]).length,0)+(priorityReview.experience_flags||[]).length;
+      const groups=[['explicit','Explicit requirements'],['preferred','Preferred qualifications'],
+        ['learnable','Employer allows learning'],['listed','Listed — priority unspecified']];
+      const expFlags=priorityReview.experience_flags||[];
+      const explicitCount=(priorityReview.explicit||[]).length+expFlags.length;
+      const totalDetected=groups.reduce((n,[key])=>n+(priorityReview[key]||[]).length,0)+expFlags.length;
       const details=el('details','requirement-review');
-      details.append(el('summary','',`Requirement wording: ${explicitCount} explicit · ${(priorityReview.preferred||[]).length} preferred · ${(priorityReview.learnable||[]).length} learnable · ${(priorityReview.listed||[]).length} unspecified`));
-      if(!totalDetected){details.append(el('div','muted','No recognized requirement categories; verify the full job advertisement.'));}
-      for(const [key,label] of groups){
-        const items=priorityReview[key]||[];
-        if(items.length){
-          const summary=items.map(item=>`${item.name} (${item.documented?'documented':'not documented in current experience record'})`).join(' · ');
-          details.append(el('div','muted',`${label}: ${summary}`));
-        }
+      const summary=el('summary','requirement-toggle');
+      const chevron=el('span','requirement-chevron');chevron.append(el('span','requirement-chevron-icon','▶'));summary.append(chevron);
+      const summaryText=el('span','requirement-text');
+      summaryText.append(el('strong','requirement-label','Qualification requirements'));
+      summaryText.append(el('span','requirement-counts',`${explicitCount} explicit · ${(priorityReview.preferred||[]).length} preferred · ${(priorityReview.learnable||[]).length} learnable · ${(priorityReview.listed||[]).length} unspecified`));
+      summary.append(summaryText);
+      details.append(summary);
+      const body=el('div','requirement-body');
+      if(!totalDetected)body.append(el('p','muted','No requirement categories recognized. Check the official advertisement.'));
+      for(const [key,label] of groups)appendQualificationGroup(body,label,priorityReview[key]||[]);
+      if(expFlags.length){
+        const section=el('section','qualification-group');
+        section.append(el('h4','qualification-group-title','Explicit experience thresholds'));
+        const list=el('ul','qualification-list');
+        for(const flag of expFlags.slice(0,3))list.append(el('li','qualification-item',flag.text));
+        section.append(list);body.append(section);
       }
-      for(const flag of (priorityReview.experience_flags||[]).slice(0,3)){
-        details.append(el('div','muted',`Explicit experience threshold — verify: ${flag.text}`));
-      }
+      body.append(el('p','requirement-caveat','“Not in experience record” does not establish that a skill is absent. Always verify the employer’s complete requirements.'));
+      details.append(body);
       left.append(details);
     }else if(priorityReview?.status==='unavailable'){
-      left.append(el('div','muted','Qualification wording: insufficient description'));
+      left.append(el('p','muted','Qualification details are unavailable; check the official advertisement.'));
     }
-    if((job.core_specializations_to_verify||[]).length){
-      left.append(el('div','muted','Core specialization gaps to verify: '+job.core_specializations_to_verify.slice(0,3).join(' · ')));
-    }
-    if((job.match_band==='Review first'||job.match_band==='Possible')&&job.triage_note){
-      left.append(el('div','muted',job.triage_note));
+    if(!supported.length&&!verify.length&&(job.match_band==='Review first'||job.match_band==='Possible')&&job.triage_note){
+      left.append(el('p','muted',job.triage_note));
     }
     card.append(left);const a=el('a','', 'Official listing');a.href=job.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);ui.results.append(card);
   }
