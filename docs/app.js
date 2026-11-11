@@ -20,6 +20,7 @@ function render(){
     if(job.location_status!=='germany')tags.append(chip('Verify country','possible'));
     if(job.source_mode==='html_fallback')tags.append(chip('Title-only source; verify full criteria','possible'));
     if(job.hide_by_default)tags.append(chip(job.career_track==='training'?'Training/student':job.career_track==='vocational'?'Vocational title':'Unrelated job family','possible'));
+    for (const flag of (job.screening_flags||[]).filter(s=>!s.startsWith('Title-only')).slice(0,4)) tags.append(chip(flag,'possible'));
     for(const topic of (job.matched_topics||[]).slice(0,3))tags.append(chip(topic));
     left.append(tags);
     if((job.match_band==='Review first'||job.match_band==='Possible')&&job.triage_note)left.append(el('div','muted',job.triage_note));
