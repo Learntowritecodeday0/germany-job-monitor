@@ -21,7 +21,7 @@ PUBLIC = ROOT / 'docs' / 'jobs.json'
 DOCUMENTED_METHODS = [
     ('Silica / sol-gel materials', [r'\bsilica\b', r'\bsio\s*[₂2]\b', r'\baerogels?\b', r'\bsol[ -]gel\b', r'\bkiesels[aä]ure\b']),
     ('Nanoparticles / colloids', [r'\bnanopartic\w*\b', r'\bnanopartik\w*\b', r'\bcolloid\w*\b', r'\bkolloid\w*\b', r'\bpartikelgr[oö][ßs]e\b']),
-    ('Formulation / dispersion work', [r'\bformulat\w*\b', r'\bformulier\w*\b', r'\bdispers\w*\b', r'\bemulsion\w*\b', r'\bsuspension\w*\b', r'\bstabilizer\b', r'\bstabilisator\w*\b', r'\bsurfactant\w*\b', r'\btensid\w*\b']),
+    ('Formulation / dispersion work', [r'\bformulat\w*\b', r'\bformulier\w*\b', r'\bdispers(?:ions?\w*|ing|ed|e|es|ieren|iert\w*)\b', r'\bemulsion\w*\b', r'\bsuspension\w*\b', r'\bstabilizer\b', r'\bstabilisator\w*\b', r'\bsurfactant\w*\b', r'\btensid\w*\b']),
     ('Materials characterization', [r'\b(?:dls|ftir|ft-ir|tga|dsc|tem|sem|bet)\b', r'\bzeta[ -]?(?:potential|potenzial)\b', r'\belektronenmikroskop\w*\b', r'\belectron microscopy\b', r'\bcontact[ -]angle\b', r'\bkontaktwinkel\b', r'\bparticle characterization\b', r'\bmaterialcharakteris\w*\b']),
     ('Surface chemistry', [r'\bsurface functionaliz\w*\b', r'\boberfl[aä]chenfunktionalis\w*\b', r'\bsurface modification\b', r'\bsurface chemistry\b', r'\boberfl[aä]chenchemie\b', r'\bhydrophob\w*\b', r'\bwetting\b', r'\bbenetz\w*\b']),
     ('DoE / experimental design', [r'\bdesign of experiments\b', r'\bdoe\b', r'\bversuchsplan\w*\b', r'\bstatistical experimental design\b']),
@@ -41,6 +41,7 @@ DOMAIN_GAPS = [
     ('Aircraft development / aerospace certification', [r'\baircraft development programs?\b', r'\baircraft certification\b', r'\b(?:cs[- ]?23|do[- ]?160|easa part)\b', r'\baerospace materials and processes\b', r'\bluftfahrtzulassung\b']),
     ('Semiconductor fabrication processes', [r'\b(?:ald|cvd|pvd|cmp|pecvd)\b', r'\bwafer (?:fab|process|inspection|manufactur|polish)\w*\b', r'\blithograph\w*\b', r'\bepitax\w*\b', r'\bplating process\b', r'\b(?:2d|two-dimensional) (?:material )?growth\b', r'\bgraphene (?:growth|transfer|processing)\b']),
     ('Battery electrochemistry', [r'\belectrochem\w*\b', r'\belektrochem\w*\b', r'\belectrode (?:slurr\w*|fabricat\w*|manufactur\w*)\b', r'\blithium[ -]ion (?:cell|batter)\w*\b']),
+    ('Composite winding / layup processes', [r'\bcomposite winding\b', r'\bfilament winding\b', r'\bfiber winding\b', r'\bfibre winding\b', r'\bprepreg layup\b', r'\bfaserwickel\w*\b', r'\bwickelprozess\w*\b']),
     ('Mechanical design / CAE / CAD', [r'\b(?:solidworks|catia|abaqus|ansys|autocad|inventor)\b', r'\bfinite[ -]element analysis\b', r'\b(?:fea|cfd)\b', r'\bmechanical design engineer\b']),
     ('Scientific instrument construction / fluidics', [r'\b(?:build|design|develop)\w* (?:of )?(?:scientific|analytical|measurement) instruments?\b', r'\bcomplex fluidic systems?\b', r'\bfluidic (?:systems?|design|integration)\b']),
     ('Industrial lacquer curing / film testing', [r'\belectron[ -]beam cur\w*\b', r'\belektronenstrahlh[aä]rt\w*\b', r'\buv cur\w*\b', r'\bpaint film adhesion\b', r'\blackhaftung\b']),
