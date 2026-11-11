@@ -1,0 +1,12 @@
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync(__dirname+'/../docs/app.js','utf8').replace(/\bmain\(\);\s*$/,'');
+const ids=['query','band','technicalBand','company','germanyOnly','degreeFocus','results','count','total','priority','sources','updated','health','status','showApplied','exportApplied','importApplied','appliedStatus','pageSize','pageInfo','prevPage','nextPage'];
+const ui=Object.fromEntries(ids.map(id=>[id,{}]));
+const ctx={document:{getElementById:id=>ui[id]},Intl,Date,console};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+vm.runInContext(`appliedRecords={'rss:tum:second':{key:'rss:tum:second',company:'TUM',title:'Nanoparticle Scientist',fingerprint:'tum|nanoparticle scientist',applied_at:'2026-11-10T10:00:00+00:00'}}`,ctx);
+const result=vm.runInContext(`applicationStatus({key:'rss:tum:first',company:'TUM',title:'Nanoparticle Scientist',duplicate_keys:['rss:tum:second'],first_detected:'2026-11-10T09:00:00+00:00'})`,ctx);
+assert.equal(result.applied,true);
+assert.equal(result.repost,false);
+console.log('PASS: prior applied mark follows a merged RSS alias');
