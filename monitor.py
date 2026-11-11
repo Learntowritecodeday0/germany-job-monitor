@@ -636,8 +636,15 @@ UNRELATED_JOB_FAMILY_TITLES = [
     r"\b(?:executive assistant|office manager|office administrator|administrative assistant|receptionist|front desk|team assistan\w*|büromanagement|assistenz der geschäftsführung|sachbearbeit\w*|customer support|customer success)\b",
     r"\b(?:legal counsel|lawyer|rechtsanwalt|patent attorney|patentanwalt|paralegal|compliance officer|contract manager|steuerberater)\b",
     r"\b(?:software engineer|software developer|frontend|front-end|backend|back-end|fullstack|full-stack|devops|it support|it administrator|erp implementation|embedded software|data engineer)\b",
+    # Software SDK roles do not overlap with experimental chemistry.
+    r"\b(?:python|java|javascript|typescript|c\+\+|sdk)\s+(?:software\s+)?(?:sdk\s+)?(?:engineer|developer|architect|programmer)\b",
+    r"\b(?:sdk|api)\s+(?:integration\s+)?(?:engineer|developer|architect)\b",
     r"\b(?:unsolicited application|spontaneous application|open application|initiativbewerbung|talent pool|general interest pool)\b",
 ]
+
+
+MOTOR_DOMAIN_TITLE = re.compile(r"\b(?:electric\s+motors?|elektromotor\w*|electric\s+drive\s+systems?|electric\s+motoren?|e[- ]?motoren?)\b", re.I)
+CHEMICAL_ROLE_TITLE = re.compile(r"\b(?:chem(?:istry|ical|ist|ie|iker)\w*|material\w*|werkstoff\w*|coating\w*|beschicht\w*|polymer\w*|surface\w*|oberfl[aä]ch\w*|formulat\w*|formulier\w*|nanopartic\w*|nanopartik\w*)\b", re.I)
 
 
 def qualification_preference(job):
@@ -652,6 +659,11 @@ def qualification_preference(job):
     if any(re.search(p, title, re.IGNORECASE) for p in VOCATIONAL_ONLY_TITLES):
         return {"career_track": "vocational", "hide_by_default": True,
                 "preference_note": "Vocationally oriented job title; verify degree requirement"}
+    # Exclude motor/robotics production engineering, but retain chemistry and
+    # materials roles explicitly working on motor coatings or insulation.
+    if MOTOR_DOMAIN_TITLE.search(title) and not CHEMICAL_ROLE_TITLE.search(title):
+        return {"career_track": "unrelated", "hide_by_default": True,
+                "preference_note": "Electric-motor engineering rather than chemical/materials development"}
     if any(re.search(p, title, re.IGNORECASE) for p in UNRELATED_JOB_FAMILY_TITLES):
         return {"career_track": "unrelated", "hide_by_default": True,
                 "preference_note": "Excluded job family by preference (not an eligibility determination)"}
