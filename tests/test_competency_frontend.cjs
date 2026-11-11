@@ -34,4 +34,10 @@ vm.runInContext('data.jobs='+JSON.stringify([example,hidden])+'; render()',conte
 assert.equal(controls.results.children.length,1);
 controls.technicalBand.value='none';vm.runInContext('render()',context);assert.equal(controls.results.children.length,1);
 controls.technicalBand.value='some';vm.runInContext('render()',context);assert.equal(controls.results.children.filter(n=>n.tagName==='article').length,0);
-console.log('Passed 10 frontend card/filter checks');
+controls.technicalBand.value='all';
+const noDetected={...example, key:'z', competency_counts:{...example.competency_counts,technical:{matched:0,total:0,supported:[],verify:[]}}};
+vm.runInContext('data.jobs='+JSON.stringify([noDetected])+'; render()',context);
+html=flatten(controls.results);
+assert.match(html,/Technical —/);
+assert.doesNotMatch(html,/Technical 0\/0/);
+console.log('Passed frontend card/filter checks including undefined 0/0 display');

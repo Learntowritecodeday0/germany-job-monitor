@@ -38,7 +38,26 @@ class CompetencyReviewTests(unittest.TestCase):
             'Your Tasks: Perform scanning electron microscopy and Energy-Dispersive X-ray Spectroscopy on thin films. '
             'Your Profile: SOP documentation.'))['competency_counts']
         self.assertEqual((x['technical']['matched'],x['technical']['total']),(0,0))
-        self.assertEqual((x['method']['matched'],x['method']['total']),(1,1))
+        self.assertEqual((x['method']['matched'],x['method']['total']),(2,2))
+        self.assertIn('EDS / EDX elemental analysis',x['method']['supported'])
+
+
+    def test_electrochemical_testing_not_counted_as_documented(self):
+        desc=('Your Day-to-Day: Plan DoE compounding trials, use laboratory scale-up, '
+              'and perform electrochemical characterization. '
+              'Your Profile: Electrochemical testing is desirable; project management preferred.')
+        x=cr.competency_review(job('Developer - Battery Material Compounds',desc))['competency_counts']
+        self.assertEqual((x['method']['matched'], x['method']['total']), (2,3))
+        self.assertIn('Electrochemical testing / characterization', x['method']['verify'])
+
+    def test_sem_and_edx_not_collapsed_into_single_method(self):
+        desc=('Your Tasks: Perform SEM and EDX analysis of sample surfaces; FIB is desirable for cross-section inspection. '
+              'Your Profile: Technical documentation and clear reporting of material measurements in a laboratory environment.')
+        x=cr.competency_review(job('SEM Technician',desc))['competency_counts']
+        self.assertEqual((x['method']['matched'], x['method']['total']), (2,3))
+        self.assertIn('SEM microscopy',x['method']['supported'])
+        self.assertIn('EDS / EDX elemental analysis',x['method']['supported'])
+        self.assertIn('Focused ion beam (FIB)',x['method']['verify'])
 
     def test_no_general_from_benefits_boilerplate(self):
         x=cr.competency_review(job('Silica Scientist',
