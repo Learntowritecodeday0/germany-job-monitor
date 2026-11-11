@@ -34,6 +34,15 @@ def candidates(state):
             continue
         if job.get("hide_by_default", False):
             continue
+        # A public job advert can state a citizenship restriction. Do not
+        # alert automatically until the requirement is reviewed. This is NOT
+        # a decision about any particular applicant.
+        if job.get("citizenship_restriction_detected", False):
+            continue
+        if job.get("location_status") == "outside":
+            continue
+        if job.get("source_mode") == "html_fallback":
+            continue
         if job.get("match_band") != "Review first":
             continue
         if key in sent:
