@@ -40,6 +40,8 @@ jobs:
         run: python monitor.py
       - name: Add eligibility and worksite review flags
         run: python screening.py
+      - name: Add evidence-led technical overlap and gap notes
+        run: python fit_review.py
       - name: Email new high-priority vacancies
         # A mail-provider outage must not prevent the public dashboard from updating.
         continue-on-error: true
@@ -67,3 +69,4 @@ jobs:
       - name: Publish website
         id: deployment
         uses: actions/deploy-pages@v4
+
