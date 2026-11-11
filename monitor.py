@@ -11,6 +11,7 @@ import re
 import time
 import sys
 from datetime import datetime, timezone
+from difflib import SequenceMatcher
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from pathlib import Path
@@ -559,6 +560,78 @@ def parse_rss(company, root):
     return jobs
 
 
+
+def _rss_duplicate_title(value):
+    """Ignore capitalization and formatting, not substantive job-title words."""
+    return re.sub(r"[^\w]+", " ", str(value or "").casefold(), flags=re.UNICODE).strip()
+
+
+def _rss_publication_day(job):
+    raw = str(job.get("published_at") or "").strip()
+    if not raw:
+        return ""
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00")).date().isoformat()
+    except ValueError:
+        return raw[:10]
+
+
+def _rss_description_similar(one, two):
+    """Require substantial textual overlap before merging separate posting URLs."""
+    a = re.sub(r"[^\w]+", " ", str(one or "").casefold(), flags=re.UNICODE).strip()
+    b = re.sub(r"[^\w]+", " ", str(two or "").casefold(), flags=re.UNICODE).strip()
+    if len(a) < 100 or len(b) < 100:
+        return bool(a and a == b and len(a) >= 60)
+    return SequenceMatcher(None, a[:1200], b[:1200], autojunk=False).ratio() >= 0.86
+
+
+def _rss_same_vacancy(one, two):
+    if str(one.get("company") or "") != str(two.get("company") or ""):
+        return False
+    if _rss_duplicate_title(one.get("title")) != _rss_duplicate_title(two.get("title")):
+        return False
+    if not _rss_publication_day(one) or _rss_publication_day(one) != _rss_publication_day(two):
+        return False
+    # Distinct employers or laboratories can advertise the same job title on
+    # the same day. Description similarity provides a stronger identity check.
+    return _rss_description_similar(one.get("description"), two.get("description"))
+
+
+def deduplicate_rss(jobs, previous_jobs=None):
+    """Collapse strongly identical RSS entries, retaining earlier stable IDs.
+
+    Do not deduplicate by title alone: universities may advertise several
+    genuinely different openings with identical titles and dates.
+    """
+    previous_jobs = previous_jobs or {}
+    groups = []
+    for item in jobs:
+        group = next((g for g in groups if _rss_same_vacancy(g[0], item)), None)
+        if group is None:
+            groups.append([item])
+        else:
+            group.append(item)
+    unique = []
+    for group in groups:
+        # Previously displayed ID takes priority to protect alert and applied
+        # history, irrespective of incoming RSS item order.
+        ranked = sorted(group, key=lambda job: (
+            0 if job["key"] in previous_jobs else 1,
+            str(previous_jobs.get(job["key"], {}).get("first_detected") or "9999"),
+            job["key"],
+        ))
+        chosen = dict(ranked[0])
+        group_keys = {str(item["key"]) for item in group}
+        # Carry earlier duplicate aliases into the representative record.
+        for item in group:
+            old = previous_jobs.get(item["key"], {})
+            group_keys.update(str(k) for k in old.get("duplicate_keys", []) if k)
+        chosen["duplicate_keys"] = sorted(group_keys - {str(chosen["key"])})
+        chosen["duplicates_merged"] = max(0, len(group_keys) - 1)
+        unique.append(chosen)
+    return unique
+
+
 def title_fingerprint(job):
     title = str(job.get("title") or "").casefold()
     title = re.sub(r"\((?:all genders|m/w/d|f/m/d|m/f/d|w/m/d|d/m/w|all gender[s]?)\)", "", title)
@@ -710,6 +783,7 @@ TRAINING_TITLES = [
     r"\bdual(?:es|e|er) studium\b", r"\bduales studium\b",
     r"\bapprentice", r"\blehrling\b", r"\bdual(?:e|er|es) student(?:in)?\b",
     r"\bpromotionsstelle\b", r"\bdoktorand(?:in|en)?\b", r"\bph\.?d\.?\s+(?:student|candidate|position)\b",
+    r"\bdoctoral\s+(?:research|student|candidate|position|programme|program)\b",
 ]
 VOCATIONAL_ONLY_TITLES = [
     r"\bchemielaborant(?:in|en|innen)?\b", r"\bpharmakant(?:in|en|innen)?\b",
@@ -863,6 +937,11 @@ def update(config, state, at):
         was_initialized = bool(entry.get("initialized"))
         try:
             seen = fetch_company(company)
+            rss_duplicates_removed = 0
+            if company["platform"] == "rss":
+                raw_rss_count = len(seen)
+                seen = deduplicate_rss(seen, state["jobs"])
+                rss_duplicates_removed = raw_rss_count - len(seen)
             # When an earlier misconfigured RSS feed reported 0, treat the
             # recovered batch as its first baseline, not new email alerts.
             if (company["platform"] == "rss" and entry.get("count") == 0
@@ -907,7 +986,8 @@ def update(config, state, at):
                                                      "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
                                                      "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "structured_feed"),
                                      "details_extracted": sum(j.get("source_mode") == "html_detail" for j in seen),
-                                     "title_only_count": sum(j.get("source_mode") == "html_fallback" for j in seen)}
+                                     "title_only_count": sum(j.get("source_mode") == "html_fallback" for j in seen),
+                                     "duplicates_removed": rss_duplicates_removed}
             print(f"OK {name}: {len(keys)} German/unknown-location listings")
         except (HTTPError, URLError, ValueError, KeyError, TimeoutError, json.JSONDecodeError) as exc:
             state["sources"][name] = {**entry, "status": "error", "last_checked": at, "error": f"{type(exc).__name__}: {str(exc)[:160]}", "careers_url": company["careers_url"]}
