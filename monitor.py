@@ -501,6 +501,19 @@ def parse_softgarden(company, feed):
     return [normalize_softgarden(company, x) for x in elements]
 
 
+def _safe_rss_job_link(raw, *, base="https://jobs.mytum.de/"):
+    """Normalize TUM's relative/HTTP legacy article links, preserving HTTPS external links."""
+    link = html.unescape(str(raw or "").strip())
+    if not link:
+        return ""
+    if link.startswith("/") and not link.startswith("//"):
+        link = urljoin(base, link)
+    parts = urlsplit(link)
+    if parts.scheme == "http" and parts.hostname in {"jobs.mytum.de", "portal.mytum.de"}:
+        link = parts._replace(scheme="https").geturl()
+    return link if urlsplit(link).scheme == "https" and urlsplit(link).netloc else ""
+
+
 def parse_rss(company, root):
     """Read an official RSS/Atom job feed without treating feed-wide descriptions as job detail evidence."""
     jobs = []
@@ -509,7 +522,7 @@ def parse_rss(company, root):
         entries = root.findall("./channel/item")
         for entry in entries:
             title = plain_text(entry.findtext("title"))
-            link = (entry.findtext("link") or "").strip()
+            link = _safe_rss_job_link(entry.findtext("link"))
             guid = (entry.findtext("guid") or link).strip()
             desc = plain_text(entry.findtext("description"))[:18000]
             published_raw = entry.findtext("pubDate")
@@ -528,8 +541,8 @@ def parse_rss(company, root):
     elif root.tag.split("}")[-1].lower() == "feed":
         for entry in root.findall("a:entry", ns):
             title = plain_text(entry.findtext("a:title", default="", namespaces=ns))
-            link = next((x.attrib.get("href", "") for x in entry.findall("a:link", ns)
-                         if x.attrib.get("rel", "alternate") == "alternate"), "")
+            link = _safe_rss_job_link(next((x.attrib.get("href", "") for x in entry.findall("a:link", ns)
+                         if x.attrib.get("rel", "alternate") == "alternate"), ""))
             guid = entry.findtext("a:id", default=link, namespaces=ns)
             desc = plain_text(entry.findtext("a:summary", default="", namespaces=ns) or
                               entry.findtext("a:content", default="", namespaces=ns))[:18000]
@@ -575,7 +588,30 @@ def fetch_company(company):
         feed_url = company.get("feed_url", "")
         if not feed_url.startswith("https://"):
             raise ValueError("Missing official RSS feed URL")
-        return parse_rss(company, get_xml(feed_url))
+        # Some TUM scientific-only feeds return a valid RSS document containing
+        # no usable items. Prefer this specialized feed, then the official all-jobs
+        # feed. Never silently report no vacancies if both fail to provide items.
+        try:
+            jobs = parse_rss(company, get_xml(feed_url))
+        except HTTPError as exc:
+            if exc.code not in (400, 404, 410) or not company.get("fallback_feed_url"):
+                raise
+            jobs = []
+        except ValueError:
+            if not company.get("fallback_feed_url"):
+                raise
+            jobs = []
+        if jobs or not company.get("fallback_feed_url"):
+            return jobs
+        backup_url = company["fallback_feed_url"]
+        if not backup_url.startswith("https://"):
+            raise ValueError("Official RSS fallback URL must use HTTPS")
+        backup = parse_rss(company, get_xml(backup_url))
+        if not backup:
+            raise ValueError("Scientific RSS and public RSS both returned zero usable jobs; verify feeds")
+        for item in backup:
+            item["feed_fallback"] = True
+        return backup
     if provider == "softgarden":
         # Public JSON-LD feed confirmed at the employer's own softgarden site.
         # Do not use authenticated softgarden APIs or third-party aggregators.
@@ -827,6 +863,11 @@ def update(config, state, at):
         was_initialized = bool(entry.get("initialized"))
         try:
             seen = fetch_company(company)
+            # When an earlier misconfigured RSS feed reported 0, treat the
+            # recovered batch as its first baseline, not new email alerts.
+            if (company["platform"] == "rss" and entry.get("count") == 0
+                    and any(j.get("feed_fallback") for j in seen)):
+                was_initialized = False
             if company["platform"] == "personio" and any(j.get("source_mode") == "html_fallback" for j in seen):
                 seen = enrich_personio_fallback(seen)
             keys = set()
@@ -862,7 +903,8 @@ def update(config, state, at):
                 if job.get("company") == name and key not in keys:
                     job["active"] = False
             state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
-                                     "source_mode": ("html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
+                                     "source_mode": ("public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
+                                                     "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
                                                      "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "structured_feed"),
                                      "details_extracted": sum(j.get("source_mode") == "html_detail" for j in seen),
                                      "title_only_count": sum(j.get("source_mode") == "html_fallback" for j in seen)}

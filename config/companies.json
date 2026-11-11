@@ -162,7 +162,7 @@
       "name": "QuantumDiamonds",
       "platform": "personio",
       "slug": "quantum-diamond",
-      "careers_url": "https://quantum-diamond.jobs.personio.com"
+      "careers_url": "https://quantum-diamond.jobs.personio.de"
     },
     {
       "name": "KLB Kötztal Lacke + Beschichtungen",
@@ -187,7 +187,8 @@
       "platform": "rss",
       "slug": "tum-wissenschaftler",
       "careers_url": "https://jobs.mytum.de/jobs/",
-      "feed_url": "https://jobs.mytum.de/jobs/wissenschaftler/asRss"
+      "feed_url": "https://jobs.mytum.de/jobs/wissenschaftler/asRss",
+      "fallback_feed_url": "https://jobs.mytum.de/jobs/asRss"
     },
     {
       "name": "Proxima Fusion",
