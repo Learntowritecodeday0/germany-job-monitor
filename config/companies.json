@@ -225,6 +225,66 @@
       "platform": "personio",
       "slug": "dyemansion-gmbh",
       "careers_url": "https://dyemansion-gmbh.jobs.personio.com"
+    },
+    {
+      "name": "Phlair",
+      "platform": "ashby",
+      "slug": "phlair",
+      "careers_url": "https://jobs.ashbyhq.com/phlair"
+    },
+    {
+      "name": "Differential Bio",
+      "platform": "ashby",
+      "slug": "differential.bio",
+      "careers_url": "https://jobs.ashbyhq.com/differential.bio"
+    },
+    {
+      "name": "BIOWEG",
+      "platform": "personio",
+      "slug": "bioweg",
+      "careers_url": "https://bioweg.jobs.personio.de"
+    },
+    {
+      "name": "DWI Leibniz Institute for Interactive Materials",
+      "platform": "personio",
+      "slug": "dwi",
+      "careers_url": "https://dwi.jobs.personio.de"
+    },
+    {
+      "name": "aevoloop",
+      "platform": "personio",
+      "slug": "aevoloop",
+      "careers_url": "https://aevoloop.jobs.personio.de"
+    },
+    {
+      "name": "UNICOR",
+      "platform": "personio",
+      "slug": "unicor",
+      "careers_url": "https://unicor.jobs.personio.de"
+    },
+    {
+      "name": "Project Eaden",
+      "platform": "personio",
+      "slug": "project-eaden-1",
+      "careers_url": "https://project-eaden-1.jobs.personio.com"
+    },
+    {
+      "name": "Hades Mining",
+      "platform": "personio",
+      "slug": "hades",
+      "careers_url": "https://hades.jobs.personio.com"
+    },
+    {
+      "name": "VERTANICAL",
+      "platform": "ashby",
+      "slug": "vertanical",
+      "careers_url": "https://jobs.ashbyhq.com/vertanical"
+    },
+    {
+      "name": "Sunday Natural",
+      "platform": "personio",
+      "slug": "sunday",
+      "careers_url": "https://sunday.jobs.personio.com"
     }
   ]
 }
