@@ -96,7 +96,7 @@ function render(){
     const score=job.competency_counts;
     for(const [key,label] of [['technical','Technical'],['method','Methods'],['general','General']]){
       const cat=score?.[key];
-      tags.append(chip(`${label} ${cat?`${cat.matched}/${cat.total}`:'—/—'}`,cat&&cat.total&&cat.matched===cat.total?'strong':cat&&cat.matched>0?'possible':'low'));
+      tags.append(chip(`${label} ${!cat?'?':cat.total?`${cat.matched}/${cat.total}`:'—'}`,cat&&cat.total&&cat.matched===cat.total?'strong':cat&&cat.matched>0?'possible':'low'));
     }
     left.append(tags);
     if(!job.at_startup&&hoursSince(job.first_detected)>=0&&hoursSince(job.first_detected)<24){
