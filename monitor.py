@@ -20,6 +20,12 @@ from urllib.parse import quote, urljoin, urlsplit
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 
+from career_adapters import (
+    parse_pct_listing, enrich_pct_job, parse_ceramtec_listing,
+    enrich_ceramtec_job, normalize_smartrecruiters_listing,
+    enrich_smartrecruiters_job,
+)
+
 ROOT = Path(__file__).resolve().parent
 STATE = ROOT / "data" / "state.json"
 OUTPUT = ROOT / "docs" / "jobs.json"
@@ -801,6 +807,61 @@ def fetch_company(company):
         for item in backup:
             item["feed_fallback"] = True
         return backup
+    if provider == "pct_html":
+        # Public employer HTML with a full listing table. Each detail link must
+        # stay on the official PCT hostname. Missing pages retain title-only.
+        jobs = parse_pct_listing(company, get_html(company['careers_url']))
+        for job in jobs[:20]:
+            try:
+                enrich_pct_job(job, get_html(job['url']))
+            except (HTTPError, URLError, ValueError, TimeoutError) as exc:
+                print(f"PCT DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
+        return jobs
+    if provider == "ceramtec_recent":
+        # First displayed Umantis results page ONLY. Never interpret a vacancy
+        # moving off this page as a closure or confirmed repost.
+        jobs = parse_ceramtec_listing(company, get_html(company['careers_url']))
+        for job in jobs[:12]:
+            try:
+                enrich_ceramtec_job(job, get_html(job['url']))
+            except (HTTPError, URLError, ValueError, TimeoutError) as exc:
+                print(f"CERAMTEC DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
+        return jobs
+    if provider == "smartrecruiters":
+        # Official public Posting API, bounded pagination. An incomplete
+        # listing is treated as an error rather than claiming full coverage.
+        base = f"https://api.smartrecruiters.com/v1/companies/{slug}/postings"
+        all_items = []
+        for page in range(5):
+            result = get_json(base + f"?limit=100&offset={page*100}")
+            items = result.get('content')
+            if not isinstance(items, list):
+                raise ValueError('Unexpected SmartRecruiters API listing response')
+            all_items.extend(items)
+            total = result.get('totalFound')
+            if not isinstance(total, int):
+                raise ValueError('SmartRecruiters totalFound missing')
+            if len(all_items) >= total:
+                break
+        else:
+            raise ValueError('SmartRecruiters job list exceeds 500; extend pagination first')
+        jobs = [normalize_smartrecruiters_listing(company, item) for item in all_items]
+        # Details add requirements for relevant scientific roles, while
+        # unrelated jobs remain in the database with a visible data limitation.
+        detailed = 0
+        for job in jobs:
+            if not RESEARCH_VACANCY_TITLE.search(job['title']):
+                continue
+            if detailed >= 25:
+                break
+            detailed += 1
+            posting_id = job['key'].rsplit(':', 1)[-1]
+            try:
+                detail = get_json(base + '/' + quote(posting_id, safe=''))
+                enrich_smartrecruiters_job(job, detail)
+            except (HTTPError, URLError, ValueError, TimeoutError) as exc:
+                print(f"FISCHER DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
+        return jobs
     if provider == "successfactors_recent":
         return fetch_successfactors_recent(company)
     if provider == "softgarden":
@@ -870,7 +931,7 @@ def normalize_ashby(company, item):
     }
 
 
-GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "zwickau", "monheim am rhein", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach", "karlsfeld", "haar", "taufkirchen", "eresing", "esslingen", "heilbronn", "starnberg", "kronberg"]
+GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "zwickau", "monheim am rhein", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach", "karlsfeld", "haar", "taufkirchen", "eresing", "esslingen", "heilbronn", "starnberg", "kronberg", "magstadt", "denzlingen", "plochingen", "lohmar", "marktredwitz", "lauf an der pegnitz"]
 FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore", "coimbra", "portugal", "pilsen", "plzeň", "plzen", "czech republic", "czechia", "tschechien", "china", "shanghai", "ningbo", "innsbruck"]
 
 
@@ -1098,18 +1159,18 @@ def update(config, state, at):
             # Only mark absent after a successful request. A failed source must retain its jobs.
             # Recent-window sources do not list every open vacancy. Leaving
             # the newest pages is not evidence that a job has closed.
-            if company['platform'] != 'successfactors_recent':
+            if company['platform'] not in ('successfactors_recent', 'ceramtec_recent'):
                 for key, job in state["jobs"].items():
                     if job.get("company") == name and key not in keys:
                         job["active"] = False
             state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
-                                     "recent_window": company["platform"] == "successfactors_recent",
-                                     "recent_pages": company.get("recent_pages") if company["platform"] == "successfactors_recent" else None,
-                                     "source_mode": ("recent_window" if company["platform"] == "successfactors_recent" else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
+                                     "recent_window": company["platform"] in ("successfactors_recent", "ceramtec_recent"),
+                                     "recent_pages": (company.get("recent_pages", 1) if company["platform"] == "ceramtec_recent" else company.get("recent_pages")) if company["platform"] in ("successfactors_recent", "ceramtec_recent") else None,
+                                     "source_mode": ("recent_window" if company["platform"] in ("successfactors_recent", "ceramtec_recent") else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
                                                      "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
-                                                     "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "structured_feed"),
-                                     "details_extracted": sum(j.get("source_mode") == "html_detail" for j in seen),
-                                     "title_only_count": sum(j.get("source_mode") == "html_fallback" for j in seen),
+                                                     "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "api_detail" if any(j.get("source_mode") == "api_detail" for j in seen) else "structured_feed"),
+                                     "details_extracted": sum(j.get("source_mode") in ("html_detail", "api_detail") for j in seen),
+                                     "title_only_count": sum(j.get("source_mode") in ("html_fallback", "api_list_only", "recent_title_only") for j in seen),
                                      "duplicates_removed": rss_duplicates_removed}
             print(f"OK {name}: {len(keys)} German/unknown-location listings")
         except (HTTPError, URLError, ValueError, KeyError, TimeoutError, json.JSONDecodeError) as exc:

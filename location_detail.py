@@ -16,10 +16,10 @@ PUBLIC = ROOT / 'docs/jobs.json'
 # German municipalities and known state names, matched with word boundaries.
 # Only explicit city mentions are used; regional/office names are not guessed.
 GERMAN_STATES = {
- 'Bayern': 'Munich|München|Garching|Planegg|Martinsried|Neuried|Gräfelfing|Haar|Oberschleißheim|Unterschleißheim|Puchheim|Germering|Freising|Maisach|Karlsfeld|Taufkirchen|Oberpfaffenhofen|Weßling|Wessling|Starnberg|Fürstenfeldbruck|Gauting|Penzberg|Geretsried|Würzburg|Erlangen|Nürnberg|Nuremberg|Regensburg|Augsburg|Burghausen|Wasserburg am Inn|Wasserburg|Ingolstadt|Alzenau|Bayreuth|Coburg|Aschaffenburg|Schweinfurt|Kaufbeuren|Memmingen|Eresing|Emmering|Inning am Ammersee|Landsberg',
- 'Baden-Württemberg': 'Stuttgart|Ulm|Karlsruhe|Heidelberg|Freiburg|Tübingen|Esslingen|Heilbronn|Pforzheim|Konstanz|Oberkochen|Mannheim|Reutlingen|Friedrichshafen|Ravensburg|Singen',
+ 'Bayern': 'Munich|München|Garching|Planegg|Martinsried|Neuried|Gräfelfing|Haar|Oberschleißheim|Unterschleißheim|Puchheim|Germering|Freising|Maisach|Karlsfeld|Taufkirchen|Oberpfaffenhofen|Weßling|Wessling|Starnberg|Fürstenfeldbruck|Gauting|Penzberg|Geretsried|Würzburg|Erlangen|Nürnberg|Nuremberg|Regensburg|Augsburg|Burghausen|Wasserburg am Inn|Wasserburg|Ingolstadt|Alzenau|Bayreuth|Coburg|Aschaffenburg|Schweinfurt|Kaufbeuren|Memmingen|Marktredwitz|Lauf an der Pegnitz|Eresing|Emmering|Inning am Ammersee|Landsberg',
+ 'Baden-Württemberg': 'Stuttgart|Ulm|Karlsruhe|Heidelberg|Freiburg|Tübingen|Esslingen|Heilbronn|Pforzheim|Konstanz|Oberkochen|Mannheim|Reutlingen|Friedrichshafen|Ravensburg|Singen|Denzlingen|Magstadt|Plochingen',
  'Hessen': 'Frankfurt am Main|Frankfurt|Darmstadt|Hanau|Kronberg|Wiesbaden|Fulda|Marburg|Kassel|Gießen|Giessen|Rüsselsheim',
- 'Nordrhein-Westfalen': 'Aachen|Köln|Cologne|Düsseldorf|Essen|Bonn|Leverkusen|Schwelm|Dortmund|Duisburg|Münster|Bielefeld|Paderborn|Bochum|Krefeld',
+ 'Nordrhein-Westfalen': 'Aachen|Köln|Cologne|Düsseldorf|Essen|Bonn|Leverkusen|Schwelm|Dortmund|Duisburg|Münster|Bielefeld|Paderborn|Bochum|Krefeld|Lohmar',
  'Sachsen': 'Dresden|Leipzig|Zwickau|Freiberg|Chemnitz|Plauen|Görlitz',
  'Sachsen-Anhalt': 'Halle|Magdeburg|Möckern|Dessau',
  'Niedersachsen': 'Hannover|Braunschweig|Osnabrück|Göttingen|Wolfsburg|Oldenburg|Hildesheim',

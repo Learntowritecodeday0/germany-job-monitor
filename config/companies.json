@@ -294,6 +294,28 @@
       "search_url": "https://jobs.fraunhofer.de/search/?q=&sortColumn=referencedate&sortDirection=desc",
       "recent_pages": 3,
       "note": "Only the 75 most recent listings are scanned; title filtered for science, chemistry and materials. Not an exhaustive job board."
+    },
+    {
+      "name": "PCT Chemie",
+      "platform": "pct_html",
+      "slug": "pct-chemie",
+      "careers_url": "https://www.pct-chemie.de/pct-chemie/karriere/offene-stellen-1",
+      "note": "Official current HTML vacancies; detail extraction may be partial."
+    },
+    {
+      "name": "fischer Group",
+      "platform": "smartrecruiters",
+      "slug": "FischerGroup",
+      "careers_url": "https://careers.smartrecruiters.com/FischerGroup",
+      "note": "Official public SmartRecruiters API; detailed descriptions fetched for scientific titles."
+    },
+    {
+      "name": "CeramTec — recent vacancies",
+      "platform": "ceramtec_recent",
+      "slug": "ceramtec",
+      "careers_url": "https://jobs.ceramtec-group.com/Jobs/1?lang=ger",
+      "recent_pages": 1,
+      "note": "First displayed Umantis page only; not an exhaustive vacancy listing."
     }
   ]
 }
