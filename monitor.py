@@ -632,6 +632,122 @@ def deduplicate_rss(jobs, previous_jobs=None):
     return unique
 
 
+
+# The official Fraunhofer SuccessFactors search is paginated. A short recent
+# window is NOT the complete institute job board. In particular, leaving the
+# window must never be counted as a vacancy closure or a confirmed repost.
+class SuccessFactorsRecentLinks(HTMLParser):
+    """Read public job links from a SuccessFactors results table.
+
+    Only absolute HTTPS job links on the official careers hostname are accepted.
+    Row data (when present) provides the advertised worksite, not HQ location.
+    """
+    def __init__(self, careers_url):
+        super().__init__(convert_charrefs=True)
+        self.base = careers_url
+        self.host = urlsplit(careers_url).hostname
+        self.rows = []
+        self.row = None
+        self.cell = None
+        self.anchor = None
+        self.fallback = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'tr':
+            self.row = {'cells':[], 'jobs':[]}
+        elif tag in ('td', 'th') and self.row is not None:
+            self.cell = {'text': [], 'class':attrs.get('class','')}
+        elif tag == 'a':
+            link = urljoin(self.base, attrs.get('href',''))
+            url = urlsplit(link)
+            match = re.search(r'/job/[^?#]*/(\d+)/?$', url.path)
+            if (url.scheme == 'https' and url.hostname == self.host and match):
+                self.anchor = {'id': match.group(1), 'url': link,
+                               'title': []}
+        elif tag in ('span','div','br','p') and self.cell is not None:
+            self.cell['text'].append(' ')
+
+    def handle_data(self, data):
+        if self.cell is not None:
+            self.cell['text'].append(data)
+        if self.anchor is not None:
+            self.anchor['title'].append(data)
+
+    def handle_endtag(self, tag):
+        if tag == 'a' and self.anchor is not None:
+            item = self.anchor
+            item['title'] = ' '.join(''.join(item['title']).split())
+            if item['title']:
+                self.fallback.append(item)
+                if self.row is not None:
+                    self.row['jobs'].append(item)
+            self.anchor = None
+        elif tag in ('td','th') and self.cell is not None:
+            if self.row is not None:
+                self.cell['text'] = ' '.join(''.join(self.cell['text']).split())
+                self.row['cells'].append(self.cell)
+            self.cell = None
+        elif tag == 'tr' and self.row is not None:
+            if self.row['jobs']:
+                self.rows.append(self.row)
+            self.row = None
+
+
+RESEARCH_VACANCY_TITLE = re.compile(
+    r'chem|polymer|formul|dispers|nano|partikel|material|werkstoff|'
+    r'labor|scientist|research|forsch|wissenschaft|process|prozess|'
+    r'beschicht|surface|oberfläch|analyt|charakteris|microscop|'
+    r'mikroskop|synthes|entwicklung|entwickler|technolog|'
+    r'biotechnol|keramik|silicat|silika|colloid|kolloid|'
+    r'pruef|prüf|qualit[aä]t|kunststoff|recycling', re.I)
+
+
+def parse_successfactors_recent(company, page_html):
+    parser = SuccessFactorsRecentLinks(company['careers_url'])
+    parser.feed(page_html)
+    by_key = {}
+    for row in parser.rows:
+        # The official SuccessFactors list displays Title | Location | Institute.
+        # Do not fall back to the employer's registered headquarters.
+        location = ' '.join(str(row['cells'][1]['text']).split()) if len(row['cells']) > 1 else ''
+        for item in row['jobs']:
+            if RESEARCH_VACANCY_TITLE.search(item['title']):
+                by_key[item['id']] = {**item, 'location':location}
+    # On alternate responsive layouts, job links may be outside table rows.
+    # Keep them, but do not invent a worksite.
+    for item in parser.fallback:
+        if RESEARCH_VACANCY_TITLE.search(item['title']):
+            by_key.setdefault(item['id'], {**item, 'location':''})
+    if not parser.fallback:
+        raise ValueError('Fraunhofer recent search contained no official job links; verify markup')
+    return [{
+        'key':f"successfactors_recent:{company['slug']}:{x['id']}",
+        'company':company['name'], 'title':x['title'],
+        'location':x.get('location',''), 'country':'', 'description':'',
+        'url':x['url'], 'published_at':None, 'source_modified_at':None,
+        'platform':'successfactors_recent', 'source_mode':'recent_title_only',
+        'source_coverage':'recent_window_not_complete',
+    } for x in by_key.values()]
+
+
+def fetch_successfactors_recent(company):
+    """Fetch a bounded, latest-first view; never claim full-jobboard coverage."""
+    url = company.get('search_url','')
+    host = urlsplit(url).hostname
+    if urlsplit(url).scheme != 'https' or host != urlsplit(company['careers_url']).hostname:
+        raise ValueError('Recent search must use official HTTPS career host')
+    pages = int(company.get('recent_pages',3))
+    if not 1 <= pages <= 5:
+        raise ValueError('Limit recent search to 1–5 pages')
+    seen = {}
+    for page in range(pages):
+        separator = '&' if '?' in url else '?'
+        page_url = url + separator + 'startrow=' + str(page*25)
+        for job in parse_successfactors_recent(company, get_html(page_url)):
+            seen[job['key']] = job
+    return list(seen.values())
+
 def title_fingerprint(job):
     title = str(job.get("title") or "").casefold()
     title = re.sub(r"\((?:all genders|m/w/d|f/m/d|m/f/d|w/m/d|d/m/w|all gender[s]?)\)", "", title)
@@ -685,6 +801,8 @@ def fetch_company(company):
         for item in backup:
             item["feed_fallback"] = True
         return backup
+    if provider == "successfactors_recent":
+        return fetch_successfactors_recent(company)
     if provider == "softgarden":
         # Public JSON-LD feed confirmed at the employer's own softgarden site.
         # Do not use authenticated softgarden APIs or third-party aggregators.
@@ -978,11 +1096,16 @@ def update(config, state, at):
                     job["triage_note"] = job["preference_note"]
                 state["jobs"][key] = job
             # Only mark absent after a successful request. A failed source must retain its jobs.
-            for key, job in state["jobs"].items():
-                if job.get("company") == name and key not in keys:
-                    job["active"] = False
+            # Recent-window sources do not list every open vacancy. Leaving
+            # the newest pages is not evidence that a job has closed.
+            if company['platform'] != 'successfactors_recent':
+                for key, job in state["jobs"].items():
+                    if job.get("company") == name and key not in keys:
+                        job["active"] = False
             state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
-                                     "source_mode": ("public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
+                                     "recent_window": company["platform"] == "successfactors_recent",
+                                     "recent_pages": company.get("recent_pages") if company["platform"] == "successfactors_recent" else None,
+                                     "source_mode": ("recent_window" if company["platform"] == "successfactors_recent" else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
                                                      "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
                                                      "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "structured_feed"),
                                      "details_extracted": sum(j.get("source_mode") == "html_detail" for j in seen),

@@ -41,7 +41,7 @@ def candidates(state):
             continue
         if job.get("location_status") == "outside":
             continue
-        if job.get("source_mode") == "html_fallback":
+        if job.get("source_mode") in ("html_fallback", "recent_title_only"):
             continue
         if job.get("match_band") != "Review first":
             continue

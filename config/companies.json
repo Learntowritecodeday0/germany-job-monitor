@@ -285,6 +285,15 @@
       "platform": "personio",
       "slug": "sunday",
       "careers_url": "https://sunday.jobs.personio.com"
+    },
+    {
+      "name": "Fraunhofer — recent official postings",
+      "platform": "successfactors_recent",
+      "slug": "fraunhofer-official",
+      "careers_url": "https://jobs.fraunhofer.de/",
+      "search_url": "https://jobs.fraunhofer.de/search/?q=&sortColumn=referencedate&sortDirection=desc",
+      "recent_pages": 3,
+      "note": "Only the 75 most recent listings are scanned; title filtered for science, chemistry and materials. Not an exhaustive job board."
     }
   ]
 }
