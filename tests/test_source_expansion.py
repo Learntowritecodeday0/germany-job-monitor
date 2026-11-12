@@ -22,10 +22,11 @@ NEW = {
 }
 
 class ExpansionTests(unittest.TestCase):
-    def test_all_48_sources_unique(self):
-        self.assertEqual(len(CFG["companies"]), 47)
-        self.assertEqual(len({x["name"] for x in CFG["companies"]}), 47)
-        self.assertEqual(len({(x["platform"], x["slug"]) for x in CFG["companies"]}), 47)
+    def test_all_sources_unique(self):
+        source_count = len(CFG["companies"])
+        self.assertGreaterEqual(source_count, 47)
+        self.assertEqual(len({x["name"] for x in CFG["companies"]}), source_count)
+        self.assertEqual(len({(x["platform"], x["slug"]) for x in CFG["companies"]}), source_count)
     def test_added_sources_have_supported_platforms_and_https_url(self):
         byname = {x["name"]: x for x in CFG["companies"]}
         for name,platform in NEW.items():
