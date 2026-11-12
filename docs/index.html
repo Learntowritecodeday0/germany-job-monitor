@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="light">
   <title>Germany Job Monitor</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="shortlist.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -15,16 +16,18 @@
       <h1>Germany Job Monitor</h1>
       <p>Selected employers. Early vacancy detection. Technical keyword triage.</p>
     </header>
-    <div class="notice" role="note">This dashboard shows public vacancies. Technical / Methods / General counts represent documented overlap among recognized items in the advertisement, not all essential requirements or hiring eligibility. A 0/0 means no identifiable item in that category; —/— means incomplete details.</div>
+    <div class="notice" role="note">The priority shortlist is a conservative review aid, separate from legacy keyword ranking and email alerts. Technical / Methods / General counts represent recognized overlaps, not verified qualification or eligibility. A 0/0 means no identifiable item in that category; —/— means incomplete details.</div>
     <section class="summary" aria-label="Summary">
       <article><strong id="total">—</strong><span>All tracked vacancies</span></article>
-      <article><strong id="priority">—</strong><span>Review first</span></article>
+      <article><strong id="priority">—</strong><span>Shortlist candidates</span></article>
       <article><strong id="sources">—</strong><span>Sources tracked</span></article>
       <article><strong id="updated">—</strong><span>Last checked (Berlin)</span></article>
     </section>
+    <p class="queue-help">Default: manually audited vacancies plus carefully screened new scientific roles. Use “Needs description review” for incomplete job records, or “All jobs” to see the complete monitor.</p>
     <section class="tools" aria-label="Filters">
+      <label>Review queue<select id="reviewQueue"><option value="shortlist" selected>Priority shortlist</option><option value="details">Needs description review</option><option value="other">Other / deprioritized</option><option value="all">All jobs</option></select></label>
       <label>Search<input id="query" type="search" placeholder="e.g. DoE, nanoparticles, surface chemistry"></label>
-      <label>Priority<select id="band"><option value="all">All jobs</option><option value="Review first">Review first</option><option value="Possible">Possible</option><option value="Low">Low</option><option value="Not target">Not target</option></select></label>
+      <label>Original keyword priority<select id="band"><option value="all">All jobs</option><option value="Review first">Review first</option><option value="Possible">Possible</option><option value="Low">Low</option><option value="Not target">Not target</option></select></label>
       <label>Technical expertise<select id="technicalBand"><option value="all">All levels</option><option value="some">At least one documented expertise</option><option value="none">No documented expertise</option><option value="unknown">Insufficient details</option></select></label>
       <label>Company<select id="company"><option value="all">All companies</option></select></label>
       <label><input type="checkbox" id="germanyOnly"> Verified German location only</label>

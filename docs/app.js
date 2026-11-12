@@ -1,9 +1,16 @@
 'use strict';
-const ui = Object.fromEntries(['query','band','technicalBand','company','germanyOnly','degreeFocus','results','count','total','priority','sources','updated','health','status','showApplied','exportApplied','importApplied','appliedStatus','pageSize','pageInfo','prevPage','nextPage'].map(id=>[id, document.getElementById(id)]));
+const ui = Object.fromEntries(['query','band','reviewQueue','technicalBand','company','germanyOnly','degreeFocus','results','count','total','priority','sources','updated','health','status','showApplied','exportApplied','importApplied','appliedStatus','pageSize','pageInfo','prevPage','nextPage'].map(id=>[id, document.getElementById(id)]));
 let data = {jobs:[],sources:[]};
 const berlinDate = s => {if(!s) return 'Not yet';const d=new Date(s);return Number.isNaN(+d)?'Unknown':new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(d)};
 const hoursSince = s => s ? (Date.now()-new Date(s).getTime())/36e5 : Infinity;
 const sortWeight = { 'Review first':0, 'Possible':1, 'Low':2, 'Not target':3 };
+const reviewAPI = window.JobShortlist || {
+  reviews: j => ({tier: !j.hide_by_default && ['Review first','Possible'].includes(j.match_band)?'secondary':'other',reason:'Review script not loaded; using old keyword priorities',basis:'Fallback'}),
+  isShortlist: r => r.tier==='review'||r.tier==='secondary',
+  tiers: {review:'Review soon',secondary:'Secondary review',details:'Needs description review',other:'Other / deprioritized'},
+  tierOrder: {review:0,secondary:1,details:2,other:3}
+};
+
 // Browser-only application history. The public Pages website has no authenticated
 // database: use Export/Import to carry marks between browsers or devices.
 const HISTORY_KEY='germany-job-monitor:applications:v1';
@@ -168,6 +175,8 @@ function inferLocationForDisplay(job){
 
 function render(){
   const search=ui.query.value.trim().toLocaleLowerCase(); const company=ui.company.value;const band=ui.band.value;const technicalBand=ui.technicalBand.value;
+  const queue=ui.reviewQueue?.value||'shortlist';
+  const inQueue=(j)=>{const r=reviewAPI.reviews(j);return queue==='all'||(queue==='shortlist'&&reviewAPI.isShortlist(r))||queue===r.tier;};
   const jobs=data.jobs.filter(j=>{
     const scores=j.competency_counts;
     const evidence=(scores?Object.values(scores).flatMap(x=>[...(x.supported||[]),...(x.verify||[])]):[]);
@@ -175,13 +184,16 @@ function render(){
     const techOk=technicalBand==='all'||(technicalBand==='some'&&scores&&scores.technical.matched>0)||(technicalBand==='none'&&scores&&scores.technical.matched===0)||(technicalBand==='unknown'&&!scores);
     const app=applicationStatus(j);
     const appliedVisible=ui.showApplied?.checked||!app.applied||app.repost;
-    return appliedVisible&&techOk&&(company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&(!ui.degreeFocus.checked||!j.hide_by_default)&&(!search||hay.includes(search));
+    return appliedVisible&&inQueue(j)&&techOk&&(company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&(!ui.degreeFocus.checked||!j.hide_by_default)&&(!search||hay.includes(search));
   });
   const sourceDate=j=>(j.at_startup?(j.published_at||j.first_detected):(j.first_detected||j.published_at)||'');
-  jobs.sort((a,b)=>Number(applicationStatus(b).repost)-Number(applicationStatus(a).repost)||(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||sourceDate(b).localeCompare(sourceDate(a)));
+  jobs.sort((a,b)=>Number(applicationStatus(b).repost)-Number(applicationStatus(a).repost)
+    ||(reviewAPI.tierOrder[reviewAPI.reviews(a).tier]??9)-(reviewAPI.tierOrder[reviewAPI.reviews(b).tier]??9)
+    ||(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||sourceDate(b).localeCompare(sourceDate(a)));
   ui.results.replaceChildren();const hidden = ui.degreeFocus.checked ? data.jobs.filter(j=>j.hide_by_default).length : 0;
   const perPage=Number(ui.pageSize?.value)||50;const pages=Math.max(1,Math.ceil(jobs.length/perPage));pageNumber=Math.min(Math.max(1,pageNumber),pages);
-  ui.count.textContent=`${jobs.length} matching${hidden ? ` · ${hidden} filtered by preference` : ''}`;
+  const queueNames={shortlist:'priority shortlist',details:'description-review queue',other:'other jobs',all:'all jobs'};
+  ui.count.textContent=`${jobs.length} in ${queueNames[queue]||'selected queue'}${hidden ? ` · ${hidden} hidden by preferences` : ''}`;
   if(ui.pageInfo)ui.pageInfo.textContent=`Page ${pageNumber} of ${pages} · ${jobs.length?((pageNumber-1)*perPage+1):0}–${Math.min(pageNumber*perPage,jobs.length)} of ${jobs.length}`;
   if(ui.prevPage)ui.prevPage.disabled=pageNumber<=1;if(ui.nextPage)ui.nextPage.disabled=pageNumber>=pages;
   if(!jobs.length){ui.results.append(el('p','muted','No positions match these filters. Try changing the filter or checking source health.'));return;}
@@ -200,8 +212,10 @@ function render(){
     } else if(worksite.note && !worksite.city){left.append(el('div','muted',worksite.note));}
     left.append(el('div','meta',`Source date ${berlinDate(job.published_at)} · First detected ${berlinDate(job.first_detected)}`));
     const tags=el('div','chips');
+    const review=reviewAPI.reviews(job);
+    tags.append(chip(reviewAPI.tiers[review.tier]||'Unclassified',review.tier==='review'?'strong':review.tier==='secondary'?'possible':'low'));
     const cls=job.match_band==='Review first'?'strong':job.match_band==='Possible'?'possible':'low';
-    tags.append(chip(job.match_band,cls));
+    tags.append(chip('Keyword: '+job.match_band,cls));
     const score=job.competency_counts;
     for(const [key,label] of [['technical','Technical'],['method','Methods'],['general','General']]){
       const cat=score?.[key];
@@ -213,6 +227,7 @@ function render(){
     if(applied.repost)tags.append(chip('Previously applied · check repost','possible'));
     else if(applied.applied)tags.append(chip('Applied','low'));
     left.append(tags);
+    if(review.reason)left.append(el('p','review-reason',`Review note (${review.basis}): ${review.reason}`));
     if(applied.repost)left.append(el('p','repost-note',applied.reason));
     const notices=[];
     if(!job.at_startup&&hoursSince(job.first_detected)>=0&&hoursSince(job.first_detected)<24){
@@ -321,11 +336,11 @@ function render(){
 }
 async function main(){try{
   const response=await fetch('./jobs.json',{cache:'no-store'});if(!response.ok)throw new Error('Cannot read jobs.json');
-  data=await response.json();const jobs=data.jobs||[];ui.total.textContent=jobs.length;ui.priority.textContent=jobs.filter(j=>j.match_band==='Review first').length;ui.sources.textContent=(data.sources||[]).length;ui.updated.textContent=berlinDate(data.last_checked);ui.status.textContent=data.notice||'';
+  data=await response.json();const jobs=data.jobs||[];ui.total.textContent=jobs.length;ui.priority.textContent=jobs.filter(j=>!j.hide_by_default&&reviewAPI.isShortlist(reviewAPI.reviews(j))).length;ui.sources.textContent=(data.sources||[]).length;ui.updated.textContent=berlinDate(data.last_checked);ui.status.textContent=data.notice||'';
   const names=[...new Set(jobs.map(j=>j.company))].sort();for(const name of names){const opt=document.createElement('option');opt.value=name;opt.textContent=name;ui.company.append(opt)}
   for(const source of (data.sources||[])){const item=el('div');const mode=source.source_mode==='recent_window'?` · Latest ${source.recent_pages||3} ${(source.recent_pages||3)===1?'page':'pages'} only; not an exhaustive list`:source.source_mode==='public_rss_fallback'?' · official public RSS fallback':(source.source_mode==='html_fallback'?` · ${source.details_extracted||0} full descriptions · ${source.title_only_count||0} title-only`:(source.source_mode==='html_detail'?` · ${source.details_extracted||0} full descriptions from job pages`:(source.source_mode==='api_detail'?` · ${source.details_extracted||0} full descriptions from public API`:'')));item.append(el('strong','',source.name),el('div',source.status==='ok'?'muted':'error',source.status==='ok'?`${source.count} tracked${source.duplicates_removed?` · ${source.duplicates_removed} duplicate${source.duplicates_removed===1?'':'s'} merged`: ''}${mode} · Last checked ${berlinDate(source.last_checked)}`:`Error: ${source.error||'Unreachable'}`));ui.health.append(item)}
   if(!(data.sources||[]).length)ui.health.append(el('div','muted','No source checks yet. Run the monitoring workflow.'));
-  for(const key of ['query','band','technicalBand','company','germanyOnly','degreeFocus','showApplied','pageSize'])ui[key].addEventListener('input',()=>{pageNumber=1;render()});
+  for(const key of ['query','band','reviewQueue','technicalBand','company','germanyOnly','degreeFocus','showApplied','pageSize'])ui[key].addEventListener('input',()=>{pageNumber=1;render()});
   ui.prevPage.addEventListener('click',()=>{pageNumber=Math.max(1,pageNumber-1);render();ui.pageInfo.scrollIntoView({block:'nearest'});});
   ui.nextPage.addEventListener('click',()=>{pageNumber+=1;render();ui.pageInfo.scrollIntoView({block:'nearest'});});
   ui.exportApplied.addEventListener('click',exportHistory);
