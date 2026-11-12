@@ -962,7 +962,13 @@ TRAINING_TITLES = [
     r"\bdual(?:es|e|er) studium\b", r"\bduales studium\b",
     r"\bapprentice", r"\blehrling\b", r"\bdual(?:e|er|es) student(?:in)?\b",
     r"\bpromotionsstelle\b", r"\bdoktorand(?:in|en)?\b", r"\bph\.?d\.?\s+(?:student|candidate|position)\b",
-    r"\bdoctoral\s+(?:research|student|candidate|position|programme|program)\b",
+    r"\bdoctoral\s+(?:research(?:er|ers)?|student|candidate|position|programme|program)\b",
+    # Thesis and student research placements, including German job-board wording.
+    r"\b(?:bachelor|master|diplom|semester|studien|abschluss)\s*[-–]?\s*arbeit(?:en)?\b",
+    r"\b(?:bachelor|master|master[’']?s|m\.?sc\.?|b\.?sc\.?)\s*[-–/:]?\s*thesis\b",
+    r"\bthesis\b",
+    r"\b(?:masterand|masterandin|masteranden|bachelorand|bachelorandin|bacheloranden)\w*\b",
+    r"\b(?:forschungspraktikum|pflichtpraktikum|praxissemester|praktika|studentische\s+(?:hilfskraft|aushilfe)|hiwi)\b",
 ]
 VOCATIONAL_ONLY_TITLES = [
     r"\bchemielaborant(?:in|en|innen)?\b", r"\bpharmakant(?:in|en|innen)?\b",
@@ -998,6 +1004,19 @@ UNRELATED_JOB_FAMILY_TITLES = [
 ]
 
 
+# Mechanical design and machine-engineering occupations are not the same as
+# materials / chemistry work. Apply these patterns to TITLES only, so a
+# materials scientist mentioning mechanical-property testing is retained.
+MECHANICAL_ROLE_TITLES = [
+    r"\bmechanical\s+(?:(?:design|development|systems?|construction|project|r&d)\s+)?(?:engineer(?:ing)?|designer|architect|constructor)\b",
+    r"\b(?:engineer|engineering)\s*[-–:]?\s*mechanical(?:\s+design)?\b",
+    r"\b(?:maschinenbau(?:ingenieur\w*|entwickler\w*|konstrukteur\w*)?|maschinenbau\s+(?:ingenieur\w*|konstrukteur\w*|entwickler\w*))\b",
+    r"\b(?:entwicklungsingenieur\w*\s+maschinenbau|konstruktionsingenieur\w*|konstrukteur\w*\s+(?:maschinenbau|mechanik)|mechanikentwickler\w*)\b",
+    r"\b(?:mechatronics?\s+(?:engineer|designer)|mechatronik(?:ingenieur|entwickler)\w*)\b",
+    r"\b(?:cad\s+(?:engineer|designer|konstrukteur)\w*|mechanical\s+cad\s+designer)\b",
+]
+
+
 MOTOR_DOMAIN_TITLE = re.compile(r"\b(?:electric\s+motors?|elektromotor\w*|electric\s+drive\s+systems?|electric\s+motoren?|e[- ]?motoren?)\b", re.I)
 CHEMICAL_ROLE_TITLE = re.compile(r"\b(?:chem(?:istry|ical|ist|ie|iker)\w*|material\w*|werkstoff\w*|coating\w*|beschicht\w*|polymer\w*|surface\w*|oberfl[aä]ch\w*|formulat\w*|formulier\w*|nanopartic\w*|nanopartik\w*)\b", re.I)
 
@@ -1014,6 +1033,9 @@ def qualification_preference(job):
     if any(re.search(p, title, re.IGNORECASE) for p in VOCATIONAL_ONLY_TITLES):
         return {"career_track": "vocational", "hide_by_default": True,
                 "preference_note": "Vocationally oriented job title; verify degree requirement"}
+    if any(re.search(p, title, re.IGNORECASE) for p in MECHANICAL_ROLE_TITLES):
+        return {"career_track": "unrelated", "hide_by_default": True,
+                "preference_note": "Mechanical design / equipment engineering rather than chemistry or materials R&D"}
     # Exclude motor/robotics production engineering, but retain chemistry and
     # materials roles explicitly working on motor coatings or insulation.
     if MOTOR_DOMAIN_TITLE.search(title) and not CHEMICAL_ROLE_TITLE.search(title):
@@ -1040,7 +1062,7 @@ SIGNALS = {
 # merely because generic technical words occur in the full job description.
 JOB_BLOCKERS = ["working student", "werkstudent", "praktikant", "internship", "praktikum", "student assistant", "graduate internship", "mandatory internship"]
 NON_TARGET_TITLES = [
-    "finance", "account", "procurement", "einkäufer", "einkäuferin", "purchasing", "sales", "marketing", "recruit", "human resources", "people & culture", "people operations", "talent", "legal", "treasury", "controller", "business development", "software", "devops", "electrical", "electronic", "embedded", "mechanical", "structural", "aerodynamic", "aircraft performance", "pcb", "project manager - erp", "erp implementation", "automation engineer - facilities", "high-voltage systems", "battery algorithms", "bms hardware", "hse officer", "systems engineer", "product qualification", "senior quality manager", "grant projects", "general interest pool", "unsolicited application", "initiativbewerbung",
+    "finance", "account", "procurement", "einkäufer", "einkäuferin", "purchasing", "sales", "marketing", "recruit", "human resources", "people & culture", "people operations", "talent", "legal", "treasury", "controller", "business development", "software", "devops", "electrical", "electronic", "embedded", "structural", "aerodynamic", "aircraft performance", "pcb", "project manager - erp", "erp implementation", "automation engineer - facilities", "high-voltage systems", "battery algorithms", "bms hardware", "hse officer", "systems engineer", "product qualification", "senior quality manager", "grant projects", "general interest pool", "unsolicited application", "initiativbewerbung",
 ]
 # Specific subjects where the documented CV has close hands-on overlap.
 DIRECT_TITLE = [
@@ -1066,7 +1088,8 @@ def triage(job):
     senior = _has_any_patterns(title, SENIOR_TITLE)
     student = any(x in title for x in JOB_BLOCKERS)
     unrelated = (any(x in title for x in NON_TARGET_TITLES)
-                 or _has_any_patterns(title, UNRELATED_JOB_FAMILY_TITLES))
+                 or _has_any_patterns(title, UNRELATED_JOB_FAMILY_TITLES)
+                 or _has_any_patterns(title, MECHANICAL_ROLE_TITLES))
     # Hard requirements demonstrably absent from the documented experience.
     # This list is deliberately conservative and is not exhaustive.
     critical_gap = any(re.search(pattern, body) for pattern in (
