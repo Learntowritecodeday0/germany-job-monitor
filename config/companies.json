@@ -316,6 +316,42 @@
       "careers_url": "https://jobs.ceramtec-group.com/Jobs/1?lang=ger",
       "recent_pages": 1,
       "note": "First displayed Umantis page only; not an exhaustive vacancy listing."
+    },
+    {
+      "name": "INEOS Solvents Germany",
+      "platform": "softgarden",
+      "slug": "ineos-solvents",
+      "careers_url": "https://ineos-solvents.career.softgarden.de/",
+      "feed_url": "https://ineos-solvents.career.softgarden.de/jobs.feed.json",
+      "focus": "Industrial solvents, specialty chemicals and process/laboratory roles",
+      "note": "Official public Softgarden DataFeed; German worksite filter applies. Exact role requirements need review."
+    },
+    {
+      "name": "DAS Environmental Experts",
+      "platform": "softgarden",
+      "slug": "das-ee",
+      "careers_url": "https://das-ee.career.softgarden.de/",
+      "feed_url": "https://das-ee.career.softgarden.de/jobs.feed.json",
+      "focus": "Industrial chemical process and environmental engineering",
+      "note": "Official public Softgarden DataFeed; many jobs are mechanical/plant engineering and should remain low priority."
+    },
+    {
+      "name": "pal plast",
+      "platform": "softgarden",
+      "slug": "palplast",
+      "careers_url": "https://palplast.career.softgarden.de/",
+      "feed_url": "https://palplast.career.softgarden.de/jobs.feed.json",
+      "focus": "Polymer compounds and polymer processing",
+      "note": "Official public Softgarden DataFeed; many vacancies are vocational or production-only."
+    },
+    {
+      "name": "Horn & Bauer",
+      "platform": "softgarden",
+      "slug": "horn-bauer",
+      "careers_url": "https://horn-bauer.career.softgarden.de/",
+      "feed_url": "https://horn-bauer.career.softgarden.de/jobs.feed.json",
+      "focus": "Polymer films and packaging materials",
+      "note": "Official public Softgarden DataFeed; high vocational-job volume. Only science/materials roles worth reviewing."
     }
   ]
 }
