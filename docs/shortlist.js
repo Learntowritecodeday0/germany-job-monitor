@@ -52,6 +52,7 @@
     const description = nonEmpty(job?.description);
     const key = nonEmpty(job?.key);
     const override = AUDITED[key];
+    const checks = requirementChecks(job);
     if (override && Number(job?.reopen_count||0)>0) return {tier:'details',reason:'Previously reviewed posting reappeared; recheck its complete requirements',basis:'Audited snapshot'};
     if (override) return {tier:override[0],reason:override[1],basis:'Audited snapshot'};
     if (job?.active === false || job?.location_status === 'outside')return {tier:'other',reason:'Inactive or outside the selected country',basis:'Rule-based'};
@@ -75,6 +76,13 @@
     const titleMatch=coreChemistry.test(title);
     const chemistryEvidence=coreChemistry.test(description);
     const experimentEvidence=experimentalDuty.test(description);
+    // Do not automatically prioritize roles with undocumented mandatory
+    // technical skills, demanding explicit experience thresholds, or an
+    // unsupported core specialization. This is a request for review, not a rejection.
+    // Preferred and learnable skills do not trigger the gate.
+    if (checks.essential.length || checks.highExperience || (checks.core.length && checks.noCoreCoverage)) {
+      return {tier:'details',reason:'Review advertised mandatory skills, industry experience or core specialization before prioritizing',basis:'Requirement evidence'};
+    }
     if (titleMatch && (methodMatched>0 || technicalMatched>0 || (chemistryEvidence&&experimentEvidence))){
       return {tier:'secondary',reason:'Potential experimental chemistry/materials overlap; verify the primary duties and mandatory experience',basis:'Rule-based'};
     }
@@ -84,8 +92,38 @@
     return {tier:'other',reason:'Insufficient evidence of relevant daily scientific responsibilities',basis:'Rule-based'};
   }
 
+  // Distinguish explicitly required expertise from preferences and skills
+  // the employer allows a candidate to learn. Unrecorded != absent.
+  function requirementChecks(job) {
+    const q = job?.qualification_priority || {};
+    const items = key => Array.isArray(q[key]) ? q[key] : [];
+    const category = entry => ['Technical', 'Methods'].includes(entry?.category);
+    const notDocumented = entry => entry && entry.documented === false;
+    const labels = group => [...new Set(items(group).filter(entry => category(entry) && notDocumented(entry))
+      .map(entry => nonEmpty(entry.name)).filter(Boolean))].slice(0, 3);
+    const experience = (Array.isArray(q.experience_flags) ? q.experience_flags : [])
+      .filter(entry => entry?.kind === 'explicit minimum' && nonEmpty(entry.text))
+      .map(entry => nonEmpty(entry.text)).slice(0, 2);
+    const highExperience = experience.some(value => {
+      const match = value.match(/(?:minimum(?:\s+of)?|at\s+least|mindestens)\s+(\d+)(?:\s*[-–]\s*\d+)?\+?\s*(?:years?|jahre[n]?)/i);
+      return !!match && Number(match[1]) >= 5;
+    });
+    const core = Array.isArray(job?.core_specializations_to_verify) ?
+      [...new Set(job.core_specializations_to_verify.filter(x => typeof x === 'string' && x.trim()))].slice(0, 2) : [];
+    const counts = job?.competency_counts;
+    const noCoreCoverage = !!(counts && counts.technical?.total > 0 && counts.method?.total > 0 &&
+      counts.technical.matched === 0 && counts.method.matched === 0);
+    return {
+      essential: labels('explicit'),
+      preferred: labels('preferred'),
+      learnable: labels('learnable'),
+      experience, highExperience, core, noCoreCoverage,
+      basis: q.status === 'parsed' ? 'Advertised qualification wording (automated)' : 'Incomplete qualification extraction'
+    };
+  }
+
   function isShortlist(r){return r.tier==='review'||r.tier==='secondary'}
-  const tiers={review:'Review soon',secondary:'Secondary review',details:'Needs description review',other:'Other / deprioritized'};
+  const tiers={review:'Review soon',secondary:'Secondary review',details:'Needs requirements review',other:'Other / deprioritized'};
   const tierOrder={review:0,secondary:1,details:2,other:3};
-  return Object.freeze({reviews,isShortlist,tiers,tierOrder});
+  return Object.freeze({reviews,requirementChecks,isShortlist,tiers,tierOrder});
 });
