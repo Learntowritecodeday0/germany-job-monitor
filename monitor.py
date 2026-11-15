@@ -1204,14 +1204,14 @@ def update(config, state, at):
             # Only mark absent after a successful request. A failed source must retain its jobs.
             # Recent-window sources do not list every open vacancy. Leaving
             # the newest pages is not evidence that a job has closed.
-            if company['platform'] not in ('successfactors_recent', 'ceramtec_recent'):
+            if company['platform'] not in ('successfactors_recent', 'ceramtec_recent', 'heraeus_categories'):
                 for key, job in state["jobs"].items():
                     if job.get("company") == name and key not in keys:
                         job["active"] = False
             state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
                                      "recent_window": company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories"),
                                      "recent_pages": (company.get("recent_pages", 1) if company["platform"] == "ceramtec_recent" else company.get("recent_pages")) if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories") else None,
-                                     "source_mode": ("recent_window" if company["platform"] in ("successfactors_recent", "ceramtec_recent") else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
+                                     "source_mode": ("recent_window" if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories") else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
                                                      "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
                                                      "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "api_detail" if any(j.get("source_mode") == "api_detail" for j in seen) else "structured_feed"),
                                      "details_extracted": sum(j.get("source_mode") in ("html_detail", "api_detail") for j in seen),
