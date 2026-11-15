@@ -395,6 +395,14 @@
       },
       "focus": "R&D, materials processing, chemistry and laboratory analytics",
       "note": "First page of each of the official public research and analytics category listings only. German city slugs must match recognized cities; no inferred posting dates. Partial search, so disappearance is not evidence of closure; HTML adapter requires first-run source-health verification."
+    },
+    {
+      "name": "KSM Castings",
+      "platform": "ksm_html",
+      "slug": "ksm-castings",
+      "careers_url": "https://karriere.ksmcastings.com/stellenangebote/",
+      "focus": "Aluminum and magnesium casting; metallurgy, manufacturing and quality-engineering roles",
+      "note": "Official public job listings. Mechanical production roles may be outside chemistry/materials laboratory background; evaluate primary duties. Descriptions and worksites may be incomplete."
     }
   ]
 }
