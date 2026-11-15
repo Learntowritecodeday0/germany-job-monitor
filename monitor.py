@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
+from http.client import HTTPException
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urljoin, urlsplit
@@ -883,8 +884,11 @@ def fetch_company(company):
         for job in list(seen.values())[:20]:
             try:
                 enrich_heraeus_job(job, get_html(job["url"]))
-            except (HTTPError, URLError, ValueError, TimeoutError):
-                pass
+            except (HTTPError, URLError, ValueError, TimeoutError, HTTPException, OSError) as exc:
+                # Details are optional. A truncated / disconnected page must
+                # not prevent all other employers from being checked or published.
+                # Keep the posting with its title, URL, and verified city.
+                print(f"HERAEUS DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
         return list(seen.values())
     if provider == "softgarden":
         # Public JSON-LD feed confirmed at the employer's own softgarden site.
@@ -1218,7 +1222,8 @@ def update(config, state, at):
                                      "title_only_count": sum(j.get("source_mode") in ("html_fallback", "api_list_only", "recent_title_only") for j in seen),
                                      "duplicates_removed": rss_duplicates_removed}
             print(f"OK {name}: {len(keys)} German/unknown-location listings")
-        except (HTTPError, URLError, ValueError, KeyError, TimeoutError, json.JSONDecodeError) as exc:
+        except (HTTPError, URLError, ValueError, KeyError, TimeoutError,
+                json.JSONDecodeError, HTTPException, OSError) as exc:
             state["sources"][name] = {**entry, "status": "error", "last_checked": at, "error": f"{type(exc).__name__}: {str(exc)[:160]}", "careers_url": company["careers_url"]}
             print(f"ERROR {name}: {exc}", file=sys.stderr)
     return state
