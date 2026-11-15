@@ -56,10 +56,12 @@ function applicationStatus(job){
 }
 function markApplied(job){
   appliedRecords[String(job.key)]={key:String(job.key),company:String(job.company||''),title:String(job.title||''),
-    fingerprint:fingerprint(job),applied_at:new Date().toISOString(),url:String(job.url||'')};
-  saveHistory();render();
+    fingerprint:fingerprint(job),applied_at:new Date().toISOString(),url:String(job.url||''),
+    location:String(job.location||''),posted_at:job.published_at?String(job.published_at).slice(0,10):'',
+    status:'Applied',response_at:'',follow_up_at:'',next_step:'',notes:''};
+  saveHistory();if(typeof window!=='undefined')window.JobApplications?.refresh?.();render();
 }
-function unmarkApplied(job){delete appliedRecords[String(job.key)];saveHistory();render();}
+function unmarkApplied(job){delete appliedRecords[String(job.key)];saveHistory();if(typeof window!=='undefined')window.JobApplications?.refresh?.();render();}
 function exportHistory(){
   const text=JSON.stringify({version:1,exported_at:new Date().toISOString(),records:appliedRecords},null,2);
   const blob=new Blob([text],{type:'application/json'});const href=URL.createObjectURL(blob);
@@ -77,10 +79,15 @@ async function importHistory(file){
     let n=0;
     for(const [key,r] of incoming){
       if(!key||key.length>512||!r||r.key!==key||typeof r.title!=='string'||typeof r.company!=='string'||!Number.isFinite(Date.parse(r.applied_at)))continue;
+      const clean=(field,max)=>typeof r[field]==='string'?r[field].slice(0,max):'';
+      const validDate=field=>{const value=clean(field,40);return /^\\d{4}-\\d{2}-\\d{2}$/.test(value)?value:''};
+      const status=['Applied','No response','Next step','Interview','Offer','Rejected','Withdrawn'].includes(r.status)?r.status:'Applied';
       appliedRecords[key]={key,company:r.company.slice(0,250),title:r.title.slice(0,500),fingerprint:fingerprint(r),
-        applied_at:r.applied_at,url:typeof r.url==='string'?r.url.slice(0,1500):''};n++;
+        applied_at:r.applied_at,url:clean('url',1500),location:clean('location',300),
+        posted_at:validDate('posted_at'),response_at:validDate('response_at'),
+        follow_up_at:validDate('follow_up_at'),next_step:clean('next_step',1000),notes:clean('notes',5000),status};n++;
     }
-    saveHistory();render();ui.appliedStatus.textContent=`Imported ${n} application records. Stored locally in this browser.`;
+    saveHistory();if(typeof window!=='undefined')window.JobApplications?.refresh?.();render();ui.appliedStatus.textContent=`Imported ${n} application records. Stored locally in this browser.`;
   }catch(e){ui.appliedStatus.textContent='Import failed: '+e.message;}
 }
 
@@ -362,6 +369,7 @@ async function main(){try{
   ui.exportApplied.addEventListener('click',exportHistory);
   ui.importApplied.addEventListener('change',async()=>{await importHistory(ui.importApplied.files?.[0]);ui.importApplied.value='';});
   appliedRecords=restoreHistory();
+  if(typeof window!=='undefined')window.JobApplicationsChanged=()=>{appliedRecords=restoreHistory();render();};
   if(!canStore())ui.appliedStatus.textContent='Browser storage is disabled; application marks may not persist.';
   render();
 }catch(err){ui.status.textContent=`Cannot load vacancy data: ${err.message}`;ui.results.append(el('p','muted','Check that a monitoring run has completed successfully.'))}}
