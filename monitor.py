@@ -22,6 +22,7 @@ from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 
 from heraeus_adapter import parse_heraeus_category, enrich_heraeus_job
+from ksm_adapter import parse_ksm_listing, enrich_ksm_job
 from career_adapters import (
     parse_pct_listing, enrich_pct_job, parse_ceramtec_listing,
     enrich_ceramtec_job, normalize_smartrecruiters_listing,
@@ -866,6 +867,18 @@ def fetch_company(company):
         return jobs
     if provider == "successfactors_recent":
         return fetch_successfactors_recent(company)
+    if provider == "ksm_html":
+        # Public official job board; if it cannot be read, preserve the prior
+        # source state rather than interpreting an error as zero vacancies.
+        if urlsplit(company["careers_url"]).hostname != "karriere.ksmcastings.com":
+            raise ValueError("KSM source must use the official career host")
+        jobs = parse_ksm_listing(company, get_html(company["careers_url"]))
+        for job in jobs[:20]:
+            try:
+                enrich_ksm_job(job, get_html(job["url"]))
+            except (HTTPError, URLError, ValueError, TimeoutError, HTTPException, OSError) as exc:
+                print(f"KSM DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
+        return jobs
     if provider == "heraeus_categories":
         # Only the first public page of the two relevant research categories.
         # Category pages are not exhaustive; disappearing from them does not
