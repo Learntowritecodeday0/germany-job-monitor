@@ -7,7 +7,7 @@ const sortWeight = { 'Review first':0, 'Possible':1, 'Low':2, 'Not target':3 };
 const reviewAPI = window.JobShortlist || {
   reviews: j => ({tier: !j.hide_by_default && ['Review first','Possible'].includes(j.match_band)?'secondary':'other',reason:'Review script not loaded; using old keyword priorities',basis:'Fallback'}),
   isShortlist: r => r.tier==='review'||r.tier==='secondary',
-  tiers: {review:'Review soon',secondary:'Secondary review',details:'Needs description review',other:'Other / deprioritized'},
+  tiers: {review:'Review soon',secondary:'Secondary review',details:'Needs requirements review',other:'Other / deprioritized'},
   tierOrder: {review:0,secondary:1,details:2,other:3}
 };
 
@@ -192,7 +192,7 @@ function render(){
     ||(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||sourceDate(b).localeCompare(sourceDate(a)));
   ui.results.replaceChildren();const hidden = ui.degreeFocus.checked ? data.jobs.filter(j=>j.hide_by_default).length : 0;
   const perPage=Number(ui.pageSize?.value)||50;const pages=Math.max(1,Math.ceil(jobs.length/perPage));pageNumber=Math.min(Math.max(1,pageNumber),pages);
-  const queueNames={shortlist:'priority shortlist',details:'description-review queue',other:'other jobs',all:'all jobs'};
+  const queueNames={shortlist:'priority shortlist',details:'requirements/description review queue',other:'other jobs',all:'all jobs'};
   ui.count.textContent=`${jobs.length} in ${queueNames[queue]||'selected queue'}${hidden ? ` · ${hidden} hidden by preferences` : ''}`;
   if(ui.pageInfo)ui.pageInfo.textContent=`Page ${pageNumber} of ${pages} · ${jobs.length?((pageNumber-1)*perPage+1):0}–${Math.min(pageNumber*perPage,jobs.length)} of ${jobs.length}`;
   if(ui.prevPage)ui.prevPage.disabled=pageNumber<=1;if(ui.nextPage)ui.nextPage.disabled=pageNumber>=pages;
@@ -228,6 +228,22 @@ function render(){
     else if(applied.applied)tags.append(chip('Applied','low'));
     left.append(tags);
     if(review.reason)left.append(el('p','review-reason',`Review note (${review.basis}): ${review.reason}`));
+    // Advertised essential requirements differ from preferred and trainable skills.
+    // Warnings are for review only and do not establish eligibility.
+    const requirementChecks=reviewAPI.requirementChecks?.(job);
+    if(requirementChecks){
+      const checks=[];
+      if(requirementChecks.essential.length)checks.push({label:'Explicit technical/method requirements to verify',text:requirementChecks.essential.join(' · ')});
+      if(requirementChecks.experience.length)checks.push({label:'Explicit experience thresholds',text:requirementChecks.experience.join(' · ')});
+      if(requirementChecks.core.length)checks.push({label:'Core specialization to verify',text:requirementChecks.core.join(' · ')});
+      if(requirementChecks.preferred.length)checks.push({label:'Preferred, not mandatory by wording',text:requirementChecks.preferred.join(' · ')});
+      if(requirementChecks.learnable.length)checks.push({label:'Employer allows learning',text:requirementChecks.learnable.join(' · ')});
+      if(checks.length){
+        const panel=evidenceSection('Priority qualification checks (not an eligibility verdict)',checks.slice(0,5),'verify');
+        if(panel)left.append(panel);
+      }
+    }
+
     if(applied.repost)left.append(el('p','repost-note',applied.reason));
     const notices=[];
     if(!job.at_startup&&hoursSince(job.first_detected)>=0&&hoursSince(job.first_detected)<24){
