@@ -66,3 +66,44 @@
 /* Shortlist overlay: independent of legacy method badges and email alerts. */
 .queue-help{margin:14px 0 8px;color:#42566c;font-size:.94rem;line-height:1.55}
 .review-reason{font-size:.92rem;line-height:1.45;margin:6px 0 14px;color:#40566a}
+
+
+/* Applications tab and personal record manager */
+[hidden]{display:none!important}
+.view-tabs{display:flex;gap:8px;border-bottom:1px solid #cad6df;margin:22px 0 14px}
+.view-tab{padding:12px 20px;background:transparent;border:0;border-bottom:3px solid transparent;font:inherit;font-weight:650;color:#526477;cursor:pointer}
+.view-tab.active{border-color:#174c6d;color:#143d59}
+.view-tab:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #6295b8;outline-offset:2px}
+.application-heading{margin-top:20px}
+.primary-button{background:#173b55!important;color:white!important;border-color:#173b55!important}
+.application-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+.application-summary article{padding:18px;background:white;border:1px solid #dce4eb;border-radius:12px}
+.application-summary strong{display:block;font-size:25px;font-variant-numeric:tabular-nums}
+.application-summary span{color:#526375;font-size:12px}
+.application-toolbar{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin:20px 0}
+.application-toolbar label,.application-form-grid label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:13px;color:#425268}
+.application-toolbar input,.application-toolbar select,.application-form-grid input,.application-form-grid select,.application-form-grid textarea{width:100%;padding:10px;border:1px solid #bdcbd6;border-radius:8px;font:inherit;color:#162536;background:white;min-width:0}
+.application-editor{background:white;border:1px solid #ccdce7;border-radius:12px;padding:18px;margin:18px 0}
+.application-editor h3{margin:0;font-size:17px}
+.application-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.application-form-grid .form-wide{grid-column:1/-1}
+.application-form-grid textarea{resize:vertical}
+.required{color:#ad3d31}
+.form-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.form-actions button,.application-heading button,.tracking-tools button,.application-table button{border:1px solid #a7bdca;border-radius:8px;background:white;color:#183b50;padding:9px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.table-wrap{overflow-x:auto;border:1px solid #dce4eb;border-radius:12px;background:white}
+.application-table{border-collapse:collapse;width:100%;min-width:940px;text-align:left;font-size:13px}
+.application-table th{padding:13px 12px;background:#edf3f7;color:#30495c;font-size:12px;white-space:nowrap}
+.application-table td{border-top:1px solid #e0e8ef;padding:13px 12px;vertical-align:top;overflow-wrap:anywhere}
+.application-table td:first-child{min-width:170px}
+.application-table td strong{display:block}
+.application-table a{display:inline-block;margin-top:7px;color:#175e82}
+.application-table button{display:block;margin-bottom:6px}
+.application-table .danger-button{color:#9b352c}
+.application-table details{margin-top:8px;max-width:250px}
+.application-table details summary{cursor:pointer;color:#245575}
+.application-table details p{white-space:pre-wrap}
+.table-role{color:#526375;font-size:12px;margin-top:4px}
+.privacy-reminder{margin:15px 0;color:#586b7a;font-size:12px;line-height:1.5}
+@media(max-width:760px){.application-summary{grid-template-columns:repeat(2,1fr)}.application-toolbar{grid-template-columns:1fr 1fr}.application-toolbar label:first-child{grid-column:1/-1}}
+@media(max-width:460px){.application-form-grid,.application-toolbar{grid-template-columns:1fr}.application-toolbar label:first-child{grid-column:auto}.view-tab{padding:11px 13px}}
