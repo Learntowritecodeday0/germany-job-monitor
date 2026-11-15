@@ -48,6 +48,34 @@ class EducationReviewTests(unittest.TestCase):
   alternative=education_review(job('Technical training or a bachelor’s or master’s degree in physics, chemistry or engineering.'))
   self.assertFalse(alternative['possible_overqualified'])
   self.assertTrue(alternative['alternative_routes'])
+ def test_flattened_german_profile_without_colon(self):
+  p=('Deine Aufgaben Herstellung von Formulierungen im Labor Das bringst du mit '
+     'Erfolgreich abgeschlossenes naturwissenschaftliches Studium (ausschließlich M.Sc.), '
+     'beispielsweise in Chemie oder Materialwissenschaften Teamgeist und Motivation '
+     'Wir bieten einen unbefristeten Vertrag')
+  d=education_review({'description':p})
+  self.assertEqual(d['minimum_level'],'Master / Diplom')
+  self.assertFalse(d['possible_overqualified'])
+ def test_flattened_vocational_only(self):
+  p=('Deine Aufgaben Qualitätsprüfung in der Produktion Das bringst du mit '
+     'Abgeschlossene Ausbildung als Chemielaborant Teamgeist und Zuverlässigkeit '
+     'Wir bieten Weiterbildung')
+  d=education_review({'description':p})
+  self.assertEqual(d['minimum_level'],'Vocational training / Ausbildung')
+  self.assertTrue(d['possible_overqualified'])
+ def test_no_degree_in_duties_is_not_a_qualification(self):
+  p=('Ihre Aufgaben Betreuung von Masterarbeiten, Studierenden und Doktoranden. '
+     'Das bringen Sie mit Langjährige Erfahrung mit experimenteller Analytik. '
+     'Wir bieten ein offenes Team.')
+  d=education_review({'description':p})
+  self.assertEqual(d['status'],'not_specified')
+  self.assertIsNone(d['minimum_level'])
+ def test_smartrecruiters_qualifications_study(self):
+  p=('job description: Entwicklung und Optimierung chemischer Formulierungen. '
+     'qualifications: Abgeschlossenes Studium der Chemie, idealerweise Schwerpunkt '
+     'Organische Chemie. Mehrjährige Laborpraxis erforderlich.')
+  d=education_review({'description':p})
+  self.assertEqual(d['minimum_level'],'University degree / Studium (level unspecified)')
  def test_does_not_change_priority(self):
   j=job('A bachelor degree in chemistry and experience in DoE.',match_band='Possible')
   result=priority_review(j)
