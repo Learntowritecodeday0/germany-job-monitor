@@ -78,9 +78,9 @@ async function importHistory(file){
     if(incoming.length>5000)throw new Error('Too many records');
     let n=0;
     for(const [key,r] of incoming){
-      if(!key||key.length>512||!r||r.key!==key||typeof r.title!=='string'||typeof r.company!=='string'||!Number.isFinite(Date.parse(r.applied_at)))continue;
+      if(!key||key.length>512||!r||r.key!==key||typeof r.title!=='string'||typeof r.company!=='string'||!(r.applied_at===''||Number.isFinite(Date.parse(r.applied_at))))continue;
       const clean=(field,max)=>typeof r[field]==='string'?r[field].slice(0,max):'';
-      const validDate=field=>{const value=clean(field,40);return /^\\d{4}-\\d{2}-\\d{2}$/.test(value)?value:''};
+      const validDate=field=>{const value=clean(field,40);return /^\d{4}-\d{2}-\d{2}$/.test(value)?value:''};
       const status=['Applied','No response','Next step','Interview','Offer','Rejected','Withdrawn'].includes(r.status)?r.status:'Applied';
       appliedRecords[key]={key,company:r.company.slice(0,250),title:r.title.slice(0,500),fingerprint:fingerprint(r),
         applied_at:r.applied_at,url:clean('url',1500),location:clean('location',300),
