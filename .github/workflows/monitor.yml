@@ -36,6 +36,8 @@ jobs:
           python-version: '3.12'
       - name: Run tests
         run: python -m unittest discover -s tests -v
+      - name: Test website theme behavior
+        run: node tests/test_theme_frontend.cjs
       - name: Check public job feeds
         run: python monitor.py
       - name: Add eligibility and worksite review flags
