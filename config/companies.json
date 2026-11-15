@@ -352,6 +352,24 @@
       "feed_url": "https://horn-bauer.career.softgarden.de/jobs.feed.json",
       "focus": "Polymer films and packaging materials",
       "note": "Official public Softgarden DataFeed; high vocational-job volume. Only science/materials roles worth reviewing."
+    },
+    {
+      "name": "Lohmann Tapes",
+      "platform": "softgarden",
+      "slug": "lohmann-tapes",
+      "careers_url": "https://lohmann-tapes.softgarden.io/de/vacancies",
+      "feed_url": "https://lohmann-tapes.career.softgarden.de/jobs.feed.json",
+      "focus": "Adhesives, polymer formulations, coatings and surface technology",
+      "note": "Official Softgarden board verified, including chemist vacancies in Neuwied. JSON-LD feed follows existing Softgarden adapter pattern; endpoint requires first workflow verification."
+    },
+    {
+      "name": "MÜNZING CHEMIE",
+      "platform": "softgarden",
+      "slug": "munzing",
+      "careers_url": "https://munzing.softgarden.io/de/vacancies",
+      "feed_url": "https://munzing.career.softgarden.de/jobs.feed.json",
+      "focus": "Coatings additives, emulsions, dispersants, industrial fluids and formulation development",
+      "note": "Official Softgarden board verified. JSON-LD feed uses existing Softgarden convention but has not been directly live-tested; inspect source health after first run."
     }
   ]
 }
