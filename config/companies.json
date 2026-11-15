@@ -370,6 +370,31 @@
       "feed_url": "https://munzing.career.softgarden.de/jobs.feed.json",
       "focus": "Coatings additives, emulsions, dispersants, industrial fluids and formulation development",
       "note": "Official Softgarden board verified. JSON-LD feed uses existing Softgarden convention but has not been directly live-tested; inspect source health after first run."
+    },
+    {
+      "name": "Heraeus — research and analytics categories",
+      "platform": "heraeus_categories",
+      "slug": "heraeus-research",
+      "careers_url": "https://jobs.heraeus.com/en/",
+      "category_urls": [
+        "https://jobs.heraeus.com/en/category/research-and-development-jobs/2801/32215040/1",
+        "https://jobs.heraeus.com/en/category/lab-and-analytics-jobs/2801/32214592/1"
+      ],
+      "recent_pages": 1,
+      "german_cities": {
+        "hanau": "Hanau",
+        "dresden": "Dresden",
+        "kleinostheim": "Kleinostheim",
+        "wehrheim": "Wehrheim",
+        "bitterfeld-wolfen": "Bitterfeld-Wolfen",
+        "leverkusen": "Leverkusen",
+        "wurmberg": "Wurmberg",
+        "moenchengladbach": "Mönchengladbach",
+        "m%C3%B6nchengladbach": "Mönchengladbach",
+        "karlstein-am-main": "Karlstein am Main"
+      },
+      "focus": "R&D, materials processing, chemistry and laboratory analytics",
+      "note": "First page of each of the official public research and analytics category listings only. German city slugs must match recognized cities; no inferred posting dates. Partial search, so disappearance is not evidence of closure; HTML adapter requires first-run source-health verification."
     }
   ]
 }

@@ -20,6 +20,7 @@ from urllib.parse import quote, urljoin, urlsplit
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 
+from heraeus_adapter import parse_heraeus_category, enrich_heraeus_job
 from career_adapters import (
     parse_pct_listing, enrich_pct_job, parse_ceramtec_listing,
     enrich_ceramtec_job, normalize_smartrecruiters_listing,
@@ -864,6 +865,27 @@ def fetch_company(company):
         return jobs
     if provider == "successfactors_recent":
         return fetch_successfactors_recent(company)
+    if provider == "heraeus_categories":
+        # Only the first public page of the two relevant research categories.
+        # Category pages are not exhaustive; disappearing from them does not
+        # establish that a job has closed.
+        roots = company.get("category_urls")
+        if not isinstance(roots, list) or len(roots) != 2:
+            raise ValueError("Expected two official Heraeus research category pages")
+        seen = {}
+        for url in roots:
+            if urlsplit(url).scheme != "https" or urlsplit(url).hostname != "jobs.heraeus.com":
+                raise ValueError("Heraeus category URL must be on official HTTPS host")
+            for job in parse_heraeus_category(company, get_html(url)):
+                seen[job["key"]] = job
+        # Retrieve details only for German listings and accept incomplete
+        # descriptions without manufacturing qualifications or job dates.
+        for job in list(seen.values())[:20]:
+            try:
+                enrich_heraeus_job(job, get_html(job["url"]))
+            except (HTTPError, URLError, ValueError, TimeoutError):
+                pass
+        return list(seen.values())
     if provider == "softgarden":
         # Public JSON-LD feed confirmed at the employer's own softgarden site.
         # Do not use authenticated softgarden APIs or third-party aggregators.
@@ -1182,14 +1204,14 @@ def update(config, state, at):
             # Only mark absent after a successful request. A failed source must retain its jobs.
             # Recent-window sources do not list every open vacancy. Leaving
             # the newest pages is not evidence that a job has closed.
-            if company['platform'] not in ('successfactors_recent', 'ceramtec_recent'):
+            if company['platform'] not in ('successfactors_recent', 'ceramtec_recent', 'heraeus_categories'):
                 for key, job in state["jobs"].items():
                     if job.get("company") == name and key not in keys:
                         job["active"] = False
             state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
-                                     "recent_window": company["platform"] in ("successfactors_recent", "ceramtec_recent"),
-                                     "recent_pages": (company.get("recent_pages", 1) if company["platform"] == "ceramtec_recent" else company.get("recent_pages")) if company["platform"] in ("successfactors_recent", "ceramtec_recent") else None,
-                                     "source_mode": ("recent_window" if company["platform"] in ("successfactors_recent", "ceramtec_recent") else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
+                                     "recent_window": company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories"),
+                                     "recent_pages": (company.get("recent_pages", 1) if company["platform"] == "ceramtec_recent" else company.get("recent_pages")) if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories") else None,
+                                     "source_mode": ("recent_window" if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories") else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
                                                      "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
                                                      "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "api_detail" if any(j.get("source_mode") == "api_detail" for j in seen) else "structured_feed"),
                                      "details_extracted": sum(j.get("source_mode") in ("html_detail", "api_detail") for j in seen),
