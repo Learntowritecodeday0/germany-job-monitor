@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <title>Germany Job Monitor</title>
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css">
   <script src="shortlist.js" defer></script>
   <script src="app.js" defer></script>
@@ -13,7 +14,16 @@
 <body>
   <main>
     <header class="hero">
-      <div class="eyebrow">PERSONAL JOB SEARCH TOOL · PUBLIC CAREER POSTS</div>
+      <div class="hero-top">
+        <div class="eyebrow">PERSONAL JOB SEARCH TOOL · PUBLIC CAREER POSTS</div>
+        <label class="theme-switch" for="themeMode">Appearance
+          <select id="themeMode" aria-label="Website appearance">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </div>
       <h1>Germany Job Monitor</h1>
       <p>Selected employers. Early vacancy detection. Technical keyword triage.</p>
     </header>

@@ -1,17 +1,19 @@
-# Germany Job Monitor — starter project
+# Germany Job Monitor
 
-An early-stage personal vacancy monitor for public German job postings. This is **not** an automated application system and **not** an AI hiring-fit assessment.
+A public vacancy monitor for scientific, chemical and materials-related positions in Germany, with a browser-local application history. This is **not** an automated application system or a verified hiring-fit assessment.
 
-## What the starter does
+## What the monitor does
 
-- Checks four **example employers** in Germany using public Greenhouse EU and Ashby posting feeds.
+- Tracks a growing list of 61 configured official recruitment sources, including Greenhouse, Ashby, Personio, Softgarden, SmartRecruiters and selected public career pages. Some sources can fail or have limited search coverage; always inspect **Source status**.
 - Runs a scheduled check six times a day using GitHub Actions (approximately every four hours; delays and missed runs are possible).
 - Remembers when each job was **first detected**. It does not claim that this equals the original publication time.
 - Excludes clearly non-German locations; flags uncertain or mixed locations for manual review.
 - Gives approximate **keyword-based** review categories; always inspect essential requirements manually.
-- Creates a public HTML dashboard showing open postings and links to the official listing.
+- Creates a public HTML dashboard with links to official job postings and a separate manual employer watchlist.
+- Includes an **Applications** tab for locally stored application dates, outcomes, responses, notes and follow-ups. JSON export/import is available; records do not sync between browsers automatically.
+- Offers **System (default), Light and Dark** appearance choices. System follows the device/browser theme; manual choices remain in this browser.
 
-**Important**: Network access to the four live feeds was not available in the file-generation environment. Source slugs were inferred from verified public career-page URLs, but initial live requests and response compatibility must still be checked in the deployed workflow logs.
+**Important:** A configured source is not a guarantee of working live coverage. Check the latest GitHub Actions workflow and website source-health report before relying on a new source.
 
 ## Setup: first time (beginner-friendly)
 
@@ -32,8 +34,12 @@ Open `config/companies.json` and edit the list. Each entry needs the official na
 - `greenhouse_eu` — job board like `https://job-boards.eu.greenhouse.io/COMPANY`
 - `greenhouse` — `https://job-boards.greenhouse.io/COMPANY`
 - `ashby` — `https://jobs.ashbyhq.com/COMPANY`
+- `personio` — an employer's official Personio board and its public feed or job-list HTML
+- `softgarden` — an employer's official `jobs.feed.json` public DataFeed
+- `smartrecruiters` — official public SmartRecruiters posting API
+- Selected source-specific limited-window HTML readers, defined in `monitor.py`
 
-Example: Copy an existing entry, replace the details, and commit the change. Check the next workflow run and source status. **Never assume a company supports a platform without verifying its official site.** Workday, Personio, and custom sites are not supported yet.
+Example: Copy an existing entry, replace the details, and commit the change. Check the next workflow run and source status. **Never assume a company supports a platform without verifying its official site.** Workday is not currently integrated as a general job-board source; some custom public sources use dedicated, limited-scope adapters.
 
 ## Run on a computer (optional)
 
@@ -49,13 +55,13 @@ Then visit `http://localhost:8000` in a browser. No third-party Python packages 
 
 ## Privacy and limitations
 
-- GitHub Pages sites are public, even when repository plans permit private source repositories. The demo only publishes vacancies that are already public. **Do not upload CVs, application notes, immigration status, or contact details.**
+- GitHub Pages sites are public, even when repository plans permit private source repositories. The monitor publishes vacancies that are already public. **Do not commit CVs, application notes, immigration status, or contact details.** The Applications tab stores records only in the browser; export backups privately.
 - GitHub Actions schedules can be delayed; public-repo schedules may be disabled after 60 days without activity. Check the workflow status periodically.
-- The first successful scan creates a **baseline** of existing jobs. It cannot infer whether those listings are genuinely new. Later unseen jobs are detected as new.
+- The first successful scan of a source creates a **baseline** of existing jobs. It cannot infer whether those listings are genuinely new. Later unseen jobs are detected as new.
 - Source feeds can change without notice. Errors should never be interpreted as no vacancies.
 - Job data might include an old open position or cross-border location; always inspect the original listing before applying.
 - Keyword categories are not measured hiring probabilities. A role can be ranked high despite lacking a mandatory requirement.
-- No email/Telegram alerts are included yet. Once the site successfully updates, notifications can be added through a separately configured channel (without exposing credentials in a public repo).
+- Email alerts are supported through private GitHub Actions secrets, when configured. No email credentials belong in public repository files.
 - If the monitoring process repeatedly fails, do not increase polling frequency or attempt to bypass anti-bot restrictions. Use employer-provided alerts or supported feeds.
 
 ## Authoritative references

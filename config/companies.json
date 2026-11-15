@@ -403,6 +403,22 @@
       "careers_url": "https://karriere.ksmcastings.com/stellenangebote/",
       "focus": "Aluminum and magnesium casting; metallurgy, manufacturing and quality-engineering roles",
       "note": "Official public job listings. Mechanical production roles may be outside chemistry/materials laboratory background; evaluate primary duties. Descriptions and worksites may be incomplete."
+    },
+    {
+      "name": "E-Lyte Innovations",
+      "platform": "personio",
+      "slug": "e-lyte",
+      "careers_url": "https://e-lyte.jobs.personio.de",
+      "focus": "Electrolyte formulation, chemical analysis and laboratory R&D for lithium- and sodium-ion batteries",
+      "note": "Official Personio job board verified; current openings include technician and production roles, not necessarily R&D. Supports the established Personio reader; verify source status at first live scan."
+    },
+    {
+      "name": "CuspAI",
+      "platform": "ashby",
+      "slug": "cuspai",
+      "careers_url": "https://jobs.ashbyhq.com/cuspai",
+      "focus": "Materials science discovery, experimental synthesis, characterization and applied materials research",
+      "note": "Company is internationally based, but the official Ashby board advertises roles with Berlin among possible work locations. Multi-country roles require location and onsite requirements review, not assumed German-only. Check first-run feed status."
     }
   ]
 }
