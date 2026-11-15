@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="shortlist.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="applications.js" defer></script>
 </head>
 <body>
   <main>
@@ -16,6 +17,11 @@
       <h1>Germany Job Monitor</h1>
       <p>Selected employers. Early vacancy detection. Technical keyword triage.</p>
     </header>
+    <nav class="view-tabs" role="tablist" aria-label="Dashboard sections">
+      <button id="tabVacancies" class="view-tab active" type="button" role="tab" aria-selected="true" aria-controls="vacanciesView">Vacancies</button>
+      <button id="tabApplications" class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="applicationsView">Applications <span id="appTabCount"></span></button>
+    </nav>
+    <section id="vacanciesView" role="tabpanel" aria-labelledby="tabVacancies">
     <div class="notice" role="note">The priority shortlist is a conservative review aid, separate from legacy keyword ranking and email alerts. Technical / Methods / General counts represent recognized overlaps, not verified qualification or eligibility. A 0/0 means no identifiable item in that category; —/— means incomplete details.</div>
     <section class="summary" aria-label="Summary">
       <article><strong id="total">—</strong><span>All tracked vacancies</span></article>
@@ -35,9 +41,6 @@
     </section>
     <section class="tracking-tools" aria-label="Application history">
       <label class="tracking-check"><input type="checkbox" id="showApplied"> Show previously applied jobs</label>
-      <button type="button" id="exportApplied">Export application history</button>
-      <label class="import-control">Import history <input type="file" id="importApplied" accept=".json,application/json" aria-label="Import application history JSON"></label>
-      <span class="tracking-note" id="appliedStatus" aria-live="polite">Application marks are stored in this browser only. Export a backup before switching devices or clearing browser data.</span>
     </section>
     <div class="between"><h2>Current positions</h2><span id="count"></span></div>
     <nav class="pagination-controls" aria-label="Job results pages">
@@ -61,6 +64,54 @@
         <li><a href="https://fibrecoat.de/careers/" target="_blank" rel="noopener noreferrer">FibreCoat — Aachen, fibre materials and processing</a></li>
         <li><a href="https://jobs.wacker.com/" target="_blank" rel="noopener noreferrer">WACKER — chemistry and materials</a></li>
       </ul>
+    </section>
+    </section>
+    <section id="applicationsView" class="applications-view" role="tabpanel" aria-labelledby="tabApplications" hidden>
+      <div class="between application-heading"><h2>Application history</h2><button type="button" class="primary-button" id="newApplication">Add application</button></div>
+      <p class="queue-help">Record applications from this monitor or other websites. Posting dates are separate from first-detected dates and are left blank when unknown.</p>
+      <div class="application-summary" aria-label="Application statistics">
+        <article><strong id="applicationTotal">0</strong><span>Total recorded</span></article>
+        <article><strong id="applicationPending">0</strong><span>Awaiting response</span></article>
+        <article><strong id="applicationProgress">0</strong><span>Next step / interview</span></article>
+        <article><strong id="applicationRejected">0</strong><span>Rejected</span></article>
+      </div>
+      <div class="application-toolbar">
+        <label>Search applications<input type="search" id="applicationSearch" placeholder="Company, position, location, notes"></label>
+        <label>Outcome<select id="applicationFilter"><option value="all">All outcomes</option><option value="Applied">Applied</option><option value="No response">No response</option><option value="Next step">Next step</option><option value="Interview">Interview</option><option value="Offer">Offer</option><option value="Rejected">Rejected</option><option value="Withdrawn">Withdrawn</option></select></label>
+        <label>Sort<select id="applicationSort"><option value="latest">Recently applied</option><option value="oldest">Oldest application</option><option value="company">Company A–Z</option></select></label>
+      </div>
+      <div class="tracking-tools" aria-label="Application history backup">
+        <button type="button" id="exportApplied">Export history (JSON)</button>
+        <label class="import-control">Import history <input type="file" id="importApplied" accept=".json,application/json" aria-label="Import application history JSON"></label>
+        <span class="tracking-note" id="appliedStatus" aria-live="polite">Records are saved only in this browser, not on GitHub. Export a backup before changing devices or clearing browser data.</span>
+      </div>
+      <section class="application-editor" id="applicationEditor" aria-labelledby="applicationEditorTitle" hidden>
+        <div class="between"><h3 id="applicationEditorTitle">Add application</h3><button type="button" id="cancelApplication">Cancel</button></div>
+        <form id="applicationForm">
+          <div class="application-form-grid">
+            <label>Company <span class="required">*</span><input id="applicationCompany" name="company" required maxlength="250"></label>
+            <label>Job title <span class="required">*</span><input id="applicationTitle" name="title" required maxlength="500"></label>
+            <label>Location<input id="applicationLocation" name="location" maxlength="300" placeholder="City, region or remote"></label>
+            <label>Job advertisement URL<input id="applicationUrl" name="url" type="url" maxlength="1500" placeholder="https://"></label>
+            <label>Date posted<input id="applicationPosted" name="posted_at" type="date"></label>
+            <label>Date applied<input id="applicationApplied" name="applied_at" type="date"></label>
+            <label>Response date<input id="applicationResponse" name="response_at" type="date"></label>
+            <label>Outcome<select id="applicationOutcome" name="status"><option value="Applied">Applied</option><option value="No response">No response</option><option value="Next step">Next step</option><option value="Interview">Interview</option><option value="Offer">Offer</option><option value="Rejected">Rejected</option><option value="Withdrawn">Withdrawn</option></select></label>
+            <label class="form-wide">Next step / action<input id="applicationNextStep" name="next_step" maxlength="1000" placeholder="e.g. Reply to recruiter, prepare interview"></label>
+            <label>Follow-up / next action date<input id="applicationFollowUp" name="follow_up_at" type="date"></label>
+            <label class="form-wide">Notes<textarea id="applicationNotes" name="notes" rows="3" maxlength="5000" placeholder="Response details, application channel, version of CV used…"></textarea></label>
+          </div>
+          <div class="form-actions"><button type="submit" class="primary-button">Save application</button><button type="button" id="closeApplication">Cancel</button><span id="applicationFormStatus" role="status"></span></div>
+        </form>
+      </section>
+      <div class="table-wrap">
+        <table class="application-table">
+          <thead><tr><th scope="col">Company / role</th><th scope="col">Location</th><th scope="col">Posted</th><th scope="col">Applied</th><th scope="col">Response</th><th scope="col">Outcome</th><th scope="col">Next step / follow-up</th><th scope="col">Actions</th></tr></thead>
+          <tbody id="applicationRows"></tbody>
+        </table>
+      </div>
+      <p id="applicationEmpty" class="muted" hidden>No applications recorded yet. Use “Add application” or mark a vacancy as applied.</p>
+      <p class="privacy-reminder">Privacy: this is a public GitHub Pages website without an account database. Application details are kept in local browser storage, not published or synced. JSON exports contain personal application notes; keep backups private.</p>
     </section>
     <footer>New means first detected by this tracker, not necessarily first published. Source updates are best-effort and may be delayed. No applications are submitted automatically.</footer>
   </main>
