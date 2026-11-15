@@ -1,5 +1,6 @@
 """Regression tests for bounded official Heraeus R&D + Lab public listings."""
 import json
+from http.client import IncompleteRead, RemoteDisconnected
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -42,6 +43,24 @@ class HeraeusSourcesTests(unittest.TestCase):
         self.assertEqual(get.call_count,5)
         self.assertEqual(get.call_args_list[0].args[0],H["category_urls"][0])
         self.assertEqual(get.call_args_list[1].args[0],H["category_urls"][1])
+
+    def test_truncated_optional_detail_retains_title_and_other_jobs(self):
+        # This is the exact exception type seen in GitHub Actions run #53.
+        with patch.object(monitor,"get_html",side_effect=[PAGE, LAB, IncompleteRead(b"partial"), DETAIL, DETAIL]) as get:
+            jobs=monitor.fetch_company(H)
+        self.assertEqual(len(jobs),3)
+        self.assertEqual(jobs[0]["source_mode"],"recent_title_only")
+        self.assertEqual(jobs[0]["title"],"Chemical Process Engineer (m/f/d)")
+        self.assertEqual(get.call_count,5)
+
+    def test_disconnected_category_is_source_error_not_workflow_crash(self):
+        prior=parse_heraeus_category(H,PAGE)[0]
+        with patch.object(monitor,"fetch_company",return_value=[prior]):
+            state=monitor.update({"companies":[H]},{"jobs":{},"sources":{}},"2026-11-15T14:00:00+00:00")
+        with patch.object(monitor,"fetch_company",side_effect=RemoteDisconnected("closed without response")):
+            state=monitor.update({"companies":[H]},state,"2026-11-15T16:00:00+00:00")
+        self.assertEqual(state["sources"][H["name"]]["status"],"error")
+        self.assertTrue(state["jobs"][prior["key"]]["active"])
 
     def test_partial_categories_do_not_close_missing_jobs(self):
         first=parse_heraeus_category(H,PAGE)[0]
