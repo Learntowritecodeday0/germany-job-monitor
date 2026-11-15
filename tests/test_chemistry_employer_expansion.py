@@ -28,8 +28,18 @@ class ChemistryEmployersTest(unittest.TestCase):
                 self.assertIn("first",company["note"].lower())
 
     def test_manual_employers_are_not_falsely_monitored(self):
-        for name in ("BYK","DELO","WACKER","Evonik","Heraeus","Bruker","LUM"):
-            self.assertIn(name,HTML)
-        self.assertIn("not integrated into automatic vacancy checks",HTML)
+        # Check the actual watchlist section, not exact explanatory prose.
+        # Heraeus moved to a separate limited automatic source, so it is no
+        # longer required to appear as a manual employer.
+        self.assertIn('<section class="manual-sources"', HTML)
+        section = HTML.split('<section class="manual-sources"', 1)[1].split("</section>", 1)[0]
+        for name in ("BYK", "DELO", "WACKER", "Evonik", "Bruker", "LUM"):
+            with self.subTest(name=name):
+                self.assertIn(name, section)
+        self.assertIn("manual targets", section)
+        self.assertIn("not individually integrated", section)
+        self.assertIn("separate automated coverage", section)
+        by_name = {company["name"] for company in CONFIG["companies"]}
+        self.assertTrue(any(name.startswith("Heraeus") for name in by_name))
 
 if __name__=="__main__":unittest.main()
