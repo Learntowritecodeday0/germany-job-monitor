@@ -28,7 +28,7 @@ VOCATIONAL = re.compile(
 PREFERRED = re.compile(r"\b(?:preferred|desirable|ideally|preferably|a\s+plus|advantage(?:ous)?|"
  r"w[uü]nschenswert|von\s+vorteil|idealerweise|bevorzugt|vorzugsweise|w[uü]rde\s+begr[uü][sß]t)\b",re.I)
 MUST = re.compile(r"\b(?:required|mandatory|must\s+have|minimum|at\s+least|essential|"
- r"abgeschlossen|erforderlich|zwingend|vorausgesetzt|mindestens|erfolgreich\s+abgeschlossen)\b",re.I)
+ r"abgeschlossen(?:e|en|er|es)?|erforderlich|zwingend|vorausgesetzt|mindestens|erfolgreich\s+abgeschlossen)\b",re.I)
 UNIVERSITY_WORD = re.compile(r"\b(?:studium|hochschulabschluss|universit[aä]tsabschluss|university\s+degree|"
  r"academic\s+degree|bachelor|master|ph\.?d\.?|promotio[n]?|diplom)\b",re.I)
 
@@ -55,12 +55,34 @@ def _level_from_segment(text):
     return None
 
 
-def education_review(job:dict)->dict:
-    raw=str(job.get('description') or '')
-    if job.get('source_mode')=='html_fallback' or len(plain_text(raw))<100:
-        return _empty('unavailable')
-    profile,has=qualification_section(raw)
-    if not has or not profile:return _empty('unavailable')
+
+# Profile headings on Personio, Softgarden, SmartRecruiters and custom pages
+# frequently lose their colon when converted into plain text. Limit fallback
+# extraction to recognizable qualification headings, never general job tasks.
+EDUCATION_PROFILE_HEADING = re.compile(
+    r"\b(?:das\s+bringst\s+du\s+mit|das\s+bringen\s+sie\s+mit|"
+    r"das\s+solltest\s+du\s+mitbringen|was\s+du\s+mitbringst|"
+    r"dein\s+profil|ihr\s+profil|your\s+profile|"
+    r"your\s+qualifications|your\s+background|what\s+you\s+bring|"
+    r"who\s+you\s+are|qualifications|requirements)\b\s*[:\-–]?", re.I)
+EDUCATION_PROFILE_FOOTER = re.compile(
+    r"\b(?:das\s+(?:bieten|erwartet)\s+(?:wir|dich)|wir\s+bieten|"
+    r"was\s+wir\s+bieten|our\s+work\s+culture|"
+    r"why\s+(?:us|join\s+us)|what\s+we\s+offer|our\s+benefits|"
+    r"equal\s+opportunity)\b\s*[:\-–]?", re.I)
+
+
+def _education_profile(raw):
+    text = plain_text(raw)[:30000]
+    heading = EDUCATION_PROFILE_HEADING.search(text)
+    if heading:
+        section = text[heading.end():]
+        footer = EDUCATION_PROFILE_FOOTER.search(section)
+        return (section[:footer.start()] if footer else section)[:10000].strip(), True
+    return qualification_section(raw)
+
+
+def parse_clauses(profile):
     clauses=[piece for clause in split_requirements(profile) for piece in re.split(r';\s*(?=(?:M\.?Sc\.?|Master|Ph\.?D\.?|Promotion|Bachelor|Diplom)\b)',clause,flags=re.I)]
     education=[]
     for clause in clauses:
@@ -69,7 +91,24 @@ def education_review(job:dict)->dict:
         if PREFERRED.search(clause) and not MUST.search(clause):priority='preferred'
         else:priority='minimum_or_listed'
         education.append({'level':level,'text':re.sub(r'\s+',' ',clause)[:220],'priority':priority})
+    return education
+
+
+def education_review(job:dict)->dict:
+    raw=str(job.get('description') or '')
+    if job.get('source_mode')=='html_fallback' or len(plain_text(raw))<100:
+        return _empty('unavailable')
+    profile,has=_education_profile(raw)
+    if not has or not profile:return _empty('unavailable')
+    education=parse_clauses(profile)
+    if not education:
+        # Keep recognized degree evidence from the legacy section splitter if
+        # the newly recognized heading happens to be a false positive.
+        legacy_profile, legacy_found = qualification_section(raw)
+        if legacy_found and legacy_profile != profile:
+            education = parse_clauses(legacy_profile)
     if not education:return _empty()
+
     required=[e for e in education if e['priority']=='minimum_or_listed']
     preferred=[e for e in education if e['priority']=='preferred']
     # Use first recognized minimum clause, normally strongest evidence of
