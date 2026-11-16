@@ -8,7 +8,7 @@ from unittest.mock import patch
 import location_detail
 import monitor
 from workday_adapter import (workday_paths, normalize_workday_job,
-                             enrich_workday_job)
+                             enrich_workday_job, workday_detail_priority)
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = json.loads((ROOT / "config/companies.json").read_text(encoding="utf-8"))
@@ -64,6 +64,31 @@ class DELOWorkdayTests(TestCase):
         site = location_detail.format_worksites(job)
         self.assertEqual((site["worksite_city"], site["worksite_state"],
                           site["worksite_country"]), ("Windach", "Bayern", "Germany"))
+
+    def test_public_detail_requests_prioritize_scientific_jobs_not_training(self):
+        listing = [
+            {**OTHER, "externalPath": "/job/Windach/Sales_R100"},
+            {"title": "Abschlussarbeit in der chemischen Forschung",
+             "externalPath": "/job/Windach/Abschlussarbeit_R101", "locationsText": "Windach"},
+            {"title": "Ingenieur Anwendungsentwicklung Klebstoffe (w/m/d)",
+             "externalPath": "/job/Windach/Anwendungsentwicklung_R102", "locationsText": "Windach"},
+            CHEM,
+            {"title": "Prozessingenieur Fließverhalten (w/m/d)",
+             "externalPath": "/job/Windach/Prozessingenieur_R103", "locationsText": "Windach"},
+        ]
+        with patch.object(monitor,"post_public_json",
+                          return_value={"total": len(listing), "jobPostings": listing}):
+            with patch.object(monitor, "get_json",
+                              return_value={"jobPostingInfo": {}}) as details:
+                jobs=monitor.fetch_company(DELO)
+        self.assertEqual(details.call_count, 3)
+        self.assertEqual(len(jobs),5)
+        requested=" ".join(call.args[0] for call in details.call_args_list)
+        self.assertNotIn("Abschlussarbeit_R101",requested)
+        self.assertNotIn("Sales_R100",requested)
+        self.assertIn("Prozessingenieur_R103",requested)
+        self.assertGreater(workday_detail_priority(jobs[2]),0)
+        self.assertEqual(workday_detail_priority(jobs[1]),0)
 
     def test_two_postings_and_one_detail_request(self):
         with patch.object(monitor, "post_public_json",
