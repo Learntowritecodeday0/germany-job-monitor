@@ -64,10 +64,14 @@ def core_review(job: dict) -> dict:
     description = str(job.get('description') or '').strip()
     if job.get('hide_by_default') or re.search(r'\b(?:unsolicited application|initiativbewerbung|talent pool|general application)\b', str(job.get('title') or ''), re.I):
         return {'core_review':'Outside preferred job families','core_documented_tasks':[],
-                'core_specializations_to_verify':[], 'core_review_basis':'Excluded by selected job-family preferences'}
+                'core_specializations_to_verify':[], 'core_task_specializations_to_verify':[],
+                'core_qualification_specializations_to_verify':[],
+                'core_review_basis':'Excluded by selected job-family preferences'}
     if len(description) < 120 or job.get('source_mode') == 'html_fallback':
         return {'core_review':'Insufficient role details','core_documented_tasks':[],
-                'core_specializations_to_verify':[], 'core_review_basis':'Tasks or qualifications unavailable'}
+                'core_specializations_to_verify':[], 'core_task_specializations_to_verify':[],
+                'core_qualification_specializations_to_verify':[],
+                'core_review_basis':'Tasks or qualifications unavailable'}
     tasks,requirements,has_req=split_role(description)
     # Use the role's main task section for evidence, and qualification section
     # for specialization requirements. Do not turn a generic title into a match.
@@ -92,6 +96,10 @@ def core_review(job: dict) -> dict:
         'core_review':label,
         'core_documented_tasks':direct_tasks[:4],
         'core_specializations_to_verify':gaps[:4],
+        # Keep primary daily duties distinct from qualifications or preferences.
+        # Missing direct industry expertise is not proven inability to learn it.
+        'core_task_specializations_to_verify':gap_tasks[:4],
+        'core_qualification_specializations_to_verify':gap_requirements[:4],
         'core_review_basis':'Tasks and listed qualifications; rule-based manual screening' if has_req else 'Role text only; full requirements not separated',
     }
 
