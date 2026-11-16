@@ -35,6 +35,10 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Test website theme behavior
         run: node tests/test_theme_frontend.cjs
+      - name: Test shortlist evidence and review rules
+        run: |
+          node tests/test_shortlist_primary_duties.cjs
+          node tests/test_shortlist.cjs
       - name: Check public job feeds
         run: python monitor.py
       - name: Add eligibility and worksite review flags
