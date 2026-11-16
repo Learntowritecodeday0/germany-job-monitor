@@ -251,6 +251,7 @@
         'Linked jobs reflect the latest monitor snapshot, not confirmed live vacancies. ') +
       'Technical overlap is not an employment probability. Locations refer to researched sites, not advertised worksites.';
     render();
+    if (typeof window.dispatchEvent === 'function' && typeof Event === 'function') window.dispatchEvent(new Event('company-directory-ready'));
   }
   for (const control of [ui.search, ui.band, ui.region, ui.segment, ui.status]) control.addEventListener('input', render);
   ui.export.addEventListener('click', exportPersonal);
@@ -261,6 +262,7 @@
   });
   window.CompanyDirectory = {
     refresh: render,
+    hasCompany(name) { return profiles.some(profile => matchesName(name, profile)); },
     openByCompany(name) {
       const p = profiles.find(profile => matchesName(name, profile));
       if (!p) return false;
