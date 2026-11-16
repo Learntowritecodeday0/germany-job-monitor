@@ -7,9 +7,11 @@
   <title>Germany Job Monitor</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="companies.css">
   <script src="shortlist.js" defer></script>
   <script src="app.js" defer></script>
   <script src="applications.js" defer></script>
+  <script src="companies.js" defer></script>
 </head>
 <body>
   <main>
@@ -29,6 +31,7 @@
     </header>
     <nav class="view-tabs" role="tablist" aria-label="Dashboard sections">
       <button id="tabVacancies" class="view-tab active" type="button" role="tab" aria-selected="true" aria-controls="vacanciesView">Vacancies</button>
+      <button id="tabCompanies" class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="companiesView">Companies</button>
       <button id="tabApplications" class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="applicationsView">Applications <span id="appTabCount"></span></button>
     </nav>
     <section id="vacanciesView" role="tabpanel" aria-labelledby="tabVacancies">
@@ -92,6 +95,25 @@
         <li><a href="https://www.schmitz-metallographie.de/" target="_blank" rel="noopener noreferrer">Schmitz-Metallographie — materials testing, metallography and failure analysis (company/contact page; no public vacancies page confirmed)</a></li>
       </ul>
     </section>
+    </section>
+    <section id="companiesView" class="companies-view" role="tabpanel" aria-labelledby="tabCompanies" hidden>
+      <div class="between"><h2>Company research</h2><span id="companyCount">Loading profiles…</span></div>
+      <p class="company-intro">Research notes about German chemical and materials employers, organized by technical overlap. A high technical overlap is not a hiring-fit assessment. Researched site locations are not necessarily vacancy worksites.</p>
+      <p id="companyMessage" class="company-intro" role="status" aria-live="polite">Loading company research and the latest job snapshot…</p>
+      <div class="company-filters" aria-label="Company directory filters">
+        <label>Search company, product or technique<input type="search" id="companySearch" placeholder="e.g. colloidal silica, cellulose"></label>
+        <label>Technical overlap<select id="companyBand"><option value="all">All levels</option><option value="High">High</option><option value="Medium–High">Medium–High</option><option value="Medium">Medium</option></select></label>
+        <label>German region<select id="companyRegion"><option value="all">All regions</option></select></label>
+        <label>Industry segment<select id="companySegment"><option value="all">All segments</option></select></label>
+        <label>Personal status<select id="companyInterestFilter"><option value="all">All statuses</option><option>New</option><option>Researching</option><option>Monitor</option><option>Contact planned</option><option>Applied</option><option>Not pursuing</option></select></label>
+      </div>
+      <div class="company-backup">
+        <button type="button" id="companyExport">Export personal company notes (JSON)</button>
+        <label class="import-control">Import notes <input id="companyImport" type="file" accept=".json,application/json" aria-label="Import private company research backup"></label>
+        <span id="companySaved" aria-live="polite">Interest statuses and notes stay in this browser only. Export before switching devices.</span>
+      </div>
+      <section id="companyResults" class="company-grid" aria-label="Employer profiles"></section>
+      <p class="privacy-reminder">The employer profiles and technical research are published on this public website. Only personal interest flags and notes are stored locally; never put personal application information into public company data files.</p>
     </section>
     <section id="applicationsView" class="applications-view" role="tabpanel" aria-labelledby="tabApplications" hidden>
       <div class="between application-heading"><h2>Application history</h2><button type="button" class="primary-button" id="newApplication">Add application</button></div>
