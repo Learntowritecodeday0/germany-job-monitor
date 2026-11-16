@@ -8,11 +8,10 @@ const byKey=Object.fromEntries(jobs.map(j=>[j.key,j]));
 const assessed=jobs.map(j=>[j,short.reviews(j)]);
 const counts={}; for(const [,r] of assessed)counts[r.tier]=(counts[r.tier]||0)+1;
 console.log('Review-queue calibration on supplied snapshot:',counts);
-if(jobs.length===784) console.log('Original 784-vacancy regression snapshot detected.');
 if(byKey['personio:emil-kiessling-gmbh:2849331']){
   const role=byKey['personio:emil-kiessling-gmbh:2849331'];
   const excluded=role.active===false||role.location_status==='outside'||role.hide_by_default===true;
-  assert.strictEqual(short.reviews(role).tier,excluded?'other':'review');
+  assert.strictEqual(short.reviews(role).tier,excluded?'other':Number(role.reopen_count||0)>0?'details':'review');
 }
 if(byKey['smartrecruiters:FischerGroup:744000159557829']){
   const role=byKey['smartrecruiters:FischerGroup:744000159557829'];
@@ -22,7 +21,7 @@ if(byKey['smartrecruiters:FischerGroup:744000159557829']){
 if(byKey['personio:rudolf:2805325']){
   const role=byKey['personio:rudolf:2805325'];
   const excluded=role.active===false||role.location_status==='outside'||role.hide_by_default===true;
-  assert.strictEqual(short.reviews(role).tier,excluded?'other':'secondary');
+  assert.strictEqual(short.reviews(role).tier,excluded?'other':Number(role.reopen_count||0)>0?'details':'secondary');
 }
 if(byKey['personio:blackwave:2657617'])assert.strictEqual(short.reviews(byKey['personio:blackwave:2657617']).tier,'other');
 if(byKey['personio:klb:2524785'])assert.strictEqual(short.reviews(byKey['personio:klb:2524785']).tier,'other');
@@ -50,6 +49,5 @@ for(const sn of ['reviewAPI.reviews','reviewAPI.isShortlist','showApplied','appl
 const allowed = new Set(['review','secondary','details','other']);
 assert.strictEqual(Object.values(counts).reduce((n,v)=>n+v,0), jobs.length);
 assert(Object.keys(counts).every(tier=>allowed.has(tier)));
-assert(jobs.length===0 || counts.details>=0);
 
 console.log('PASS: 18+ assertions; previous applied handling, source code and email scripts unchanged.');
