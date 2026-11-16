@@ -38,10 +38,10 @@ const check = (expected, fields, why) =>
 check('secondary', {}, 'Direct formulation and characterization duties should be visible');
 
 // Keywords in a profile are not equivalent to primary responsibilities.
-check('other', {
+check('explore', {
   core_documented_tasks:[],
   core_review:'Core technical fit unclear',
-}, 'Method name mentioned elsewhere must not qualify as core work');
+}, 'A materials-science title without detected core duties belongs in discovery, not the direct shortlist');
 
 // A generic optimization tool does not compensate for a new industry process.
 check('details', {

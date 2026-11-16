@@ -23,5 +23,6 @@ jobs:
       - name: Test browser shortlist on current job snapshot
         run: |
           node tests/test_shortlist_primary_duties.cjs
+          node tests/test_discovery_queue.cjs
           node tests/test_shortlist.cjs
           node tests/test_theme_frontend.cjs

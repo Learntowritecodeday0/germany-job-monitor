@@ -231,3 +231,9 @@ select:focus-visible, textarea:focus-visible { outline-color:var(--focus); }
 
 /* Core-task evidence is a review cue, never a quantitative fit verdict. */
 .core-task-note{font-size:12px;line-height:1.5;color:var(--muted,#526477);margin:7px 0 10px}
+
+/* Five independent summary metrics; broad discovery vs strict shortlist. */
+.summary{grid-template-columns:repeat(5,minmax(0,1fr))}
+.summary article{min-width:0}
+@media(max-width:850px){.summary{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:540px){.summary{grid-template-columns:repeat(2,minmax(0,1fr))}}

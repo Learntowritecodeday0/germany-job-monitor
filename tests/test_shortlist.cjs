@@ -29,7 +29,7 @@ if(byKey['personio:proteros-biostructures-gmbh:1914202'])assert.strictEqual(shor
 if(byKey['softgarden:palplast:61937989'])assert.strictEqual(short.reviews(byKey['softgarden:palplast:61937989']).tier,'other');
 if(byKey['softgarden:palplast:62260129'])assert.strictEqual(short.reviews(byKey['softgarden:palplast:62260129']).tier,'other');
 if(byKey['softgarden:ineos-solvents:65700851'])assert.strictEqual(short.reviews(byKey['softgarden:ineos-solvents:65700851']).tier,'other');
-if(byKey['softgarden:ineos-solvents:66705928'])assert.strictEqual(short.reviews(byKey['softgarden:ineos-solvents:66705928']).tier,'other');
+if(byKey['softgarden:ineos-solvents:66705928'])assert.strictEqual(short.reviews(byKey['softgarden:ineos-solvents:66705928']).tier,'explore','Laborant remains discoverable with career-level verification');
 const good={key:'new:good',company:'Example',title:'Nanoparticle Development Scientist',description:'Develop silica nanoparticles with laboratory sol-gel synthesis, surface functionalization, and design of experiments. Characterize materials using DLS zeta and FTIR. Independently run synthesis experiments and maintain research records.'};
 assert.strictEqual(short.reviews(good).tier,'secondary', 'Strong experimental work should enter review queue');
 const good2={key:'new:good2',company:'Example',title:'Materials Development Engineer',description:'Formulation and laboratory development of sol-gel materials, nanoparticles, and experimental design with DoE, dispersions and FTIR characterization. Independently run synthesis trials and document all results.'};
@@ -42,11 +42,11 @@ const noPhd={title:'Chemiker Laborentwicklung',description:'keine Promotion; '+g
 const index=fs.readFileSync(path.join(__dirname,'../docs/index.html'),'utf8');
 const app=fs.readFileSync(path.join(__dirname,'../docs/app.js'),'utf8');
 assert(index.indexOf('src="shortlist.js"')>=0 && index.indexOf('src="shortlist.js"')<index.indexOf('src="app.js"'));
-for(const id of ['reviewQueue','degreeFocus','showApplied','pageSize','results','priority'])assert(index.includes(`id="${id}"`),id);
-for(const sn of ['reviewAPI.reviews','reviewAPI.isShortlist','showApplied','applicationStatus','Qualification requirements'])assert(app.includes(sn),sn);
+for(const id of ['reviewQueue','degreeFocus','showApplied','pageSize','results','priority','matches','queueStats'])assert(index.includes(`id="${id}"`),id);
+for(const sn of ['reviewAPI.reviews','reviewAPI.isShortlist','reviewAPI.isDiscovery','showApplied','applicationStatus','Qualification requirements'])assert(app.includes(sn),sn);
 // The number of postings changes on every scan. Do not freeze queue sizes
 // to a historical snapshot: this previously broke deployment on text updates.
-const allowed = new Set(['review','secondary','details','other']);
+const allowed = new Set(['review','secondary','details','explore','other']);
 assert.strictEqual(Object.values(counts).reduce((n,v)=>n+v,0), jobs.length);
 assert(Object.keys(counts).every(tier=>allowed.has(tier)));
 

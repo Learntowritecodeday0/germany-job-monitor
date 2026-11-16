@@ -23,7 +23,7 @@ from xml.etree import ElementTree as ET
 
 from heraeus_adapter import parse_heraeus_category, enrich_heraeus_job
 from ksm_adapter import parse_ksm_listing, enrich_ksm_job
-from workday_adapter import workday_paths, normalize_workday_job, enrich_workday_job
+from workday_adapter import workday_paths, normalize_workday_job, enrich_workday_job, workday_detail_priority
 from career_adapters import (
     parse_pct_listing, enrich_pct_job, parse_ceramtec_listing,
     enrich_ceramtec_job, normalize_smartrecruiters_listing,
@@ -918,13 +918,14 @@ def fetch_company(company):
         jobs = items
         # Optional details supply the actual scientific tasks and requirements.
         # Keep other roles title-only, and continue after individual HTTP errors.
-        count = 0
-        for job in jobs:
-            if not RESEARCH_VACANCY_TITLE.search(job["title"]):
-                continue
-            if count >= 12:
-                break
-            count += 1
+        # Retrieve higher-value materials, chemistry and application-engineering
+        # details first. Previously the first 12 title matches also included
+        # student projects and sales assistants, leaving scientific jobs title-only.
+        candidates = sorted(
+            (job for job in jobs if workday_detail_priority(job) > 0),
+            key=lambda job: -workday_detail_priority(job)
+        )[:18]
+        for job in candidates:
             try:
                 enrich_workday_job(job, get_json(base + job["_workday_path"]))
             except (HTTPError, URLError, ValueError, TimeoutError,

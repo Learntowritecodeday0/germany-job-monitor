@@ -28,20 +28,18 @@ class ChemistryEmployersTest(unittest.TestCase):
                 self.assertIn("first",company["note"].lower())
 
     def test_manual_employers_are_not_falsely_monitored(self):
-        # Check the actual watchlist section, not exact explanatory prose.
-        # Heraeus and DELO now have limited automatic sources, so neither
-        # needs a duplicate link in this manual-employer section.
+        # Verify actual configuration membership, not mutable explanatory copy.
         self.assertIn('<section class="manual-sources"', HTML)
         section = HTML.split('<section class="manual-sources"', 1)[1].split("</section>", 1)[0]
-        for name in ("BYK", "WACKER", "Evonik", "Bruker", "LUM"):
+        manual = ("BYK", "WACKER", "Evonik", "Bruker", "LUM",
+                  "BASF", "Henkel", "Covestro", "Clariant", "SCHOTT", "LANXESS")
+        configured = {company["name"] for company in CONFIG["companies"]}
+        for name in manual:
             with self.subTest(name=name):
                 self.assertIn(name, section)
-        self.assertIn("manual targets", section)
-        self.assertIn("not individually integrated", section)
-        self.assertIn("separate automated coverage", section)
-        by_name = {company["name"] for company in CONFIG["companies"]}
-        self.assertTrue(any(name.startswith("Heraeus") for name in by_name))
-        self.assertIn("DELO", by_name)
-        self.assertEqual(next(x for x in CONFIG["companies"] if x["name"]=="DELO")["platform"], "workday_limited")
+                self.assertNotIn(name, configured)
+        self.assertIn("DELO", configured)
+        self.assertTrue(any(name.startswith("Heraeus") for name in configured))
+
 
 if __name__=="__main__":unittest.main()

@@ -34,6 +34,30 @@ def workday_paths(company):
     return endpoint, public
 
 
+def workday_detail_priority(job):
+    """Choose useful public job details before nontechnical or student adverts.
+
+    This is a retrieval priority, not a job-fit rating. It is applied only to
+    bounded public job detail lookups, retaining all listings in the feed.
+    """
+    title = str(job.get("title") or "")
+    location = str(job.get("location") or "")
+    if re.search(r"ausbildung|praktik|abschlussarbeit|studium|stipendium|sch[nv]upper|"
+                 r"werkstudent|internship|trainee|sales|vertrieb|assistant|assistenz|"
+                 r"buchhalt|logistik|elektrotechnik|mechatronik|software|informatik|"
+                 r"er[p]? consultant|empfang|reinigung|versand|kaufmann|produktionsmitarbeiter",
+                 title, re.I):
+        return 0
+    if re.search(r"\b(?:chem|material|werkstoff|klebstoff|adhesive|adhesiv|"
+                 r"rheolog|labor|analyt|formul|research|forsch|r&d)\w*", title, re.I):
+        return 5
+    if re.search(r"(?:application development|anwendungsentwickl|prozessingenieur|"
+                 r"process engineer|produktionsingenieur|process development|"
+                 r"physicist|physiker|product development)", title, re.I):
+        return 4
+    return 0
+
+
 def normalize_workday_job(company, item):
     if not isinstance(item, dict):
         raise ValueError("Workday posting must be a JSON object")
