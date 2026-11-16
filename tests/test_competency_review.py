@@ -25,6 +25,16 @@ class CompetencyReviewTests(unittest.TestCase):
         self.assertEqual((x['general']['matched'],x['general']['total']),(2,3))
         self.assertIn('Formal ISO / GMP / medical-device validation',x['general']['verify'])
 
+    def test_hplc_cad_detector_not_counted_as_mechanical_cad(self):
+        x=cr.competency_review(job('Biochemical Analyst',
+          'Ihre Aufgaben: Methodenentwicklung mittels HPLC-CAD, SEC und Peptidmapping. '
+          'Ihr Profil: Erfahrung mit HPLC-CAD und GMP-Regulierung.'))['competency_counts']
+        self.assertIn('HPLC / LC-MS / GC-MS',x['method']['verify'])
+        self.assertNotIn('CAD / finite-element design',x['method']['verify'])
+        y=cr.competency_review(job('Numerical Process Engineer',
+          'Your Tasks: Simulate fluid flow using CFD. Your Skills: CFD simulation required.'))['competency_counts']
+        self.assertIn('CAD / finite-element design',y['method']['verify'])
+
     def test_battery_role_has_distinct_sector_gap(self):
         x=cr.competency_review(job('Battery Material Compounds Developer',
             'Your Day-to-Day: Optimize battery slurries with DoE and lab scale-up. '
