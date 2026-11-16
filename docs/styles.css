@@ -228,3 +228,6 @@ select:focus-visible, textarea:focus-visible { outline-color:var(--focus); }
   .hero-top { gap:8px; }
   .hero .eyebrow { padding-top:0; }
 }
+
+/* Core-task evidence is a review cue, never a quantitative fit verdict. */
+.core-task-note{font-size:12px;line-height:1.5;color:var(--muted,#526477);margin:7px 0 10px}

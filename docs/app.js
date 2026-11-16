@@ -235,18 +235,23 @@ function render(){
     else if(applied.applied)tags.append(chip('Applied','low'));
     left.append(tags);
     if(review.reason)left.append(el('p','review-reason',`Review note (${review.basis}): ${review.reason}`));
+    if(['secondary','review','details'].includes(review.tier) && Array.isArray(job.core_documented_tasks) && job.core_documented_tasks.length){
+      left.append(el('p','core-task-note','Detected methods in advertised daily tasks (verify scope): '+job.core_documented_tasks.slice(0,3).join(' · ')));
+    }
     // Advertised essential requirements differ from preferred and trainable skills.
     // Warnings are for review only and do not establish eligibility.
     const requirementChecks=reviewAPI.requirementChecks?.(job);
     if(requirementChecks){
       const checks=[];
-      if(requirementChecks.essential.length)checks.push({label:'Explicit technical/method requirements to verify',text:requirementChecks.essential.join(' · ')});
+      if(requirementChecks.taskGaps?.length)checks.push({label:'Specialized work in daily duties',text:requirementChecks.taskGaps.join(' · ')});
+      if(requirementChecks.essential.length)checks.push({label:'Explicit mandatory requirements to verify',text:requirementChecks.essential.join(' · ')});
       if(requirementChecks.experience.length)checks.push({label:'Explicit experience thresholds',text:requirementChecks.experience.join(' · ')});
-      if(requirementChecks.core.length)checks.push({label:'Core specialization to verify',text:requirementChecks.core.join(' · ')});
+      const additionalCore=requirementChecks.core.filter(x=>!requirementChecks.taskGaps?.includes(x));
+      if(additionalCore.length)checks.push({label:'Industry specialization to verify',text:additionalCore.join(' · ')});
       if(requirementChecks.preferred.length)checks.push({label:'Preferred, not mandatory by wording',text:requirementChecks.preferred.join(' · ')});
       if(requirementChecks.learnable.length)checks.push({label:'Employer allows learning',text:requirementChecks.learnable.join(' · ')});
       if(checks.length){
-        const panel=evidenceSection('Priority qualification checks (not an eligibility verdict)',checks.slice(0,5),'verify');
+        const panel=evidenceSection('Priority qualification checks (not an eligibility verdict)',checks.slice(0,6),'verify');
         if(panel)left.append(panel);
       }
     }
