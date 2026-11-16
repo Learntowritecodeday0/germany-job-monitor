@@ -419,6 +419,16 @@
       "careers_url": "https://jobs.ashbyhq.com/cuspai",
       "focus": "Materials science discovery, experimental synthesis, characterization and applied materials research",
       "note": "Company is internationally based, but the official Ashby board advertises roles with Berlin among possible work locations. Multi-country roles require location and onsite requirements review, not assumed German-only. Check first-run feed status."
+    },
+    {
+      "name": "DELO",
+      "platform": "workday_limited",
+      "slug": "delo",
+      "careers_url": "https://delo.wd103.myworkdayjobs.com/en-US/DELO-Jobs",
+      "workday_host": "delo.wd103.myworkdayjobs.com",
+      "recent_pages": 4,
+      "focus": "Industrial adhesive formulation, polymer chemistry, analytical laboratory and process development",
+      "note": "Public Workday career board linked from DELO's official employer website. Limited to first 80 advertised jobs; partial coverage, not proof of closures. Relative 'postedOn' text is not treated as publication date. First live source-health check is required."
     }
   ]
 }

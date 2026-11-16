@@ -23,6 +23,7 @@ from xml.etree import ElementTree as ET
 
 from heraeus_adapter import parse_heraeus_category, enrich_heraeus_job
 from ksm_adapter import parse_ksm_listing, enrich_ksm_job
+from workday_adapter import workday_paths, normalize_workday_job, enrich_workday_job
 from career_adapters import (
     parse_pct_listing, enrich_pct_job, parse_ceramtec_listing,
     enrich_ceramtec_job, normalize_smartrecruiters_listing,
@@ -82,6 +83,20 @@ def get_json(url):
         if response.status != 200:
             raise ValueError(f"HTTP {response.status}")
         raw = response.read(8_000_000)
+        return json.loads(raw.decode("utf-8"))
+
+
+def post_public_json(url, payload):
+    """POST a small JSON query to a public job-board listing endpoint only."""
+    req = Request(url, data=json.dumps(payload).encode("utf-8"), method="POST",
+                  headers={"User-Agent": "PersonalJobMonitor/0.4 (public job postings)",
+                           "Accept": "application/json", "Content-Type": "application/json"})
+    with urlopen(req, timeout=25) as response:
+        if response.status != 200:
+            raise ValueError(f"HTTP {response.status}")
+        raw = response.read(8_000_001)
+        if len(raw) > 8_000_000:
+            raise ValueError("Job-board response too large")
         return json.loads(raw.decode("utf-8"))
 
 
@@ -867,6 +882,57 @@ def fetch_company(company):
         return jobs
     if provider == "successfactors_recent":
         return fetch_successfactors_recent(company)
+    if provider == "workday_limited":
+        # Public CXS endpoint from the employer's verified Workday board.
+        # Bound requests; do not interpret a partial scan as full coverage.
+        base, _ = workday_paths(company)
+        pages = int(company.get("recent_pages", 4))
+        if not 1 <= pages <= 5:
+            raise ValueError("Workday source allows only 1-5 listing pages")
+        items = []
+        seen_paths = set()
+        total = None
+        for page in range(pages):
+            payload = {"appliedFacets": {}, "limit": 20,
+                       "offset": page*20, "searchText": ""}
+            result = post_public_json(base + "/jobs", payload)
+            if not isinstance(result, dict) or not isinstance(result.get("jobPostings"), list):
+                raise ValueError("Unexpected public Workday listing response")
+            if page == 0:
+                total = result.get("total")
+                if type(total) is not int or total < 0:
+                    raise ValueError("Workday listing missing total count")
+            batch = result["jobPostings"]
+            if not batch and (total or 0) > len(items):
+                raise ValueError("Public Workday listing returned an incomplete result page")
+            for item in batch:
+                job = normalize_workday_job(company, item)
+                if job["key"] in seen_paths:
+                    raise ValueError("Public Workday pages repeated a job; cannot safely infer pagination")
+                seen_paths.add(job["key"])
+                items.append(job)
+            if len(items) >= total:
+                break
+            if len(batch) < 20:
+                raise ValueError("Public Workday listing ended before advertised total")
+        jobs = items
+        # Optional details supply the actual scientific tasks and requirements.
+        # Keep other roles title-only, and continue after individual HTTP errors.
+        count = 0
+        for job in jobs:
+            if not RESEARCH_VACANCY_TITLE.search(job["title"]):
+                continue
+            if count >= 12:
+                break
+            count += 1
+            try:
+                enrich_workday_job(job, get_json(base + job["_workday_path"]))
+            except (HTTPError, URLError, ValueError, TimeoutError,
+                    HTTPException, OSError) as exc:
+                print(f"WORKDAY DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
+        for job in jobs:
+            job.pop("_workday_path", None)  # Internal fetch path is not public metadata.
+        return jobs
     if provider == "ksm_html":
         # Public official job board; if it cannot be read, preserve the prior
         # source state rather than interpreting an error as zero vacancies.
@@ -970,7 +1036,7 @@ def normalize_ashby(company, item):
     }
 
 
-GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "zwickau", "monheim am rhein", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach", "karlsfeld", "haar", "taufkirchen", "eresing", "esslingen", "heilbronn", "starnberg", "kronberg", "magstadt", "denzlingen", "plochingen", "lohmar", "marktredwitz", "lauf an der pegnitz"]
+GERMAN_CITIES = ["munich", "münchen", "aachen", "berlin", "hamburg", "frankfurt", "dresden", "stuttgart", "köln", "cologne", "düsseldorf", "essen", "darmstadt", "würzburg", "erlangen", "nürnberg", "nuremberg", "freiburg", "hannover", "bremen", "leipzig", "ulm", "mainz", "regensburg", "tübingen", "alzenau", "karlsruhe", "heidelberg", "ingolstadt", "jena", "kiel", "bonn", "potsdam", "möckern", "magdeburg", "leverkusen", "garching", "bayreuth", "coburg", "konstanz", "rostock", "osnabrück", "augsburg", "halle", "braunschweig", "bielefeld", "fulda", "göttingen", "paderborn", "oberkochen", "aschaffenburg", "hanau", "landsberg", "windach", "freising", "planegg", "martinsried", "neuried", "gauting", "penzberg", "geretsried", "inning am ammersee", "wessling", "weßling", "oberpfaffenhofen", "gräfelfing", "kaufbeuren", "burghausen", "wasserburg", "wasserburg am inn", "zwickau", "monheim am rhein", "freiberg", "emmering", "fürstenfeldbruck", "germering", "schwelm", "pforzheim", "maisach", "karlsfeld", "haar", "taufkirchen", "eresing", "esslingen", "heilbronn", "starnberg", "kronberg", "magstadt", "denzlingen", "plochingen", "lohmar", "marktredwitz", "lauf an der pegnitz"]
 FOREIGN_COUNTRIES = ["united states", "usa", "colorado", "netherlands", "nederland", "delft", "zoetermeer", "austria", "österreich", "vienna", "wien", "switzerland", "schweiz", "zurich", "zürich", "france", "paris", "united kingdom", "london", "belgium", "brussels", "canada", "toronto", "poland", "warsaw", "polska", "india", "singapore", "coimbra", "portugal", "pilsen", "plzeň", "plzen", "czech republic", "czechia", "tschechien", "china", "shanghai", "ningbo", "innsbruck"]
 
 
@@ -1221,14 +1287,14 @@ def update(config, state, at):
             # Only mark absent after a successful request. A failed source must retain its jobs.
             # Recent-window sources do not list every open vacancy. Leaving
             # the newest pages is not evidence that a job has closed.
-            if company['platform'] not in ('successfactors_recent', 'ceramtec_recent', 'heraeus_categories'):
+            if company['platform'] not in ('successfactors_recent', 'ceramtec_recent', 'heraeus_categories', 'workday_limited'):
                 for key, job in state["jobs"].items():
                     if job.get("company") == name and key not in keys:
                         job["active"] = False
             state["sources"][name] = {"initialized": True, "status": "ok", "last_checked": at, "count": len(keys), "careers_url": company["careers_url"],
-                                     "recent_window": company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories"),
-                                     "recent_pages": (company.get("recent_pages", 1) if company["platform"] == "ceramtec_recent" else company.get("recent_pages")) if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories") else None,
-                                     "source_mode": ("recent_window" if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories") else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
+                                     "recent_window": company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories", "workday_limited"),
+                                     "recent_pages": (company.get("recent_pages", 1) if company["platform"] == "ceramtec_recent" else company.get("recent_pages")) if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories", "workday_limited") else None,
+                                     "source_mode": ("recent_window" if company["platform"] in ("successfactors_recent", "ceramtec_recent", "heraeus_categories", "workday_limited") else "public_rss_fallback" if any(j.get("feed_fallback") for j in seen) else
                                                      "html_fallback" if any(j.get("source_mode") == "html_fallback" for j in seen) else
                                                      "html_detail" if any(j.get("source_mode") == "html_detail" for j in seen) else "api_detail" if any(j.get("source_mode") == "api_detail" for j in seen) else "structured_feed"),
                                      "details_extracted": sum(j.get("source_mode") in ("html_detail", "api_detail") for j in seen),
