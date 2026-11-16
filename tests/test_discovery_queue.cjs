@@ -32,7 +32,7 @@ assert.equal(review({title:'Chemielaborant/CTA für analytische Methodenentwickl
  career_track:'vocational',hide_by_default:true,active:false}).tier,'other');
 assert.equal(review({title:'Senior Chemist Adhesives',location_status:'outside'}).tier,'other');
 assert.equal(review({title:'Backend Software Engineer for Materials'}).tier,'other');
-assert.equal(review({title:'Materials Scientist',description:'Your Tasks: Coordinate factory equipment maintenance and production shifts in manufacturing operations. Your Profile: Management experience required.'}).tier,'other');
+assert.equal(review({title:'Materials Scientist',description:'Your Tasks: Coordinate factory equipment maintenance and production shifts in manufacturing operations, oversee daily equipment uptime, organize repair work and manage the maintenance schedule. Your Profile: Management experience and industrial maintenance supervision required.'}).tier,'other');
 assert.equal(review({title:'Materials Scientist',description:'keine Promotion; '+scienceText}).tier,'other');
 const sem=job({key:'ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/2a8897e7-bbb2-408f-ad16-136d2523017a',
  title:'SEM Technician (f/m/d)'});
