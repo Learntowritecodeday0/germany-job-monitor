@@ -462,6 +462,15 @@
       "country_filter": "de",
       "focus": "Chemical laboratory testing, analytical method development and materials characterization in Germany",
       "note": "Official public SmartRecruiters postings filtered by Germany. Confirm mandatory instruments, language and role level; global listings are excluded."
+    },
+    {
+      "name": "Eurofins",
+      "platform": "smartrecruiters",
+      "slug": "Eurofins",
+      "careers_url": "https://careers.smartrecruiters.com/Eurofins",
+      "country_filter": "de",
+      "focus": "Analytical chemistry, environmental and food laboratories, method development, materials testing",
+      "note": "Official public SmartRecruiters postings filtered to Germany. Verify equipment experience, GMP/GLP and language before applications."
     }
   ]
 }
