@@ -15,6 +15,8 @@ class CoreReviewTests(unittest.TestCase):
     'Your Profile: Experience in battery electrochemistry is preferred. Why us: perks.'))
   self.assertIn('Formulation and dispersion experiments',x['core_documented_tasks'])
   self.assertIn('Battery electrochemistry and cells',x['core_specializations_to_verify'])
+  self.assertEqual(x['core_task_specializations_to_verify'], [])
+  self.assertIn('Battery electrochemistry and cells',x['core_qualification_specializations_to_verify'])
   self.assertEqual(x['core_review'],'Core-method overlap; specialized gaps')
  def test_sem_technician_core_method(self):
   x=core_review(j('SEM Technician',
@@ -28,6 +30,7 @@ class CoreReviewTests(unittest.TestCase):
     'Your Day-to-Day: Optimize filament winding via DoE and develop composite winding methods. '
     'Your Profile: Must have years of hands-on filament winding experience. Why us: Career opportunities.'))
   self.assertIn('Composite winding or layup',x['core_specializations_to_verify'])
+  self.assertIn('Composite winding or layup',x['core_task_specializations_to_verify'])
   self.assertEqual(x['core_review'],'Core-method overlap; specialized gaps')
  def test_dts_lacquer(self):
   x=core_review(j('Lacquer R&D Technician',
