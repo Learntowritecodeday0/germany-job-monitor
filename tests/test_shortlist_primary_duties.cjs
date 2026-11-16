@@ -92,7 +92,7 @@ check('details', {
   core_review:'Insufficient role details',core_documented_tasks:[]
 }, 'Title-only scientific roles belong in the details queue');
 
-check('other', {description:'Develop nanoparticle formulations. Shift work and equipment maintenance.',core_documented_tasks:[]},
+check('other', {description:'Your tasks: Coordinate factory equipment maintenance, plan production shifts and supervise machine operators on the shop floor. Your profile: Experience with manufacturing operations and mechanical maintenance is required.',core_documented_tasks:[]},
   'Production-operation focus should not be promoted');
 check('other', {title:'Masterarbeit – Silica Nanoparticles'}, 'Training position stays outside the search');
 check('other', {title:'Senior Mechanical Design Engineer'}, 'Unrelated senior mechanical role stays outside search');
