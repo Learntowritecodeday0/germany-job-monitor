@@ -1,0 +1,42 @@
+/* Company research directory. Uses the existing light/dark color variables. */
+.company-intro{font-size:13px;line-height:1.55;color:var(--soft-ink,#425268);margin:17px 0}
+.company-filters{display:grid;grid-template-columns:2fr repeat(4,minmax(0,1fr));gap:10px;align-items:end;margin:18px 0}
+.company-filters label{display:flex;flex-direction:column;gap:5px;color:var(--soft-ink,#425268);font-size:12px;font-weight:650}
+.company-filters input,.company-filters select,.company-personal select,.company-personal textarea{font:inherit;min-width:0;width:100%;background:var(--input-bg,#fff);color:var(--ink,#162536);border:1px solid var(--input-border,#bdcbd6);border-radius:8px;padding:9px}
+.company-filters input,.company-filters select{height:40px}
+.company-count{margin:12px 0;color:var(--muted,#627485);font-size:13px}
+.company-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.company-card{min-width:0;padding:18px;background:var(--surface,#fff);border:1px solid var(--border,#dce4eb);border-radius:13px;line-height:1.5}
+.company-top{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.company-top h3{font-size:16px;line-height:1.35;margin:0 0 4px;overflow-wrap:anywhere}
+.company-muted{font-size:12px;color:var(--muted,#627485);margin:4px 0}
+.company-segment{font-size:12px;font-weight:700;color:var(--soft-ink,#425268);margin:12px 0 5px}
+.company-focus{font-size:13px;line-height:1.55;margin:4px 0 10px}
+.company-overlap{white-space:nowrap;border-radius:12px;border:1px solid var(--border,#dce4eb);padding:4px 7px;font-size:11px;color:var(--soft-ink,#425268)}
+.company-overlap.top{background:var(--strong-chip-bg,#e0f3e7);color:var(--strong-chip-ink,#256142);border-color:transparent}
+.company-meta{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.company-tag{border-radius:6px;background:var(--chip-bg,#ebf0f5);color:var(--chip-ink,#3f5568);font-size:11px;padding:4px 7px}
+.company-actions{display:flex;flex-wrap:wrap;gap:8px;margin:11px 0}
+.company-link,.company-personal button{display:inline-block;padding:6px 10px;border:1px solid var(--input-border,#bdcbd6);border-radius:7px;color:var(--link,#17364c);background:var(--surface,#fff);text-decoration:none;font-size:12px;font-weight:650;cursor:pointer}
+.company-link:hover,.company-personal button:hover{background:var(--link-hover-bg,#e9f1f8)}
+.company-details{border-top:1px solid var(--border,#dce4eb);margin-top:9px;padding-top:9px}
+.company-details summary{font-size:13px;font-weight:700;color:var(--link,#17364c);cursor:pointer}
+.company-details-body{font-size:13px;line-height:1.6;padding:9px 1px 3px}
+.company-detail-line{margin:9px 0;overflow-wrap:anywhere}
+.company-linked-jobs{border-top:1px solid var(--border,#dce4eb);margin-top:14px;padding-top:10px}
+.company-linked-jobs h4,.company-personal h4{font-size:13px;margin:1px 0 10px}
+.company-linked-jobs ul{padding-left:20px;margin:4px 0 12px}
+.company-linked-jobs li{margin:8px 0;overflow-wrap:anywhere}
+.company-linked-jobs a{font-size:13px}
+.company-personal{background:var(--panel-bg,#f8fafc);border:1px solid var(--border,#dce4eb);border-radius:8px;padding:12px;margin-top:14px}
+.company-personal label{display:block;font-size:12px;font-weight:650;margin:9px 0}
+.company-personal select,.company-personal textarea{display:block;margin-top:5px;font-weight:400}
+.company-personal textarea{resize:vertical;min-height:70px}
+.company-backup{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:17px 0}
+.company-backup button{font:inherit;font-size:12px;padding:8px 12px;color:var(--link,#17364c);border:1px solid var(--input-border,#bdcbd6);border-radius:8px;background:var(--surface,#fff);cursor:pointer}
+.company-backup .import-control{font-size:12px}
+.company-backup .import-control input{max-width:195px}
+#companySaved{font-size:12px;color:var(--muted,#627485)}
+@media(max-width:970px){.company-filters{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.company-grid{grid-template-columns:1fr}.company-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:470px){.company-filters{grid-template-columns:1fr}.company-top{flex-wrap:wrap}.company-overlap{white-space:normal}}
