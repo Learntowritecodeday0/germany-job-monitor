@@ -1,5 +1,5 @@
 'use strict';
-const ui = Object.fromEntries(['query','band','reviewQueue','technicalBand','company','germanyOnly','degreeFocus','results','count','total','priority','sources','updated','health','status','showApplied','exportApplied','importApplied','appliedStatus','pageSize','pageInfo','prevPage','nextPage'].map(id=>[id, document.getElementById(id)]));
+const ui = Object.fromEntries(['query','band','reviewQueue','technicalBand','company','germanyOnly','degreeFocus','results','count','total','priority','matches','queueStats','sources','updated','health','status','showApplied','exportApplied','importApplied','appliedStatus','pageSize','pageInfo','prevPage','nextPage'].map(id=>[id, document.getElementById(id)]));
 let data = {jobs:[],sources:[]};
 const berlinDate = s => {if(!s) return 'Not yet';const d=new Date(s);return Number.isNaN(+d)?'Unknown':new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(d)};
 const hoursSince = s => s ? (Date.now()-new Date(s).getTime())/36e5 : Infinity;
@@ -7,8 +7,9 @@ const sortWeight = { 'Review first':0, 'Possible':1, 'Low':2, 'Not target':3 };
 const reviewAPI = window.JobShortlist || {
   reviews: j => ({tier: !j.hide_by_default && ['Review first','Possible'].includes(j.match_band)?'secondary':'other',reason:'Review script not loaded; using old keyword priorities',basis:'Fallback'}),
   isShortlist: r => r.tier==='review'||r.tier==='secondary',
-  tiers: {review:'Review soon',secondary:'Secondary review',details:'Needs requirements review',other:'Other / deprioritized'},
-  tierOrder: {review:0,secondary:1,details:2,other:3}
+  isDiscovery: r => ['review','secondary','details'].includes(r.tier),
+  tiers: {review:'Review soon',secondary:'Secondary review',details:'Needs requirements review',explore:'Explore related roles',other:'Other / deprioritized'},
+  tierOrder: {review:0,secondary:1,details:2,explore:3,other:4}
 };
 
 // Browser-only application history. The public Pages website has no authenticated
@@ -182,8 +183,14 @@ function inferLocationForDisplay(job){
 
 function render(){
   const search=ui.query.value.trim().toLocaleLowerCase(); const company=ui.company.value;const band=ui.band.value;const technicalBand=ui.technicalBand.value;
-  const queue=ui.reviewQueue?.value||'shortlist';
-  const inQueue=(j)=>{const r=reviewAPI.reviews(j);return queue==='all'||(queue==='shortlist'&&reviewAPI.isShortlist(r))||queue===r.tier;};
+  const queue=ui.reviewQueue?.value||'matches';
+  const inQueue=(j)=>{const r=reviewAPI.reviews(j);return queue==='all'||(queue==='matches'&&reviewAPI.isDiscovery(r))||(queue==='shortlist'&&reviewAPI.isShortlist(r))||queue===r.tier;};
+  const visibleUnderPreference=(j)=>{
+    if(!ui.degreeFocus.checked || !j.hide_by_default)return true;
+    // Relevant chemistry lab technicians remain visible for career-level review.
+    const r=reviewAPI.reviews(j);
+    return (queue==='matches'||queue==='explore') && r.tier==='explore' && j.career_track==='vocational';
+  };
   const jobs=data.jobs.filter(j=>{
     const scores=j.competency_counts;
     const evidence=(scores?Object.values(scores).flatMap(x=>[...(x.supported||[]),...(x.verify||[])]):[]);
@@ -191,15 +198,15 @@ function render(){
     const techOk=technicalBand==='all'||(technicalBand==='some'&&scores&&scores.technical.matched>0)||(technicalBand==='none'&&scores&&scores.technical.matched===0)||(technicalBand==='unknown'&&!scores);
     const app=applicationStatus(j);
     const appliedVisible=ui.showApplied?.checked||!app.applied||app.repost;
-    return appliedVisible&&inQueue(j)&&techOk&&(company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&(!ui.degreeFocus.checked||!j.hide_by_default)&&(!search||hay.includes(search));
+    return appliedVisible&&inQueue(j)&&techOk&&(company==='all'||company===j.company)&&(band==='all'||band===j.match_band)&&(!ui.germanyOnly.checked||j.location_status==='germany')&&visibleUnderPreference(j)&&(!search||hay.includes(search));
   });
   const sourceDate=j=>(j.at_startup?(j.published_at||j.first_detected):(j.first_detected||j.published_at)||'');
   jobs.sort((a,b)=>Number(applicationStatus(b).repost)-Number(applicationStatus(a).repost)
     ||(reviewAPI.tierOrder[reviewAPI.reviews(a).tier]??9)-(reviewAPI.tierOrder[reviewAPI.reviews(b).tier]??9)
     ||(sortWeight[a.match_band]??9)-(sortWeight[b.match_band]??9)||sourceDate(b).localeCompare(sourceDate(a)));
-  ui.results.replaceChildren();const hidden = ui.degreeFocus.checked ? data.jobs.filter(j=>j.hide_by_default).length : 0;
+  ui.results.replaceChildren();const hidden = ui.degreeFocus.checked ? data.jobs.filter(j=>j.hide_by_default && !visibleUnderPreference(j)).length : 0;
   const perPage=Number(ui.pageSize?.value)||50;const pages=Math.max(1,Math.ceil(jobs.length/perPage));pageNumber=Math.min(Math.max(1,pageNumber),pages);
-  const queueNames={shortlist:'priority shortlist',details:'requirements/description review queue',other:'other jobs',all:'all jobs'};
+  const queueNames={matches:'broader matches to investigate',shortlist:'direct shortlist',details:'requirements/description review queue',explore:'related roles to explore',other:'other jobs',all:'all jobs'};
   ui.count.textContent=`${jobs.length} in ${queueNames[queue]||'selected queue'}${hidden ? ` · ${hidden} hidden by preferences` : ''}`;
   if(ui.pageInfo)ui.pageInfo.textContent=`Page ${pageNumber} of ${pages} · ${jobs.length?((pageNumber-1)*perPage+1):0}–${Math.min(pageNumber*perPage,jobs.length)} of ${jobs.length}`;
   if(ui.prevPage)ui.prevPage.disabled=pageNumber<=1;if(ui.nextPage)ui.nextPage.disabled=pageNumber>=pages;
@@ -238,7 +245,7 @@ function render(){
     if(review.tier==='details' && Array.isArray(job.core_adjacent_experimental_tasks) && job.core_adjacent_experimental_tasks.length){
       left.append(el('p','core-task-note','Adjacent experimental work to assess (not directly documented): '+job.core_adjacent_experimental_tasks.slice(0,3).join(' · ')));
     }
-    if(['secondary','review','details'].includes(review.tier) && Array.isArray(job.core_documented_tasks) && job.core_documented_tasks.length){
+    if(['secondary','review','details','explore'].includes(review.tier) && Array.isArray(job.core_documented_tasks) && job.core_documented_tasks.length){
       left.append(el('p','core-task-note','Detected methods in advertised daily tasks (verify scope): '+job.core_documented_tasks.slice(0,3).join(' · ')));
     }
     // Advertised essential requirements differ from preferred and trainable skills.
@@ -368,7 +375,15 @@ function render(){
 }
 async function main(){try{
   const response=await fetch('./jobs.json',{cache:'no-store'});if(!response.ok)throw new Error('Cannot read jobs.json');
-  data=await response.json();const jobs=data.jobs||[];ui.total.textContent=jobs.length;ui.priority.textContent=jobs.filter(j=>!j.hide_by_default&&reviewAPI.isShortlist(reviewAPI.reviews(j))).length;ui.sources.textContent=(data.sources||[]).length;ui.updated.textContent=berlinDate(data.last_checked);ui.status.textContent=data.notice||'';
+  data=await response.json();const jobs=data.jobs||[];
+   const assessed=jobs.map(j=>({j,r:reviewAPI.reviews(j)}));
+   const direct=assessed.filter(({j,r})=>!j.hide_by_default&&reviewAPI.isShortlist(r)).length;
+   const discover=assessed.filter(({r})=>reviewAPI.isDiscovery(r)).length;
+   const explore=assessed.filter(({r})=>r.tier==='explore').length;
+   const details=assessed.filter(({r})=>r.tier==='details').length;
+   ui.total.textContent=jobs.length;ui.priority.textContent=direct;ui.matches.textContent=discover;
+   ui.queueStats.textContent=`Current snapshot: ${direct} direct, ${details} requiring verification, ${explore} related roles.`;
+   ui.sources.textContent=(data.sources||[]).length;ui.updated.textContent=berlinDate(data.last_checked);ui.status.textContent=data.notice||'';
   const names=[...new Set(jobs.map(j=>j.company))].sort();for(const name of names){const opt=document.createElement('option');opt.value=name;opt.textContent=name;ui.company.append(opt)}
   for(const source of (data.sources||[])){const item=el('div');const mode=source.source_mode==='recent_window'?` · Latest ${source.recent_pages||3} ${(source.recent_pages||3)===1?'page':'pages'} only; not an exhaustive list`:source.source_mode==='public_rss_fallback'?' · official public RSS fallback':(source.source_mode==='html_fallback'?` · ${source.details_extracted||0} full descriptions · ${source.title_only_count||0} title-only`:(source.source_mode==='html_detail'?` · ${source.details_extracted||0} full descriptions from job pages`:(source.source_mode==='api_detail'?` · ${source.details_extracted||0} full descriptions from public API`:'')));item.append(el('strong','',source.name),el('div',source.status==='ok'?'muted':'error',source.status==='ok'?`${source.count} tracked${source.duplicates_removed?` · ${source.duplicates_removed} duplicate${source.duplicates_removed===1?'':'s'} merged`: ''}${mode} · Last checked ${berlinDate(source.last_checked)}`:`Error: ${source.error||'Unreachable'}`));ui.health.append(item)}
   if(!(data.sources||[]).length)ui.health.append(el('div','muted','No source checks yet. Run the monitoring workflow.'));
