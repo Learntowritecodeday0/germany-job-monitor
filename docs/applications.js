@@ -18,7 +18,7 @@
   function entries(){return Object.entries(read()).filter(([key,r])=>key&&r&&typeof r==='object'&&r.company&&r.title)}
   function safeLink(value){try{const u=new URL(String(value));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(e){return ''}}
   function formatDate(v){const d=day(v);return d?d.split('-').reverse().join('.'):'—'}
-  function setVisible(panel){$('vacanciesView').hidden=panel!=='vacancies';$('applicationsView').hidden=panel!=='applications';for(const [name,id] of [['vacancies','tabVacancies'],['applications','tabApplications']]){const selected=panel===name;$(id).classList.toggle('active',selected);$(id).setAttribute('aria-selected',String(selected))}}
+  function setVisible(panel){$('vacanciesView').hidden=panel!=='vacancies';$('applicationsView').hidden=panel!=='applications';const companies=$('companiesView');if(companies)companies.hidden=panel!=='companies';for(const [name,id] of [['vacancies','tabVacancies'],['companies','tabCompanies'],['applications','tabApplications']]){const tab=$(id);if(!tab)continue;const selected=panel===name;tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected))}}
   function hideEditor(){$('applicationEditor').hidden=true;editing=null;$('applicationForm').reset();$('applicationFormStatus').textContent=''}
   function openEditor(key){
     editing=key||null;$('applicationForm').reset();$('applicationFormStatus').textContent='';
@@ -82,6 +82,7 @@
     }
   }
   $('tabVacancies').addEventListener('click',()=>setVisible('vacancies'));
+  if($('tabCompanies'))$('tabCompanies').addEventListener('click',()=>{setVisible('companies');window.CompanyDirectory?.refresh?.()});
   $('tabApplications').addEventListener('click',()=>{refresh();setVisible('applications')});
   $('newApplication').addEventListener('click',()=>openEditor(null));
   $('cancelApplication').addEventListener('click',hideEditor);
