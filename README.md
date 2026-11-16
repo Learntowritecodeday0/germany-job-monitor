@@ -4,7 +4,7 @@ A public vacancy monitor for scientific, chemical and materials-related position
 
 ## What the monitor does
 
-- Tracks a growing list of 61 configured official recruitment sources, including Greenhouse, Ashby, Personio, Softgarden, SmartRecruiters and selected public career pages. Some sources can fail or have limited search coverage; always inspect **Source status**.
+- Tracks a growing list of 62 configured official recruitment sources, including Greenhouse, Ashby, Personio, Softgarden, SmartRecruiters and selected public career pages. Some sources can fail or have limited search coverage; always inspect **Source status**.
 - Runs a scheduled check six times a day using GitHub Actions (approximately every four hours; delays and missed runs are possible).
 - Remembers when each job was **first detected**. It does not claim that this equals the original publication time.
 - Excludes clearly non-German locations; flags uncertain or mixed locations for manual review.
@@ -37,9 +37,10 @@ Open `config/companies.json` and edit the list. Each entry needs the official na
 - `personio` — an employer's official Personio board and its public feed or job-list HTML
 - `softgarden` — an employer's official `jobs.feed.json` public DataFeed
 - `smartrecruiters` — official public SmartRecruiters posting API
+- `workday_limited` — a verified employer-linked public Workday careers board, with bounded 20-job pages. This uses the public listing endpoint, not a private HR API; source errors are displayed and the scan may omit older jobs.
 - Selected source-specific limited-window HTML readers, defined in `monitor.py`
 
-Example: Copy an existing entry, replace the details, and commit the change. Check the next workflow run and source status. **Never assume a company supports a platform without verifying its official site.** Workday is not currently integrated as a general job-board source; some custom public sources use dedicated, limited-scope adapters.
+Example: Copy an existing entry, replace the details, and commit the change. Check the next workflow run and source status. **Never assume a company supports a platform without verifying its official site.** Workday has a limited, employer-specific reader for DELO; it is not a universal connector or a guarantee that other Workday boards accept requests. Other custom public sources use dedicated, limited-scope adapters.
 
 ## Run on a computer (optional)
 
@@ -58,7 +59,7 @@ Then visit `http://localhost:8000` in a browser. No third-party Python packages 
 - GitHub Pages sites are public, even when repository plans permit private source repositories. The monitor publishes vacancies that are already public. **Do not commit CVs, application notes, immigration status, or contact details.** The Applications tab stores records only in the browser; export backups privately.
 - GitHub Actions schedules can be delayed; public-repo schedules may be disabled after 60 days without activity. Check the workflow status periodically.
 - The first successful scan of a source creates a **baseline** of existing jobs. It cannot infer whether those listings are genuinely new. Later unseen jobs are detected as new.
-- Source feeds can change without notice. Errors should never be interpreted as no vacancies.
+- Source feeds can change without notice. Errors should never be interpreted as no vacancies. For limited-window sources, jobs disappearing from the latest pages do not prove that they closed.
 - Job data might include an old open position or cross-border location; always inspect the original listing before applying.
 - Keyword categories are not measured hiring probabilities. A role can be ranked high despite lacking a mandatory requirement.
 - Email alerts are supported through private GitHub Actions secrets, when configured. No email credentials belong in public repository files.
