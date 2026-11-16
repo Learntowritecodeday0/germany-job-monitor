@@ -174,10 +174,10 @@
     const domain=discoveryDomain.test(title) && discoveryRole.test(title);
     const general=generalDevelopmentTitle.test(title) && (hasCore || hasAdjacent);
     if(!(specific||domain||general||labVocational))return null;
-    if(/(?:\\b(?:manager|director|head of)\\b|team lead)/i.test(title) && !hasCore && !hasAdjacent)
+    if(/(?:\b(?:manager|director|head of)\b|team lead)/i.test(title) && !hasCore && !hasAdjacent)
       return null;
     let reason;
-    if(labVocational)reason='Related laboratory technician role; review hands-on work, degree level and whether the employer accepts a PhD';
+    if(labVocational)reason='Related analytical or laboratory role; verify hands-on duties, qualification level and progression';
     else if(weakRole.test(title))reason='Relevant scientific domain, but seniority and required industrial ownership may exceed documented experience';
     else if((job?.core_task_specializations_to_verify||[]).length)
       reason='Related materials role with specialized industrial duties; check whether laboratory skills transfer';
