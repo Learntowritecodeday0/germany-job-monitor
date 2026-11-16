@@ -45,8 +45,9 @@ LEARNABLE = re.compile(
     r'can\s+be\s+(?:learned|trained)|'
     r'oder\s+bereitschaft\s+(?:zum\s+)?(?:lernen|erlernen))\b', re.I)
 YEAR_REQUIREMENT = re.compile(
-    r'\b(?:minimum(?:\s+of)?|at\s+least|mindestens)\s+'
-    r'\d+(?:\s*[-–]\s*\d+)?\+?\s*(?:years?|jahre[n]?)\b', re.I)
+    r'(?:\b(?:minimum(?:\s+of)?|at\s+least|mindestens)\s+'
+    r'\d+(?:\s*[-–]\s*\d+)?\+?\s*(?:years?|jahre[n]?)\b'
+    r'|\b\d+\s*\+\s*(?:years?|jahre[n]?)\b)', re.I)
 
 CATALOGS = (('Technical', TECHNICAL), ('Methods', METHODS), ('General', GENERAL))
 
@@ -154,7 +155,10 @@ def priority_review(job: dict) -> dict:
     experience_flags = []
     for segment in items:
         match = YEAR_REQUIREMENT.search(segment)
-        if match:
+        # "Ideally 5+ years" is a preference, not an explicit minimum.
+        # An optional requirement must never trigger an automatic hard-gap gate.
+        before = segment[max(0, match.start()-35):match.start()] if match else ''
+        if match and not re.search(r'\b(?:ideally|idealerweise|preferred|preferably|w[uü]nschenswert)\b', before, re.I):
             summary = re.sub(r'\s+', ' ', segment).strip()
             experience_flags.append({'kind': 'explicit minimum', 'text': summary[:195],
                                      'verification': 'Check relevant industry and years of experience'})
