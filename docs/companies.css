@@ -40,3 +40,6 @@
 @media(max-width:970px){.company-filters{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.company-grid{grid-template-columns:1fr}.company-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:470px){.company-filters{grid-template-columns:1fr}.company-top{flex-wrap:wrap}.company-overlap{white-space:normal}}
+
+.company-profile-button{display:inline-block;padding:5px 8px;font-size:12px;font-weight:650;border:1px solid var(--input-border,#bdcbd6);border-radius:7px;background:var(--surface,#fff);color:var(--link,#17364c);cursor:pointer;margin:1px 0 6px}
+.company-profile-button:hover{background:var(--link-hover-bg,#e9f1f8)}
