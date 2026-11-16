@@ -236,7 +236,7 @@ function render(){
     left.append(tags);
     if(review.reason)left.append(el('p','review-reason',`Review note (${review.basis}): ${review.reason}`));
     if(['secondary','review','details'].includes(review.tier) && Array.isArray(job.core_documented_tasks) && job.core_documented_tasks.length){
-      left.append(el('p','core-task-note','Relevant methods in advertised tasks: '+job.core_documented_tasks.slice(0,3).join(' · ')));
+      left.append(el('p','core-task-note','Detected methods in advertised daily tasks (verify scope): '+job.core_documented_tasks.slice(0,3).join(' · ')));
     }
     // Advertised essential requirements differ from preferred and trainable skills.
     // Warnings are for review only and do not establish eligibility.
