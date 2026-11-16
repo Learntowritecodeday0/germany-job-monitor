@@ -89,6 +89,7 @@ def core_review(job: dict) -> dict:
         return {'core_review':'Insufficient role details','core_documented_tasks':[],
                 'core_specializations_to_verify':[], 'core_task_specializations_to_verify':[],
                 'core_qualification_specializations_to_verify':[],
+                'core_adjacent_experimental_tasks':[],
                 'core_review_basis':'Tasks or qualifications unavailable'}
     tasks,requirements,has_req=split_role(description)
     # Only an explicitly labelled tasks section is accepted for adjacent
