@@ -141,7 +141,7 @@
 
   // Discovery is intentionally broader than the evidence-based direct shortlist.
   // These are leads to inspect, not predicted eligibility or interview chances.
-  const discoveryDomain = /(?:chem(?:ie|ik|ist|ical|istry|iker|labor)?|material|werkstoff|polymer|kunststoff|plastics|beschicht|coating|adhesiv|klebstoff|dispers|emulsion|formulier|formulat|additiv|partikel|nanopart|surface|oberfl[aä]ch|analyt|biopolymer|cellulos|zellulos|keramik|ceramic|metallurg|elektrolyt|electrolyte|rheolog)/i;
+  const discoveryDomain = /(?:chem(?:ie|ik|ist|ical|istry|iker|labor)?|material|werkstoff|polymer|kunststoff|plastics|beschicht|coating|adhesiv|klebstoff|dispers|emulsion|formulier|formulat|additiv|partikel|nanopart|surface|oberfl[aä]ch|analyt|biopolymer|cellulos|zellulos|keramik|ceramic|metallurg|elektrolyt|electrolyte|rheolog|food|lebensmittel|biochem|bioprocess|bioprozess)/i;
   const discoveryRole = /(?:scientist|research(?:er)?|chemist|chemiker|laborant|laboratory|lab(?:or)?techn|analyst|analytiker|entwickl|development|developer|r&d|ingenieur|engineer|technolog|technician|techniker|forsch|werkstoffpr[uü]f|quality control|qualit[aä]tspr[uü]f)/i;
   const specificScientificTitle = /(?:chemiker|chemist|chemielabor|material(?:s)? scientist|materialwissenschaft|werkstoff(?:pr[uü]f|techn|entwick|ingenieur)|formul|polymer|kunststoff|beschicht|coating|adhesiv|klebstoff|analytik|analytical|rheolog|partikel|nanopart|sol.gel|methodenentwicklung|method development)/i;
   const generalDevelopmentTitle = /(?:process development|prozessentwick|application develop|anwendungsentwick|prozessingenieur|process engineer|produktentwick|product develop|r&d engineer|research engineer|entwicklungsingenieur|anwendungstechniker|technologe)/i;
