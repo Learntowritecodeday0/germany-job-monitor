@@ -40,7 +40,9 @@ jobs:
       - name: Run tests
         run: python -m unittest discover -s tests -v
       - name: Test website theme behavior
-        run: node tests/test_theme_frontend.cjs
+        run: |
+          node tests/test_theme_frontend.cjs
+          node tests/test_company_directory.cjs
       - name: Test shortlist evidence and review rules
         run: |
           node tests/test_shortlist_primary_duties.cjs
