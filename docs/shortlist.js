@@ -35,7 +35,7 @@
   const technicalTitle = /(?:\b(?:chemist|chemiker(?:in)?|entwicklungschemiker|material(?:s)?\s+(?:scientist|developer|engineer)|materialwissenschaft\w*|werkstoffentwick\w*|surface\s+(?:scientist|chemistry)|r\s*&\s*d\s+(?:scientist|chemist)|anwendungschemiker|nanopartic\w*|nanopartik\w*|kolloid\w*|colloid\w*|aerogel\w*|formulier\w*|formulat\w*|dispers\w*|emulsion\w*|sol-gel|particle characterization|materialcharakteris\w*|produktentwickl\w*|process\s+development|prozessentwickl\w*|materialentwicklung|polymer scientist)\b|\b(?:laboratory|labor|research|scientist|entwickler|entwicklung|application scientist|anwendungstechniker|verfahrenstechniker|prozessingenieur)\b)/i;
   // Specific scientific duties required; generic words such as "process", "technology" or "materials" alone are insufficient.
   const coreChemistry = /\b(?:nanopartic\w*|nanopartik\w*|silica|siliciumdioxid|si[o0]2|sol[- ]?gel|aerogel\w*|colloid\w*|kolloid\w*|zellulose|cellulose|emulsion\w*|formul\w*|dispers\w*|suspension\w*|tenside\w*|surfactant\w*|oberfl[aä]chenchemie|surface functionaliz\w*|surface modification|materialcharakteris\w*|particle characteriz\w*|partikelsynthese|polymer synthesis|materials?\s+development|materialentwicklung|chemische\s+entwicklung)\b/i;
-  const generalScientificRole = /(?:\bapplication\s+scientist\b|\br&d\s+(?:engineer|scientist)\b|\bresearch\s+engineer\b|\bentwicklungsingenieur\w*\b|\banwendungstechniker\w*\b|\bprozessingenieur\w*\b|\bprocess\s+development\s+engineer\b)/i;
+  const generalScientificRole = /(?:\bapplication\s+scientist\b|\br&d\s+(?:engineer|scientist)\b|\bresearch\s+engineer\b|\bentwicklungsingenieur\w*\b|\banwendungstechniker\w*\b|\banwendungsentwickl\w*\b|\bprozessingenieur\w*\b|\bprocess\s+development\s+engineer\b)/i;
   const experimentalDuty = /(?:\b(?:labor(?:atory)?(?:versuche|experiment|untersuchung|entwickl|test)|laboratory\s+(?:research|experiments?|development)|versuchsplanung|design\s+of\s+experiments?|\bdoe\b|dls|zetapotenzial|zeta potential|ftir|ft[- ]?ir|tga|partikelgr[oö]ße|partikelverteilung|rheolog\w*|produkten?twickl\w*|formulierung(?:sentwicklung)?|syntheseentwicklung|methodenentwicklung|method development|chemical characterization|material\s+characterization|materialcharakterisierung)\b)/i;
   const weakRole = /\b(?:senior|principal|director|head of|chief|leiter\w*|lead\s+(?:process|engineer|development)|vp\b)\b/i;
   const phdProhibited = /\b(?:keine\s+promotion|ohne\s+promotion|no\s+phd|no\s+ph\.d|phd\s+not\s+(?:eligible|accepted))\b/i;
@@ -79,7 +79,13 @@
 
     const chemistryTitle = hasChemistryInTitle(title);
     const generalTitle = generalScientificRole.test(title);
-    if (!chemistryTitle && !(generalTitle && coreChemistry.test(description) && experimentalDuty.test(description)))
+    // Chemistry-adjacent adhesive testing is not evidence of direct
+    // formulation/industrial rheology expertise. It merits a separate review
+    // only when the verified daily duties include experimental testing.
+    const adjacentTasks = Array.isArray(job?.core_adjacent_experimental_tasks) ?
+      job.core_adjacent_experimental_tasks.filter(x => typeof x === 'string' && x.trim()) : [];
+    const adjacentApplication = adjacentTasks.length > 0 && generalTitle;
+    if (!chemistryTitle && !(generalTitle && coreChemistry.test(description) && experimentalDuty.test(description)) && !adjacentApplication)
       return {tier:'other',reason:'No clear chemical/materials R&D responsibilities',basis:'Job title and duties'};
     if (description.length < 150 || ['recent_title_only','api_list_only','html_fallback'].includes(job?.source_mode))
       return {tier:'details',reason:'Promising role title, but full responsibilities/requirements are missing',basis:'Source completeness'};
@@ -92,6 +98,8 @@
     if (checks.essential.length || checks.highExperience)
       return {tier:'details',reason:'Explicit mandatory qualification or extensive experience needs verification',basis:'Advertised requirements'};
 
+    if (adjacentApplication)
+      return {tier:'details',reason:'Adhesive measurement or application testing is central, but specialized methods, customer scope and essential experience need verification',basis:'Adjacent experimental duties'};
     const skills = job?.competency_counts || {};
     const methodMatched = Number(skills.method?.matched || 0);
     const technicalMatched = Number(skills.technical?.matched || 0);
