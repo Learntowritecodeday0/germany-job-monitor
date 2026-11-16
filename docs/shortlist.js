@@ -148,7 +148,8 @@
       .filter(entry => entry?.kind === 'explicit minimum' && nonEmpty(entry.text))
       .map(entry => nonEmpty(entry.text)).slice(0, 2);
     const highExperience = experience.some(value => {
-      const match = value.match(/(?:minimum(?:\s+of)?|at\s+least|mindestens)\s+(\d+)(?:\s*[-–]\s*\d+)?\+?\s*(?:years?|jahre[n]?)/i);
+      const match = value.match(/(?:minimum(?:\s+of)?|at\s+least|mindestens)\s+(\d+)(?:\s*[-–]\s*\d+)?\+?\s*(?:years?|jahre[n]?)/i)
+        || value.match(/\b(\d+)\s*\+\s*(?:years?|jahre[n]?)\b/i);
       return !!match && Number(match[1]) >= 5;
     });
     const core = Array.isArray(job?.core_specializations_to_verify) ?
