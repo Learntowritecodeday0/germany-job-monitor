@@ -155,6 +155,8 @@
     const experience = (Array.isArray(q.experience_flags) ? q.experience_flags : [])
       .filter(entry => entry?.kind === 'explicit minimum' && nonEmpty(entry.text))
       .map(entry => nonEmpty(entry.text)).slice(0, 2);
+    const experienceReview = (Array.isArray(q.experience_review_flags) ? q.experience_review_flags : [])
+      .map(entry => nonEmpty(entry?.text)).filter(Boolean).slice(0, 2);
     const highExperience = experience.some(value => {
       const match = value.match(/(?:minimum(?:\s+of)?|at\s+least|mindestens)\s+(\d+)(?:\s*[-–]\s*\d+)?\+?\s*(?:years?|jahre[n]?)/i)
         || value.match(/\b(\d+)\s*\+\s*(?:years?|jahre[n]?)\b/i);
@@ -171,7 +173,7 @@
       essential: labels('explicit'),
       preferred: labels('preferred'),
       learnable: labels('learnable'),
-      experience, highExperience, core, taskGaps, noCoreCoverage,
+      experience, experienceReview, highExperience, core, taskGaps, noCoreCoverage,
       basis: q.status === 'parsed' ? 'Advertised qualification wording (automated)' : 'Incomplete qualification extraction'
     };
   }
