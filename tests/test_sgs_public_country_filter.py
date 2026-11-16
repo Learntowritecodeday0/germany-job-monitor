@@ -18,6 +18,16 @@ def record(ident="744000001", title="Chemiker Laboranalytik", country="de"):
 
 
 class SGSFeedTests(unittest.TestCase):
+    def test_eurofins_has_official_germany_filtered_analytical_board(self):
+        eurofins=next(c for c in json.loads((Path(__file__).resolve().parents[1]/'config/companies.json').read_text())['companies'] if c['name']=='Eurofins')
+        self.assertEqual(eurofins["platform"],"smartrecruiters")
+        self.assertEqual(eurofins["slug"],"Eurofins")
+        self.assertEqual(eurofins["country_filter"],"de")
+        self.assertEqual(eurofins["careers_url"],"https://careers.smartrecruiters.com/Eurofins")
+        with patch.object(monitor,"get_json",return_value={"content":[],"totalFound":0}) as get:
+            self.assertEqual(monitor.fetch_company(eurofins),[])
+        self.assertIn("country=de",get.call_args.args[0])
+
     def test_official_source_url_country_filter(self):
         self.assertEqual(SOURCE["platform"],"smartrecruiters")
         self.assertEqual(SOURCE["slug"],"SGS")
