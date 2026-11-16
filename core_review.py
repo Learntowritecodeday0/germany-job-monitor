@@ -28,10 +28,10 @@ DOCUMENTED_CORE = [
 # tasks section. They trigger manual review, never automatic shortlisting.
 ADJACENT_EXPERIMENTAL = [
  ('Adhesive application and flow testing',
-   [r'\\b(?:klebstoff\\w*|klebel[oö]sung\\w*|adhesiv\\w*|adhesive\\w*)\\b'],
-   [r'\\b(?:versuch\\w*|testreih\\w*|messans[aä]tz\\w*|messtechnisch\\w*|'
-    r'flie[ßs]verhalten|flie[ßs]eigenschaft\\w*|rheolog\\w*|pr[uü]fmethod\\w*|'
-    r'prüfreih\\w*|materialpr[uü]f\\w*)\\b']),
+   [r'\b(?:klebstoff\w*|klebel[oö]sung\w*|adhesiv\w*|adhesive\w*)\b'],
+   [r'\b(?:versuch\w*|testreih\w*|messans[aä]tz\w*|messtechnisch\w*|'
+    r'flie[ßs]verhalten|flie[ßs]eigenschaft\w*|rheolog\w*|pr[uü]fmethod\w*|'
+    r'prüfreih\w*|materialpr[uü]f\w*)\b']),
 ]
 
 def _adjacent_task_matches(tasks: str) -> list[str]:
