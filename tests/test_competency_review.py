@@ -32,7 +32,11 @@ class CompetencyReviewTests(unittest.TestCase):
         self.assertIn('HPLC / LC-MS / GC-MS',x['method']['verify'])
         self.assertNotIn('CAD / finite-element design',x['method']['verify'])
         y=cr.competency_review(job('Numerical Process Engineer',
-          'Your Tasks: Simulate fluid flow using CFD. Your Skills: CFD simulation required.'))['competency_counts']
+          'Your Tasks: Simulate industrial fluid flow in process equipment using CFD, '
+          'document the numerical modelling results and evaluate design variants '
+          'against measured process data. Your Skills: Practical experience in CFD '
+          'simulation and fluid dynamics is required for independent process '
+          'development and technical reporting.'))['competency_counts']
         self.assertIn('CAD / finite-element design',y['method']['verify'])
 
     def test_battery_role_has_distinct_sector_gap(self):
