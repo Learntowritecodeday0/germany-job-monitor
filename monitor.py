@@ -883,9 +883,17 @@ def fetch_company(company):
         # Official public Posting API, bounded pagination. An incomplete
         # listing is treated as an error rather than claiming full coverage.
         base = f"https://api.smartrecruiters.com/v1/companies/{slug}/postings"
+        # Large global employers need server-side country filtering to avoid
+        # skipping German vacancies beyond the first 500 worldwide listings.
+        country_filter = company.get("country_filter")
+        if country_filter not in (None, "de"):
+            raise ValueError("Only verified German SmartRecruiters country filter is supported")
         all_items = []
         for page in range(5):
-            result = get_json(base + f"?limit=100&offset={page*100}")
+            params = f"?limit=100&offset={page*100}"
+            if country_filter == "de":
+                params += "&country=de"
+            result = get_json(base + params)
             items = result.get('content')
             if not isinstance(items, list):
                 raise ValueError('Unexpected SmartRecruiters API listing response')
@@ -898,6 +906,13 @@ def fetch_company(company):
         else:
             raise ValueError('SmartRecruiters job list exceeds 500; extend pagination first')
         jobs = [normalize_smartrecruiters_listing(company, item) for item in all_items]
+        if country_filter == "de":
+            # Never quietly accept a global result if the endpoint ignores the
+            # filter. Unknown worksites remain reviewable, not guessed.
+            unexpected = [job for job in jobs if job["country"] and
+                          job["country"].casefold() not in ("de", "deu", "germany")]
+            if unexpected:
+                raise ValueError("SmartRecruiters country=de returned non-German listings")
         # Details add requirements for relevant scientific roles, while
         # unrelated jobs remain in the database with a visible data limitation.
         detailed = 0
@@ -912,7 +927,7 @@ def fetch_company(company):
                 detail = get_json(base + '/' + quote(posting_id, safe=''))
                 enrich_smartrecruiters_job(job, detail)
             except (HTTPError, URLError, ValueError, TimeoutError) as exc:
-                print(f"FISCHER DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
+                print(f"SMARTRECRUITERS DETAIL UNAVAILABLE {job['key']}: {type(exc).__name__}", file=sys.stderr)
         return jobs
     if provider == "successfactors_recent":
         return fetch_successfactors_recent(company)

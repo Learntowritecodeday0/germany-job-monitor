@@ -453,6 +453,15 @@
       "platform": "personio",
       "slug": "eyesense",
       "careers_url": "https://eyesense.jobs.personio.de"
+    },
+    {
+      "name": "SGS",
+      "platform": "smartrecruiters",
+      "slug": "SGS",
+      "careers_url": "https://careers.smartrecruiters.com/SGS",
+      "country_filter": "de",
+      "focus": "Chemical laboratory testing, analytical method development and materials characterization in Germany",
+      "note": "Official public SmartRecruiters postings filtered by Germany. Confirm mandatory instruments, language and role level; global listings are excluded."
     }
   ]
 }
