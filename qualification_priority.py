@@ -120,6 +120,7 @@ def priority_review(job: dict) -> dict:
         return {'education_review': degree, 'qualification_priority': {
             'status': 'unavailable', 'explicit': [], 'preferred': [],
             'learnable': [], 'listed': [], 'experience_flags': [],
+            'experience_review_flags': [],
             'note': 'A full identifiable qualifications section is unavailable.'
         }}
     items = split_requirements(profile)
@@ -153,17 +154,31 @@ def priority_review(job: dict) -> dict:
         values.sort(key=lambda entry: (entry['category'], entry['name']))
 
     experience_flags = []
+    experience_review_flags = []
     for segment in items:
         match = YEAR_REQUIREMENT.search(segment)
-        # "Ideally 5+ years" is a preference, not an explicit minimum.
-        # An optional requirement must never trigger an automatic hard-gap gate.
-        before = segment[max(0, match.start()-35):match.start()] if match else ''
-        if match and not re.search(r'\b(?:ideally|idealerweise|preferred|preferably|w[uü]nschenswert)\b', before, re.I):
-            summary = re.sub(r'\s+', ' ', segment).strip()
-            experience_flags.append({'kind': 'explicit minimum', 'text': summary[:195],
+        if not match:
+            continue
+        # A "minimum 3-5 years ... desirable" clause is contradictory as a
+        # hard gate: flag it for human review rather than call it mandatory.
+        before = segment[max(0, match.start()-35):match.start()]
+        after = segment[match.end():match.end()+110]
+        preference = re.search(
+            r'\b(?:ideally|idealerweise|preferred|preferably|desirable|'
+            r'w[uü]nschenswert|von vorteil)\b', before, re.I)
+        trailing_preference = re.search(
+            r'\b(?:desirable|preferred|preferable|w[uü]nschenswert|'
+            r'von vorteil)\b', after, re.I)
+        summary = re.sub(r'\s+', ' ', segment).strip()[:195]
+        if preference or trailing_preference:
+            experience_review_flags.append({'kind': 'preferred or ambiguous', 'text': summary,
+                                            'verification': 'Verify whether experience is mandatory'})
+        else:
+            experience_flags.append({'kind': 'explicit minimum', 'text': summary,
                                      'verification': 'Check relevant industry and years of experience'})
     return {'education_review': degree, 'qualification_priority': {
         'status': 'parsed', **bucket, 'experience_flags': experience_flags[:5],
+        'experience_review_flags': experience_review_flags[:5],
         'note': ('Only explicit priority wording is used. Other qualifications are listed with '
                  'priority unclear; absence of documented experience is not a legal or hiring decision.')
     }}
