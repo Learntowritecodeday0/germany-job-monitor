@@ -23,7 +23,7 @@
     'personio:junglueck:760286': ['other', 'Senior cosmetics experience and native-level German requirement need closer review'],
     'personio:klb:2524785': ['other', 'Core specialty is industrial epoxy/polyurethane resin development'],
     'personio:blackwave:2657617': ['other', 'Core specialty is composite winding, not general DoE'],
-    'ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/2a8897e7-bbb2-408f-ad16-136d2523017a': ['other', 'Routine instrument operation and tool maintenance require separate evidence'],
+    'ashby:blacksemiconductor:https://jobs.ashbyhq.com/blacksemiconductor/2a8897e7-bbb2-408f-ad16-136d2523017a': ['details', 'SEM characterization is relevant; verify independent instrument operation, process-failure analysis and tool maintenance experience'],
     'personio:proteros-biostructures-gmbh:1914202': ['other', 'Specialized HPLC/LC-MS protein analytics; advertisement also states no PhD'],
     'personio:dr-franz-koehler-chemie-gmbh:2845004': ['other', 'Vocational-level analytical role; primary methods differ'],
     'personio:planetafoods:2795212': ['other', 'Senior 24/7 food production ownership rather than laboratory scale-up'],
@@ -146,7 +146,7 @@
   const specificScientificTitle = /(?:chemiker|chemist|chemielabor|material(?:s)? scientist|materialwissenschaft|werkstoff(?:pr[uü]f|techn|entwick|ingenieur)|formul|polymer|kunststoff|beschicht|coating|adhesiv|klebstoff|analytik|analytical|rheolog|partikel|nanopart|sol.gel|methodenentwicklung|method development)/i;
   const generalDevelopmentTitle = /(?:process development|prozessentwick|application develop|anwendungsentwick|prozessingenieur|process engineer|produktentwick|product develop|r&d engineer|research engineer|entwicklungsingenieur|anwendungstechniker|technologe)/i;
   const labVocationalTitle = /(?:chemielaborant|laborant|laboratory technician|lab technician|werkstoffpr[uü]fer|werkstoffpr[uü]ftechnik|analytik(?:er)?|labor(?:techniker|technical)|\bCTA\b)/i;
-  const clearNonLabTitle = /(?:\b(?:sales|vertrieb|marketing|finance|accounting|controller|personalwesen|hr|recruiter|procurement|office|customer success|service desk|software|frontend|backend|algorithm|machine learning|data scientist|data engineer|elektrotechnik|elektroingenieur|mechatronik|mechanical design|robotics|tritium|geochemistry|dft expert)\b|foundation models|reactive transport modeller|embedded systems|electrical engineer)/i;
+  const clearNonLabTitle = /(?:\b(?:requirements engineer|mechatronics|sales|vertrieb|marketing|finance|accounting|controller|personalwesen|hr|recruiter|procurement|office|customer success|service desk|software|frontend|backend|algorithm|machine learning|data scientist|data engineer|elektrotechnik|elektroingenieur|mechatronik|mechanical design|robotics|tritium|geochemistry|dft expert)\b|foundation models|reactive transport modeller|embedded systems|electrical engineer)/i;
   const trainingTitle = /(?:\b(?:sch[uü]lerpraktik|praktikant|internship|ausbildung|auszubild|masterarbeit|abschlussarbeit|bachelorarbeit|thesis|werkstudent|studentische hilfskraft|doctoral student|phd student)\b)/i;
   const fundamentalGap = /(?:\b(?:phd not accepted|no phd|keine promotion|ohne promotion)\b)/i;
 
@@ -174,6 +174,8 @@
     const domain=discoveryDomain.test(title) && discoveryRole.test(title);
     const general=generalDevelopmentTitle.test(title) && (hasCore || hasAdjacent);
     if(!(specific||domain||general||labVocational))return null;
+    if(/(?:\\b(?:manager|director|head of)\\b|team lead)/i.test(title) && !hasCore && !hasAdjacent)
+      return null;
     let reason;
     if(labVocational)reason='Related laboratory technician role; review hands-on work, degree level and whether the employer accepts a PhD';
     else if(weakRole.test(title))reason='Relevant scientific domain, but seniority and required industrial ownership may exceed documented experience';
