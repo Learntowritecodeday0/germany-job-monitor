@@ -32,22 +32,23 @@
       <button id="tabApplications" class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="applicationsView">Applications <span id="appTabCount"></span></button>
     </nav>
     <section id="vacanciesView" role="tabpanel" aria-labelledby="tabVacancies">
-    <div class="notice" role="note">The priority shortlist emphasizes central hands-on scientific duties. Related experimental application roles can appear in Needs requirements review without being claimed as direct experience. Mandatory, preferred and ambiguous qualifications are distinguished for manual checks. Keyword scores and email alerts are separate; counts do not establish hiring eligibility. A 0/0 means no identifiable item in that category; —/— means incomplete details.</div>
+    <div class="notice" role="note">The default view is broad discovery, not a claim of hiring eligibility. Direct shortlist is more selective. Related laboratory technician and specialized materials roles are included for manual checks; missing descriptions and mandatory skills are labelled rather than silently excluded. Keyword scores and email alerts are separate. A 0/0 means no identifiable method; —/— means insufficient details.</div>
     <section class="summary" aria-label="Summary">
       <article><strong id="total">—</strong><span>All tracked vacancies</span></article>
-      <article><strong id="priority">—</strong><span>Shortlist candidates</span></article>
+      <article><strong id="priority">—</strong><span>Direct shortlist</span></article>
+      <article><strong id="matches">—</strong><span>Jobs to investigate</span></article>
       <article><strong id="sources">—</strong><span>Sources tracked</span></article>
       <article><strong id="updated">—</strong><span>Last checked (Berlin)</span></article>
     </section>
-    <p class="queue-help">Default: manually audited vacancies plus carefully screened new scientific roles. Use “Needs requirements review” for incomplete descriptions or unverified mandatory skills, or “All jobs” to see the complete monitor.</p>
+    <p class="queue-help">Default: broader job discovery, including direct matches, specialized roles requiring verification and related laboratory work. This is not an eligibility prediction. Use “Direct shortlist” for the stricter selection, or “All jobs” to inspect every tracked vacancy. <span id="queueStats" aria-live="polite"></span></p>
     <section class="tools" aria-label="Filters">
-      <label>Review queue<select id="reviewQueue"><option value="shortlist" selected>Priority shortlist</option><option value="details">Needs requirements review</option><option value="other">Other / deprioritized</option><option value="all">All jobs</option></select></label>
+      <label>Review queue<select id="reviewQueue"><option value="matches" selected>Matches to investigate (broad)</option><option value="shortlist">Direct shortlist (strict)</option><option value="details">Needs requirements review</option><option value="explore">Related roles / career-level review</option><option value="other">Other / deprioritized</option><option value="all">All jobs</option></select></label>
       <label>Search<input id="query" type="search" placeholder="e.g. DoE, nanoparticles, surface chemistry"></label>
       <label>Original keyword priority<select id="band"><option value="all">All jobs</option><option value="Review first">Review first</option><option value="Possible">Possible</option><option value="Low">Low</option><option value="Not target">Not target</option></select></label>
       <label>Technical expertise<select id="technicalBand"><option value="all">All levels</option><option value="some">At least one documented expertise</option><option value="none">No documented expertise</option><option value="unknown">Insufficient details</option></select></label>
       <label>Company<select id="company"><option value="all">All companies</option></select></label>
       <label><input type="checkbox" id="germanyOnly"> Verified German location only</label>
-      <label><input type="checkbox" id="degreeFocus" checked> Hide training, non-chemistry software/motor engineering, HR, finance and other unrelated roles</label>
+      <label><input type="checkbox" id="degreeFocus" checked> Hide training, unrelated engineering, software, HR and finance (related lab technicians remain discoverable)</label>
     </section>
     <section class="tracking-tools" aria-label="Application history">
       <label class="tracking-check"><input type="checkbox" id="showApplied"> Show previously applied jobs</label>
