@@ -47,49 +47,88 @@
     const domain = /(?:chem|material|werkstoff|surface|oberfl[aä]ch|formulier|formulat|emuls|dispers|nanop|particle|partikel|kolloid|colloid|polymer|silica|aerogel|sol[- ]?gel|cellulos|zellulos|biopolymer|additiv|coating|beschicht|rheolog|cosmetic|kosmetik|recycling)/i;
     return role.test(title) && domain.test(title);
   }
+  // Hands-on formulations / synthesis / characterization are closer to the
+  // documented work than generic DoE or laboratory scale-up. DoE alone is not
+  // evidence of readiness for an unrelated production or sector-specific task.
+  const directCoreTasks = new Set([
+    'Nanoparticle and sol-gel synthesis',
+    'Formulation and dispersion experiments',
+    'Materials and particle characterization',
+    'Surface functionalization and wettability'
+  ]);
+
   function reviews(job) {
     const title = nonEmpty(job?.title);
     const description = nonEmpty(job?.description);
-    const key = nonEmpty(job?.key);
-    const override = AUDITED[key];
-    const checks = requirementChecks(job);
-    if (override && Number(job?.reopen_count||0)>0) return {tier:'details',reason:'Previously reviewed posting reappeared; recheck its complete requirements',basis:'Audited snapshot'};
+    const override = AUDITED[nonEmpty(job?.key)];
+    // Apply fundamental exclusions BEFORE old manual-review overrides. An
+    // inactive job or an outside-country posting must not re-enter the queue.
+    if (job?.active === false || job?.location_status === 'outside')
+      return {tier:'other',reason:'Inactive or outside the selected country',basis:'Source status'};
+    if (job?.hide_by_default === true || ['training','unrelated','vocational'].includes(job?.career_track) || training.test(title) || hardTitle.test(title))
+      return {tier:'other',reason:'Role family or career level is outside the selected search',basis:'Role classification'};
+    if (phdProhibited.test(description))
+      return {tier:'other',reason:'Advertised qualification conflicts with a completed PhD',basis:'Advertised qualification'};
+    if (job?.education_review?.possible_overqualified === true && !/(?:r&d|forschung|entwicklung|development|scientist)/i.test(title))
+      return {tier:'other',reason:'Primarily vocational qualification; career level may not align',basis:'Role classification'};
+    if (incompatibleSpecialty.test(title))
+      return {tier:'other',reason:'Different core industrial specialization',basis:'Role classification'};
+    if (override && Number(job?.reopen_count||0)>0)
+      return {tier:'details',reason:'Previously reviewed posting reappeared; recheck its complete requirements',basis:'Audited snapshot'};
     if (override) return {tier:override[0],reason:override[1],basis:'Audited snapshot'};
-    if (job?.active === false || job?.location_status === 'outside')return {tier:'other',reason:'Inactive or outside the selected country',basis:'Rule-based'};
-    if (job?.hide_by_default === true || ['training','unrelated','vocational'].includes(job?.career_track) || training.test(title) || hardTitle.test(title)) {
-      return {tier:'other',reason:'Role family or career level is outside the selected search',basis:'Rule-based'};
+
+    const chemistryTitle = hasChemistryInTitle(title);
+    const generalTitle = generalScientificRole.test(title);
+    if (!chemistryTitle && !(generalTitle && coreChemistry.test(description) && experimentalDuty.test(description)))
+      return {tier:'other',reason:'No clear chemical/materials R&D responsibilities',basis:'Job title and duties'};
+    if (description.length < 150 || ['recent_title_only','api_list_only','html_fallback'].includes(job?.source_mode))
+      return {tier:'details',reason:'Promising role title, but full responsibilities/requirements are missing',basis:'Source completeness'};
+    if (weakRole.test(title))
+      return {tier:'other',reason:'Senior/lead specialization requires substantial sector experience; review separately',basis:'Career level'};
+    if (operationHeavy.test(description) && !experimentalDuty.test(description))
+      return {tier:'other',reason:'Production/equipment operation appears to dominate daily work',basis:'Advertised duties'};
+
+    const checks = requirementChecks(job);
+    if (checks.essential.length || checks.highExperience)
+      return {tier:'details',reason:'Explicit mandatory qualification or extensive experience needs verification',basis:'Advertised requirements'};
+
+    const skills = job?.competency_counts || {};
+    const methodMatched = Number(skills.method?.matched || 0);
+    const technicalMatched = Number(skills.technical?.matched || 0);
+    const chemistryEvidence = coreChemistry.test(description);
+    const experimentEvidence = experimentalDuty.test(description);
+    const primaryTasks = Array.isArray(job?.core_documented_tasks) ?
+      job.core_documented_tasks.filter(x => typeof x === 'string' && directCoreTasks.has(x)) : null;
+    const taskGaps = checks.taskGaps;
+    const structured = primaryTasks !== null && nonEmpty(job?.core_review_basis) !== '';
+    if (structured) {
+      // A primary industrial specialization is not made transferable by one
+      // unrelated shared method. Examples: wafer fab + DoE; composite winding
+      // + laboratory measurements. Send mixed cases for a manual requirements
+      // review, not an automatic interview-readiness claim.
+      if (taskGaps.length && taskGaps.length >= primaryTasks.length)
+        return {tier:'details',reason:'Specialized daily duties outweigh documented primary-method overlap',basis:'Main responsibilities'};
+      if (!primaryTasks.length)
+        return {tier:'other',reason:'No documented primary chemistry, formulation, surface, or characterization work in daily duties',basis:'Main responsibilities'};
+      if (checks.core.length && checks.noCoreCoverage)
+        return {tier:'details',reason:'Core industry methods need verification despite matching scientific keywords',basis:'Core specialization'};
+      if (job?.qualification_priority?.status === 'unavailable')
+        return {tier:'details',reason:'Experimental duties overlap, but mandatory qualifications could not be extracted',basis:'Missing qualification detail'};
+      if (primaryTasks.length >= 1 && (chemistryTitle || generalTitle)) {
+        return {tier:'secondary',reason:taskGaps.length ?
+          'Relevant experimental core duties; separate specialized industry tasks still need review' :
+          'Relevant experimental core duties; verify mandatory experience and actual ownership',
+          basis:'Primary scientific duties'};
+      }
     }
-    if (phdProhibited.test(description))return {tier:'other',reason:'Advertised qualification conflicts with a completed PhD',basis:'Rule-based'};
-    if (job?.education_review?.possible_overqualified === true && !/(?:r&d|forschung|entwicklung|development|scientist)/i.test(title)){
-      return {tier:'other',reason:'Primarily vocational qualification; career level may not align',basis:'Rule-based'};
-    }
-    if (incompatibleSpecialty.test(title))return {tier:'other',reason:'Different core industrial specialization',basis:'Rule-based'};
-    if (!hasChemistryInTitle(title) && !(generalScientificRole.test(title) && coreChemistry.test(description) && experimentalDuty.test(description)))return {tier:'other',reason:'No clear chemical/materials R&D responsibilities',basis:'Rule-based'};
-    if (description.length < 150 || ['recent_title_only','api_list_only','html_fallback'].includes(job?.source_mode)){
-      return {tier:'details',reason:'Promising role title, but full responsibilities/requirements are missing',basis:'Rule-based'};
-    }
-    if (weakRole.test(title))return {tier:'other',reason:'Senior/lead specialization requires a separate essential-experience check',basis:'Rule-based'};
-    if (operationHeavy.test(description) && !experimentalDuty.test(description))return {tier:'other',reason:'Production/equipment operation appears to dominate daily work',basis:'Rule-based'};
-    const skills=job?.competency_counts || {};
-    const methodMatched=Number(skills.method?.matched || 0);
-    const technicalMatched=Number(skills.technical?.matched || 0);
-    const titleMatch=coreChemistry.test(title);
-    const chemistryEvidence=coreChemistry.test(description);
-    const experimentEvidence=experimentalDuty.test(description);
-    // Do not automatically prioritize roles with undocumented mandatory
-    // technical skills, demanding explicit experience thresholds, or an
-    // unsupported core specialization. This is a request for review, not a rejection.
-    // Preferred and learnable skills do not trigger the gate.
-    if (checks.essential.length || checks.highExperience || (checks.core.length && checks.noCoreCoverage)) {
-      return {tier:'details',reason:'Review advertised mandatory skills, industry experience or core specialization before prioritizing',basis:'Requirement evidence'};
-    }
-    if (titleMatch && (methodMatched>0 || technicalMatched>0 || (chemistryEvidence&&experimentEvidence))){
-      return {tier:'secondary',reason:'Potential experimental chemistry/materials overlap; verify the primary duties and mandatory experience',basis:'Rule-based'};
-    }
-    if (chemistryEvidence && experimentEvidence && (methodMatched>0 || technicalMatched>0)){
-      return {tier:'secondary',reason:'Experimental duties overlap; role title is less specific',basis:'Rule-based'};
-    }
-    return {tier:'other',reason:'Insufficient evidence of relevant daily scientific responsibilities',basis:'Rule-based'};
+
+    // Fallback for legacy postings without structured core-duty extraction.
+    // This is deliberately narrower than matching title + one method keyword.
+    if (checks.core.length && checks.noCoreCoverage)
+      return {tier:'details',reason:'Unverified core specialization and no supported technical methods identified',basis:'Core specialization'};
+    if (chemistryEvidence && experimentEvidence && (coreChemistry.test(title) || (methodMatched>0 && technicalMatched>0)))
+      return {tier:'secondary',reason:'Potential laboratory overlap from available text; verify actual main tasks',basis:'Legacy text evidence'};
+    return {tier:'other',reason:'Insufficient evidence of relevant daily scientific responsibilities',basis:'Main responsibilities'};
   }
 
   // Distinguish explicitly required expertise from preferences and skills
@@ -97,7 +136,11 @@
   function requirementChecks(job) {
     const q = job?.qualification_priority || {};
     const items = key => Array.isArray(q[key]) ? q[key] : [];
-    const category = entry => ['Technical', 'Methods'].includes(entry?.category);
+    const category = entry => ['Technical', 'Methods'].includes(entry?.category) ||
+      (entry?.category === 'General' && [
+        'Fluent professional German', 'Formal ISO / GMP / medical-device validation',
+        'Senior people management'
+      ].includes(entry.name));
     const notDocumented = entry => entry && entry.documented === false;
     const labels = group => [...new Set(items(group).filter(entry => category(entry) && notDocumented(entry))
       .map(entry => nonEmpty(entry.name)).filter(Boolean))].slice(0, 3);
@@ -110,6 +153,8 @@
     });
     const core = Array.isArray(job?.core_specializations_to_verify) ?
       [...new Set(job.core_specializations_to_verify.filter(x => typeof x === 'string' && x.trim()))].slice(0, 2) : [];
+    const taskGaps = Array.isArray(job?.core_task_specializations_to_verify) ?
+      [...new Set(job.core_task_specializations_to_verify.filter(x => typeof x === 'string' && x.trim()))].slice(0, 3) : [];
     const counts = job?.competency_counts;
     const noCoreCoverage = !!(counts && counts.technical?.total > 0 && counts.method?.total > 0 &&
       counts.technical.matched === 0 && counts.method.matched === 0);
@@ -117,7 +162,7 @@
       essential: labels('explicit'),
       preferred: labels('preferred'),
       learnable: labels('learnable'),
-      experience, highExperience, core, noCoreCoverage,
+      experience, highExperience, core, taskGaps, noCoreCoverage,
       basis: q.status === 'parsed' ? 'Advertised qualification wording (automated)' : 'Incomplete qualification extraction'
     };
   }
