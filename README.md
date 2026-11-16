@@ -8,7 +8,9 @@ A public vacancy monitor for scientific, chemical and materials-related position
 - Runs a scheduled check six times a day using GitHub Actions (approximately every four hours; delays and missed runs are possible).
 - Remembers when each job was **first detected**. It does not claim that this equals the original publication time.
 - Excludes clearly non-German locations; flags uncertain or mixed locations for manual review.
-- Gives approximate **keyword-based** review categories; always inspect essential requirements manually.
+- Retains keyword categories only as a separate search signal. The browser-side **Priority shortlist** now requires evidence of central experimental duties (e.g. formulation, nanoparticle synthesis, surface chemistry or materials characterization), rather than a familiar instrument name mentioned anywhere in the advertisement.
+- Sends otherwise relevant roles to **Needs requirements review** when critical industry-specific daily tasks, undocumented explicit qualifications, substantial required experience, or unavailable qualifications require verification. Preferred or explicitly learnable skills do not automatically exclude a role.
+- Uses **Review soon** for a small historical manual audit, **Secondary review** for evidence-based automatic suggestions, and keeps **Other / deprioritized** vacancies searchable. These are review queues, not a hiring-fit probability or an eligibility decision.
 - Creates a public HTML dashboard with links to official job postings and a separate manual employer watchlist.
 - Includes an **Applications** tab for locally stored application dates, outcomes, responses, notes and follow-ups. JSON export/import is available; records do not sync between browsers automatically.
 - Offers **System (default), Light and Dark** appearance choices. System follows the device/browser theme; manual choices remain in this browser.
