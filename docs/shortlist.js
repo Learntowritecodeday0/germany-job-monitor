@@ -57,7 +57,7 @@
     'Surface functionalization and wettability'
   ]);
 
-  function reviews(job) {
+  function strictReviews(job) {
     const title = nonEmpty(job?.title);
     const description = nonEmpty(job?.description);
     const override = AUDITED[nonEmpty(job?.key)];
@@ -139,6 +139,61 @@
     return {tier:'other',reason:'Insufficient evidence of relevant daily scientific responsibilities',basis:'Main responsibilities'};
   }
 
+  // Discovery is intentionally broader than the evidence-based direct shortlist.
+  // These are leads to inspect, not predicted eligibility or interview chances.
+  const discoveryDomain = /(?:chem(?:ie|ik|ist|ical|istry|iker|labor)?|material|werkstoff|polymer|kunststoff|plastics|beschicht|coating|adhesiv|klebstoff|dispers|emulsion|formulier|formulat|additiv|partikel|nanopart|surface|oberfl[aä]ch|analyt|biopolymer|cellulos|zellulos|keramik|ceramic|metallurg|elektrolyt|electrolyte|rheolog)/i;
+  const discoveryRole = /(?:scientist|research(?:er)?|chemist|chemiker|laborant|laboratory|lab(?:or)?techn|analyst|analytiker|entwickl|development|developer|r&d|ingenieur|engineer|technolog|technician|techniker|forsch|werkstoffpr[uü]f|quality control|qualit[aä]tspr[uü]f)/i;
+  const specificScientificTitle = /(?:chemiker|chemist|chemielabor|material(?:s)? scientist|materialwissenschaft|werkstoff(?:pr[uü]f|techn|entwick|ingenieur)|formul|polymer|kunststoff|beschicht|coating|adhesiv|klebstoff|analytik|analytical|rheolog|partikel|nanopart|sol.gel|methodenentwicklung|method development)/i;
+  const generalDevelopmentTitle = /(?:process development|prozessentwick|application develop|anwendungsentwick|prozessingenieur|process engineer|produktentwick|product develop|r&d engineer|research engineer|entwicklungsingenieur|anwendungstechniker|technologe)/i;
+  const labVocationalTitle = /(?:chemielaborant|laborant|laboratory technician|lab technician|werkstoffpr[uü]fer|werkstoffpr[uü]ftechnik|analytik(?:er)?|labor(?:techniker|technical)|\bCTA\b)/i;
+  const clearNonLabTitle = /(?:\b(?:sales|vertrieb|marketing|finance|accounting|controller|personalwesen|hr|recruiter|procurement|office|customer success|service desk|software|frontend|backend|algorithm|machine learning|data scientist|data engineer|elektrotechnik|elektroingenieur|mechatronik|mechanical design|robotics|tritium|geochemistry|dft expert)\b|foundation models|reactive transport modeller|embedded systems|electrical engineer)/i;
+  const trainingTitle = /(?:\b(?:sch[uü]lerpraktik|praktikant|internship|ausbildung|auszubild|masterarbeit|abschlussarbeit|bachelorarbeit|thesis|werkstudent|studentische hilfskraft|doctoral student|phd student)\b)/i;
+  const fundamentalGap = /(?:\b(?:phd not accepted|no phd|keine promotion|ohne promotion)\b)/i;
+
+  function exploratoryReview(job, prior) {
+    const title=nonEmpty(job?.title);
+    const description=nonEmpty(job?.description);
+    // Application history, nationality, nationality-sensitive and eligibility
+    // information never enters this classifier.
+    if(job?.active===false || job?.location_status==='outside' ||
+       job?.career_track==='training' || job?.career_track==='unrelated' ||
+       training.test(title) || trainingTitle.test(title) || clearNonLabTitle.test(title) ||
+       incompatibleSpecialty.test(title) || fundamentalGap.test(description))return null;
+    // Prior detailed manual audits remain authoritative, except when an
+    // audited role is explicitly moved to "Needs requirements review".
+    if(AUDITED[nonEmpty(job?.key)])return null;
+    const labVocational=labVocationalTitle.test(title);
+    if(job?.career_track==='vocational' && !labVocational)return null;
+    if(job?.hide_by_default && !labVocational)return null;
+    if(hardTitle.test(title) && !labVocational)return null;
+    const hasCore=Array.isArray(job?.core_documented_tasks) &&
+      job.core_documented_tasks.some(x=>directCoreTasks.has(x));
+    const hasAdjacent=Array.isArray(job?.core_adjacent_experimental_tasks) &&
+      job.core_adjacent_experimental_tasks.length>0;
+    const specific=specificScientificTitle.test(title) && discoveryRole.test(title);
+    const domain=discoveryDomain.test(title) && discoveryRole.test(title);
+    const general=generalDevelopmentTitle.test(title) && (hasCore || hasAdjacent);
+    if(!(specific||domain||general||labVocational))return null;
+    let reason;
+    if(labVocational)reason='Related laboratory technician role; review hands-on work, degree level and whether the employer accepts a PhD';
+    else if(weakRole.test(title))reason='Relevant scientific domain, but seniority and required industrial ownership may exceed documented experience';
+    else if((job?.core_task_specializations_to_verify||[]).length)
+      reason='Related materials role with specialized industrial duties; check whether laboratory skills transfer';
+    else if(!description || description.length<150 || ['api_list_only','recent_title_only','html_fallback'].includes(job?.source_mode))
+      reason='Title suggests a chemistry/materials opportunity, but full duties and requirements are unavailable';
+    else if(hasCore||hasAdjacent)
+      reason='Potentially transferable scientific tasks; core ownership and qualifications require manual assessment';
+    else
+      reason='Chemistry or materials job family detected; verify actual responsibilities and specialist experience';
+    return {tier:'explore',reason,basis:'Broad job discovery (not confirmed fit)'};
+  }
+
+  function reviews(job){
+    const primary=strictReviews(job);
+    if(primary.tier!=='other')return primary;
+    return exploratoryReview(job,primary)||primary;
+  }
+
   // Distinguish explicitly required expertise from preferences and skills
   // the employer allows a candidate to learn. Unrecorded != absent.
   function requirementChecks(job) {
@@ -179,7 +234,8 @@
   }
 
   function isShortlist(r){return r.tier==='review'||r.tier==='secondary'}
-  const tiers={review:'Review soon',secondary:'Secondary review',details:'Needs requirements review',other:'Other / deprioritized'};
-  const tierOrder={review:0,secondary:1,details:2,other:3};
-  return Object.freeze({reviews,requirementChecks,isShortlist,tiers,tierOrder});
+  function isDiscovery(r){return isShortlist(r)||r.tier==='details'||r.tier==='explore'}
+  const tiers={review:'Review soon',secondary:'Secondary review',details:'Needs requirements review',explore:'Explore related roles',other:'Other / deprioritized'};
+  const tierOrder={review:0,secondary:1,details:2,explore:3,other:4};
+  return Object.freeze({reviews,requirementChecks,isShortlist,isDiscovery,tiers,tierOrder});
 });
