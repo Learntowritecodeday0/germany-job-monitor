@@ -69,7 +69,8 @@ class CoreReviewTests(unittest.TestCase):
     'Your Skills: Erfahrung in CFD-Simulation oder Rheologie sowie ein ingenieurwissenschaftliches Studium.'))
   self.assertEqual(x['core_documented_tasks'], [])
   self.assertIn('Adhesive application and flow testing',x['core_adjacent_experimental_tasks'])
-  self.assertIn('Mechanical design and CAD',x['core_task_specializations_to_verify'])
+  self.assertNotIn('Mechanical design and CAD',x['core_task_specializations_to_verify'])
+  self.assertIn('Mechanical design and CAD',x['core_qualification_specializations_to_verify'])
 
  def test_adhesive_application_trials_are_adjacent_but_not_company_boilerplate(self):
   x=core_review(j('Ingenieur Anwendungsentwicklung Optical Packaging',
