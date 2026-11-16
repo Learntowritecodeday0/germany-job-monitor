@@ -62,6 +62,36 @@ class CoreReviewTests(unittest.TestCase):
   x=core_review(j('Unsolicited Application',
     'Your Mission: Work across a team. Your Day-to-Day: Scale-up manufacturing. Your Profile: Enthusiasm and engagement.'))
   self.assertEqual(x['core_review'],'Outside preferred job families')
+ def test_adhesive_flow_testing_is_adjacent_not_documented_formulation(self):
+  x=core_review(j('Prozessingenieur Fließverhalten',
+    'Your Tasks: Sie planen Versuche zur messtechnischen Parameterbestimmung des Fließverhaltens von Klebstoffen. '
+    'Sie validieren Messansätze und modellieren die Fließeigenschaften von Klebstoffen. '
+    'Your Skills: Erfahrung in CFD-Simulation oder Rheologie sowie ein ingenieurwissenschaftliches Studium.'))
+  self.assertEqual(x['core_documented_tasks'], [])
+  self.assertIn('Adhesive application and flow testing',x['core_adjacent_experimental_tasks'])
+  self.assertIn('Mechanical design and CAD',x['core_task_specializations_to_verify'])
+
+ def test_adhesive_application_trials_are_adjacent_but_not_company_boilerplate(self):
+  x=core_review(j('Ingenieur Anwendungsentwicklung Optical Packaging',
+    'Your Tasks: Betreuen von klebstofftechnischen Fragestellungen und Leiten von Testreihen '
+    'zur Bewertung der Klebstoffeignung in Zusammenarbeit mit dem Labor. '
+    'Your Skills: Physik oder Werkstoffwissenschaften; Optik und Photonik von Vorteil.'))
+  self.assertIn('Adhesive application and flow testing',x['core_adjacent_experimental_tasks'])
+  self.assertNotIn('Formulation and dispersion experiments',x['core_documented_tasks'])
+  y=core_review(j('Finance Controller',
+    'We sell adhesives and regularly use laboratory test series. '
+    'Your Tasks: Manage payroll, forecast accounting budgets and reconcile supplier invoices. '
+    'Your Profile: Financial reporting and tax compliance experience.'))
+  self.assertEqual(y['core_adjacent_experimental_tasks'],[])
+
+ def test_hplc_cad_is_not_mechanical_design(self):
+  x=core_review(j('Biochemical Analyst',
+    'Ihre Aufgaben: Entwickeln und validieren von Methoden mittels HPLC-CAD und SEC '
+    'für pharmazeutische Prüfungen und Dokumentation der Analysen. '
+    'Ihr Profil: Kenntnisse der HPLC-CAD Detektion und GMP erforderlich.'))
+  self.assertNotIn('Mechanical design and CAD',x['core_specializations_to_verify'])
+  self.assertFalse(x['core_adjacent_experimental_tasks'])
+
  def test_preserves_alert_priority(self):
   z=j('Formulation Scientist','Your tasks: Develop emulsion formulations and test particle stability. Your profile: Chemist.',alerts_sent='a',citizenship_restriction_detected=True)
   z.update(core_review(z))
