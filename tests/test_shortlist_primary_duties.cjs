@@ -89,6 +89,19 @@ for(const name of ['Fluent professional German','Formal ISO / GMP / medical-devi
   }, 'Explicit screening or regulated qualification needs review: '+name);
 }
 
+check('details', {
+  qualification_priority:{
+    ...structuredClone(parsed),
+    experience_flags:[{kind:'explicit minimum',text:'5+ years of hands-on industrial materials development experience required'}]
+  }
+}, 'Five-plus years of explicitly required industrial experience deserves review');
+check('secondary', {
+  qualification_priority:{
+    ...structuredClone(parsed),
+    experience_flags:[{kind:'explicit minimum',text:'2+ years of laboratory development experience required'}]
+  }
+}, 'A smaller explicit threshold is not automatically a five-year hard-gap gate');
+
 // Documentation cannot assert requirements when job details are unavailable.
 check('details', {
   qualification_priority:{...structuredClone(parsed),status:'unavailable'}
