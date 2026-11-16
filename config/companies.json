@@ -429,6 +429,30 @@
       "recent_pages": 4,
       "focus": "Industrial adhesive formulation, polymer chemistry, analytical laboratory and process development",
       "note": "Public Workday career board linked from DELO's official employer website. Limited to first 80 advertised jobs; partial coverage, not proof of closures. Relative 'postedOn' text is not treated as publication date. First live source-health check is required."
+    },
+    {
+      "name": "Tentamus Group",
+      "platform": "personio",
+      "slug": "tentamus",
+      "careers_url": "https://tentamus.jobs.personio.de"
+    },
+    {
+      "name": "Hohenstein",
+      "platform": "personio",
+      "slug": "hohenstein",
+      "careers_url": "https://hohenstein.jobs.personio.de"
+    },
+    {
+      "name": "CR3-Kaffeeveredelung",
+      "platform": "personio",
+      "slug": "cr3-kaffeeveredelung",
+      "careers_url": "https://cr3-kaffeeveredelung.jobs.personio.de"
+    },
+    {
+      "name": "EyeSense",
+      "platform": "personio",
+      "slug": "eyesense",
+      "careers_url": "https://eyesense.jobs.personio.de"
     }
   ]
 }

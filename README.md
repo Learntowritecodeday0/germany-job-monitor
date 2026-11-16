@@ -4,10 +4,11 @@ A public vacancy monitor for scientific, chemical and materials-related position
 
 ## What the monitor does
 
-- Tracks a growing list of 62 configured official recruitment sources, including Greenhouse, Ashby, Personio, Softgarden, SmartRecruiters and selected public career pages. Some sources can fail or have limited search coverage; always inspect **Source status**.
+- Tracks a growing list of 66 configured official recruitment sources, including Greenhouse, Ashby, Personio, Softgarden, SmartRecruiters and selected public career pages. Some sources can fail or have limited search coverage; always inspect **Source status**.
 - Runs a scheduled check six times a day using GitHub Actions (approximately every four hours; delays and missed runs are possible).
 - Remembers when each job was **first detected**. It does not claim that this equals the original publication time.
 - Excludes clearly non-German locations; flags uncertain or mixed locations for manual review.
+- Recovers a small, bounded selection of otherwise blank Personio XML descriptions from official public job pages; failed details remain available as incomplete leads, not invented requirements.
 - Uses a two-stage browser view: **Matches to investigate (broad)** is the default discovery queue; **Direct shortlist (strict)** separately highlights documented experimental overlap. The broad queue includes related chemistry/materials lab technicians, analytical development, senior/stretched specialties and incomplete-description leads for manual review. These labels do not imply eligibility or interview likelihood.
 - Retains keyword categories only as a separate search signal. The **Direct shortlist** requires evidence of central experimental duties (e.g. formulation, nanoparticle synthesis, surface chemistry or materials characterization), rather than a familiar instrument name mentioned anywhere in the advertisement.
 - Sends otherwise relevant roles to **Needs requirements review** when critical industry-specific daily tasks, undocumented explicit qualifications, substantial required experience, or unavailable qualifications require verification. Preferred or explicitly learnable skills do not automatically exclude a role.
@@ -64,7 +65,7 @@ Then visit `http://localhost:8000` in a browser. No third-party Python packages 
 - GitHub Actions schedules can be delayed; public-repo schedules may be disabled after 60 days without activity. Check the workflow status periodically.
 - The first successful scan of a source creates a **baseline** of existing jobs. It cannot infer whether those listings are genuinely new. Later unseen jobs are detected as new.
 - Source feeds can change without notice. Errors should never be interpreted as no vacancies.
-- **62 configured sources is not comprehensive coverage of Germany's chemistry sector.** Important large employers (BASF, Henkel, Covestro, Clariant, SCHOTT, LANXESS, WACKER, BYK and Evonik) are linked under the manual watchlist but are not counted as automated vacancy sources. Partial-window sources and public feeds lacking full job descriptions can miss relevant roles. For limited-window sources, jobs disappearing from the latest pages do not prove that they closed.
+- **66 configured sources is not comprehensive coverage of Germany's chemistry sector.** Important large employers (BASF, Henkel, Covestro, Clariant, SCHOTT, LANXESS, WACKER, BYK and Evonik), as well as important analytical laboratories such as SGS and GBA Group, are linked under the manual watchlist but are not counted as automated vacancy sources. Partial-window sources and public feeds lacking full job descriptions can miss relevant roles. For limited-window sources, jobs disappearing from the latest pages do not prove that they closed.
 - Job data might include an old open position or cross-border location; always inspect the original listing before applying.
 - Keyword categories are not measured hiring probabilities. A role can be ranked high despite lacking a mandatory requirement.
 - Email alerts are supported through private GitHub Actions secrets, when configured. No email credentials belong in public repository files.

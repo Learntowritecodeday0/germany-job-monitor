@@ -27,6 +27,14 @@ class PagesDeployWorkflowTests(unittest.TestCase):
         self.assertIn("id: deployment", deploy)
         self.assertIn("steps.deployment.outputs.page_url", deploy)
 
+    def test_code_push_scans_without_recursive_snapshot_build(self):
+        self.assertIn("  push:", WORKFLOW)
+        self.assertIn("    branches: [main]", WORKFLOW)
+        self.assertIn('      - "data/state.json"', WORKFLOW)
+        self.assertIn('      - "docs/jobs.json"', WORKFLOW)
+        self.assertIn("  schedule:", WORKFLOW)
+        self.assertIn("  workflow_dispatch:", WORKFLOW)
+
     def test_build_still_uploads_after_generating_snapshot(self):
         build = WORKFLOW.split("\n  deploy-pages:\n", 1)[0]
         self.assertLess(build.index("run: python monitor.py"),

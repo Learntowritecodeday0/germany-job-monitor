@@ -1,5 +1,11 @@
 name: Check German career pages
 on:
+  push:
+    branches: [main]
+    # Monitor-generated snapshots should not trigger another scan/deploy loop.
+    paths-ignore:
+      - "data/state.json"
+      - "docs/jobs.json"
   schedule:
     - cron: "17 1,5,9,13,17,21 * * *"   # Six checks daily, UTC (GitHub may delay runs)
   workflow_dispatch:

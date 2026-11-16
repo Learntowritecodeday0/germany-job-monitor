@@ -141,11 +141,15 @@
 
   // Discovery is intentionally broader than the evidence-based direct shortlist.
   // These are leads to inspect, not predicted eligibility or interview chances.
-  const discoveryDomain = /(?:chem(?:ie|ik|ist|ical|istry|iker|labor)?|material|werkstoff|polymer|kunststoff|plastics|beschicht|coating|adhesiv|klebstoff|dispers|emulsion|formulier|formulat|additiv|partikel|nanopart|surface|oberfl[aä]ch|analyt|biopolymer|cellulos|zellulos|keramik|ceramic|metallurg|elektrolyt|electrolyte|rheolog)/i;
+  const discoveryDomain = /(?:chem(?:ie|ik|ist|ical|istry|iker|labor)?|material|werkstoff|polymer|kunststoff|plastics|beschicht|coating|adhesiv|klebstoff|dispers|emulsion|formulier|formulat|additiv|partikel|nanopart|surface|oberfl[aä]ch|analyt|biopolymer|cellulos|zellulos|keramik|ceramic|metallurg|elektrolyt|electrolyte|rheolog|food|lebensmittel|biochem|bioprocess|bioprozess)/i;
   const discoveryRole = /(?:scientist|research(?:er)?|chemist|chemiker|laborant|laboratory|lab(?:or)?techn|analyst|analytiker|entwickl|development|developer|r&d|ingenieur|engineer|technolog|technician|techniker|forsch|werkstoffpr[uü]f|quality control|qualit[aä]tspr[uü]f)/i;
   const specificScientificTitle = /(?:chemiker|chemist|chemielabor|material(?:s)? scientist|materialwissenschaft|werkstoff(?:pr[uü]f|techn|entwick|ingenieur)|formul|polymer|kunststoff|beschicht|coating|adhesiv|klebstoff|analytik|analytical|rheolog|partikel|nanopart|sol.gel|methodenentwicklung|method development)/i;
   const generalDevelopmentTitle = /(?:process development|prozessentwick|application develop|anwendungsentwick|prozessingenieur|process engineer|produktentwick|product develop|r&d engineer|research engineer|entwicklungsingenieur|anwendungstechniker|technologe)/i;
-  const labVocationalTitle = /(?:chemielaborant|laborant|laboratory technician|lab technician|werkstoffpr[uü]fer|werkstoffpr[uü]ftechnik|analytik(?:er)?|labor(?:techniker|technical)|\bCTA\b)/i;
+  const labVocationalTitle = /(?:chemielaborant|laborant|laboratory technician|lab technician|werkstoffpr[uü]fer|werkstoffpr[uü]ftechnik|analytik(?:er)?|labor(?:techniker|technical|assistent\w*|assistenz|mitarbeit\w*)|lab\s+assistant|chemisch[- ]technisch\w*\s+assistent\w*|\bCTA\b)/i;
+  // Scientific staff roles often have generic German titles rather than "Chemist".
+  // Use the public duties to find them, but only place them in exploratory review.
+  const scientificStaffTitle = /(?:wissenschaftlich\w*\s+mitarbeit\w*|research\s+associate|scientific\s+associate|technisch\w*\s+mitarbeit\w*|mitarbeit\w*.*(?:analytik|chromatograph|labor|werkstoffpr[uü]f|materialpr[uü]f))/i;
+  const practicalScienceDuties = /(?:labor(?:versuch\w*|untersuch\w*|analyse\w*|analytik|t[aä]tig\w*|pr[uü]f\w*|test\w*)|laboratory\s+(?:testing|research|analysis|experiments?|development)|analytisch\w*\s+(?:untersuch\w*|method\w*|pr[uü]f\w*)|nasschem\w*|chromatograph\w*|methodenentwicklung|method development|instrumentell\w*\s+analytik|rheolog\w*\s+(?:mess\w*|test\w*)|formulation\s+(?:experiments?|testing|development)|materials?\s+(?:characteriz\w*|testing)|experimental\s+(?:materials?|chemical|laboratory))/i;
   const clearNonLabTitle = /(?:\b(?:requirements engineer|mechatronics|sales|vertrieb|marketing|finance|accounting|controller|personalwesen|hr|recruiter|procurement|office|customer success|service desk|software|frontend|backend|algorithm|machine learning|data scientist|data engineer|elektrotechnik|elektroingenieur|mechatronik|mechanical design|robotics|tritium|geochemistry|dft expert)\b|foundation models|reactive transport modeller|embedded systems|electrical engineer)/i;
   const trainingTitle = /(?:\b(?:sch[uü]lerpraktik|praktikant|internship|ausbildung|auszubild|masterarbeit|abschlussarbeit|bachelorarbeit|thesis|werkstudent|studentische hilfskraft|doctoral student|phd student)\b)/i;
   const fundamentalGap = /(?:\b(?:phd not accepted|no phd|keine promotion|ohne promotion)\b)/i;
@@ -176,7 +180,12 @@
     const specific=specificScientificTitle.test(title) && discoveryRole.test(title);
     const domain=discoveryDomain.test(title) && discoveryRole.test(title);
     const general=generalDevelopmentTitle.test(title) && (hasCore || hasAdjacent);
-    if(!(specific||domain||general||labVocational))return null;
+    const hasScientificDuties=practicalScienceDuties.test(description);
+    const staff=scientificStaffTitle.test(title) && hasScientificDuties &&
+      (discoveryDomain.test(title) || discoveryDomain.test(description));
+    const unrecognizedCore=generalDevelopmentTitle.test(title) && hasScientificDuties &&
+      discoveryDomain.test(description);
+    if(!(specific||domain||general||labVocational||staff||unrecognizedCore))return null;
     if(/(?:\b(?:manager|director|head of)\b|team lead)/i.test(title) && !hasCore && !hasAdjacent)
       return null;
     let reason;
@@ -188,6 +197,8 @@
       reason='Title suggests a chemistry/materials opportunity, but full duties and requirements are unavailable';
     else if(hasCore||hasAdjacent)
       reason='Potentially transferable scientific tasks; core ownership and qualifications require manual assessment';
+    else if(staff||unrecognizedCore)
+      reason='Scientific or analytical daily work detected; verify equipment, domain and qualification requirements';
     else
       reason='Chemistry or materials job family detected; verify actual responsibilities and specialist experience';
     return {tier:'explore',reason,basis:'Broad job discovery (not confirmed fit)'};

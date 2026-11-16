@@ -55,4 +55,38 @@ const count=candidates.filter(r=>api.isDiscovery(r)).length;
 const strict=candidates.filter(r=>api.isShortlist(r)).length;
 assert(count>=strict,'discovery cannot be narrower than direct shortlist');
 if(raw.length>500)assert(count>strict,'in a broad snapshot, discovery must reveal more than strict roles');
+
+// Regression cases: laboratory titles and duties missing from earlier discovery.
+const wetLab = 'Your tasks: Perform wet chemistry analysis and independent laboratory testing, '+
+  'prepare buffer solutions and document analytical measurements. Your profile: Chemistry training.';
+assert.equal(review({title:'Mitarbeiter (m/w/d) Analytik',description:wetLab}).tier,'explore',
+  'Analytical laboratory staff must be discoverable without a Chemist title');
+assert.equal(review({title:'Chemisch Technischer Assistent (m/w/d) in Teilzeit',
+  description:'Laboranalytik und Qualitätskontrolle von Proben in einem R&D-Labor.'}).tier,'explore',
+  'Chemically trained assistants belong in laboratory career-level review');
+assert.equal(review({title:'Lab Assistant Packaging Testing (m/w/d)',
+  description:'Laboratory testing and analytical sample preparation under a quality system.'}).tier,'explore',
+  'Testing-focused laboratory assistants should not disappear from discovery');
+assert.equal(review({title:'R&D & Scale-up Food Scientist [m/f/d]',description:''}).tier,'explore',
+  'Relevant food formulation and scale-up scientist titles should be visible with missing details');
+assert.equal(review({title:'Process Development Engineer',description:
+  'Your tasks: Perform laboratory tests and method development for chemical formulations and particle properties. '+
+  'Your profile: Engineering degree and industrial experience.',core_documented_tasks:[]}).tier,'explore',
+  'Scientific duties may warrant review even when task parser misses unfamiliar descriptions');
+assert.equal(review({title:'Mitarbeiter (m/w/d) im Einkauf',description:wetLab}).tier,'other',
+  'Purchasing staff must not be promoted by laboratory words in the advert');
+assert.equal(review({title:'Technische Assistenz Geschäftsführung',description:wetLab}).tier,'other',
+  'Administrative assistants remain outside the scientific search');
+assert.equal(review({title:'Research Associate',description:'We offer a chemistry laboratory and technical training.',core_documented_tasks:[]}).tier,'other',
+  'Chemistry mentioned only as workplace context is not enough without hands-on duties');
+assert.equal(review({title:'R&D & Scale-up Food Scientist [m/f/d]',career_track:'training',description:''}).tier,'other',
+  'Training roles remain excluded even when scientific title vocabulary overlaps');
+
+const actualHeraeus=raw.find(j=>j.company.startsWith('Heraeus')&&j.title==='Mitarbeiter (m/w/d) Analytik');
+if(actualHeraeus)assert.equal(api.reviews(actualHeraeus).tier,'explore',
+  'Verified analytical work at Heraeus must not be invisible');
+const actualDye=raw.find(j=>j.company==='DyeMansion'&&j.title.startsWith('Chemisch Technischer Assistent'));
+if(actualDye)assert.equal(api.reviews(actualDye).tier,'explore',
+  'Verified technical assistant role at DyeMansion must not be invisible');
+
 console.log('PASS: broad discovery vs strict shortlist, exclusions, vocational jobs, historical SEM audit, UI');
