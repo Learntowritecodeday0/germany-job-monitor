@@ -83,6 +83,24 @@ class QualificationPriorityTests(unittest.TestCase):
         p = priority_review(job('Formulation Scientist', preferred))['qualification_priority']
         self.assertEqual(p['experience_flags'], [])
 
+    def test_desirable_minimum_experience_not_called_mandatory(self):
+        desc=('The following challenges await you: Optimize and document manufacturing processes '
+              'and support process validation. Your profile: Engineering degree. '
+              'Minimum 3-5 years of relevant experience in medical technology desirable. '
+              'Experience with HPLC may be useful.')
+        p=priority_review(job('Process Development Engineer',desc))['qualification_priority']
+        self.assertEqual(p['experience_flags'],[])
+        self.assertEqual(len(p['experience_review_flags']),1)
+        self.assertIn('3-5 years',p['experience_review_flags'][0]['text'])
+
+    def test_your_skills_profile_heading_is_detected(self):
+        desc=('Your Tasks: Design laboratory experiments and characterize adhesive flow properties. '
+              'Your Skills: Experience with CFD simulation is desirable. '
+              'Very good German and English language abilities.')
+        p=priority_review(job('Process Engineer Adhesives',desc))['qualification_priority']
+        self.assertEqual(p['status'],'parsed')
+        self.assertIn('CAD / finite-element design',[v['name'] for v in p['preferred']])
+
     def test_qualification_unknown_without_profile_heading(self):
         p=priority_review(job('Research Scientist','Develop silica materials and study FTIR and SEM in the lab. '*6))['qualification_priority']
         self.assertEqual(p['status'],'unavailable')
