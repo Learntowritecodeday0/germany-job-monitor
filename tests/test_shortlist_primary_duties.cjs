@@ -70,6 +70,30 @@ check('secondary', {
   }
 }, 'Preferred skills alone must not trigger the essential-requirement gate');
 
+check('details', {
+  title:'Prozessingenieur Fließverhalten (w/m/d)',
+  description:'Your Tasks: Carry out adhesive flow measurement experiments, validate new measurement methods and simulate adhesive rheology. Your Skills: CFD or materials engineering experience, very good German and English.',
+  core_documented_tasks:[],
+  core_adjacent_experimental_tasks:['Adhesive application and flow testing'],
+  core_task_specializations_to_verify:['Mechanical design and CAD'],
+}, 'Adjacent experimental adhesive rheology must enter requirements review, not a direct shortlist');
+check('details', {
+  title:'Ingenieur Anwendungsentwicklung Optical Packaging (w/m/d)',
+  description:'Your Tasks: Plan Testreihen zur Bewertung der Klebstoffeignung, beraten Kunden und optimieren die Klebstoffanwendung mit dem Labor. Your Skills: Optik oder Werkstoffwissenschaften, deutsche Sprachkenntnisse.',
+  core_documented_tasks:[],
+  core_adjacent_experimental_tasks:['Adhesive application and flow testing'],
+}, 'Experimental adhesive application testing needs a specialist review');
+check('other', {
+  title:'Financial Controller',
+  core_documented_tasks:[],
+  core_adjacent_experimental_tasks:['Adhesive application and flow testing']
+}, 'Adjacent activity evidence does not promote unrelated job families');
+check('other', {
+  title:'Prozessingenieur Fließverhalten (w/m/d)',
+  core_documented_tasks:[],
+  core_adjacent_experimental_tasks:[]
+}, 'Subject words in an advert are insufficient without actual daily experimental work');
+
 // Known hard requirements, including sector-specific standards and language,
 // should be reviewed, but not interpreted as proven ineligibility.
 for(const name of ['Battery-cell electrochemistry','Industrial semiconductor fabrication']){
