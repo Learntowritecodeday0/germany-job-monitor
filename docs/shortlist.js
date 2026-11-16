@@ -106,8 +106,8 @@
       // unrelated shared method. Examples: wafer fab + DoE; composite winding
       // + laboratory measurements. Send mixed cases for a manual requirements
       // review, not an automatic interview-readiness claim.
-      if (taskGaps.length && taskGaps.length >= primaryTasks.length)
-        return {tier:'details',reason:'Specialized daily duties outweigh documented primary-method overlap',basis:'Main responsibilities'};
+      if (taskGaps.length)
+        return {tier:'details',reason:'Specialized daily duties require separate industry experience; shared laboratory methods are not sufficient evidence',basis:'Main responsibilities'};
       if (!primaryTasks.length)
         return {tier:'other',reason:'No documented primary chemistry, formulation, surface, or characterization work in daily duties',basis:'Main responsibilities'};
       if (checks.core.length && checks.noCoreCoverage)
