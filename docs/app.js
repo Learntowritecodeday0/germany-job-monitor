@@ -219,6 +219,13 @@ function render(){
       ('Multiple worksites'+(worksite.country?' — '+worksite.country:'')):
       ([worksite.city,worksite.state,worksite.country].filter(Boolean).join(', ') || 'Location not specified');
     left.append(el('div','meta',locationText));
+    // Company research is an optional layer; the vacancy list works without it.
+    if (typeof window !== 'undefined' && window.CompanyDirectory?.hasCompany?.(job.company)) {
+      const directoryButton = el('button','company-profile-button','Company profile');
+      directoryButton.type = 'button';
+      directoryButton.addEventListener('click',()=>window.CompanyDirectory.openByCompany(job.company));
+      left.append(directoryButton);
+    }
     if(worksite.multiple && worksite.sites.length){
       left.append(el('div','muted','Advertised worksites: '+worksite.sites.map(p=>`${p.city||'City unspecified'}, ${p.state||'State unspecified'}, ${p.country||'Country unspecified'}`).join(' ; ')));
     } else if(!worksite.city && worksite.raw){
@@ -398,4 +405,7 @@ async function main(){try{
   if(!canStore())ui.appliedStatus.textContent='Browser storage is disabled; application marks may not persist.';
   render();
 }catch(err){ui.status.textContent=`Cannot load vacancy data: ${err.message}`;ui.results.append(el('p','muted','Check that a monitoring run has completed successfully.'))}}
+if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+  window.addEventListener('company-directory-ready',()=>{ if (data.jobs?.length) render(); });
+}
 main();

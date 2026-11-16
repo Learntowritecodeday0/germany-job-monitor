@@ -1,0 +1,792 @@
+{
+  "version": 1,
+  "description": "German chemical/materials industry research. Technical overlap is not hiring fit. Cities identify researched sites, not verified job worksites.",
+  "companies": [
+    {
+      "id": "cwk",
+      "name": "CWK – Chemiewerk Bad Köstritz",
+      "city": "Bad Köstritz",
+      "region": "Thuringia",
+      "segment": "Silica and inorganic specialty materials",
+      "focus": "Colloidal SiO2 dispersions; particle size 3–100 nm; concentration and surface modification",
+      "research_overlap": "SiO2 synthesis, surface chemistry, size/concentration optimization",
+      "screening_gap": "Commercial sol production and customer specifications",
+      "roles": [
+        "Entwicklungschemiker",
+        "R&D Scientist",
+        "Produktspezialist Kieselsol"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.cwk-bk.de/en/products/silica/colloidal-silica",
+      "aliases": [
+        "Chemiewerk Bad Köstritz",
+        "CWK"
+      ],
+      "careers_url": "https://www.cwk-bk.de/karriere/stellenangebote",
+      "application_channel": "Unsolicited applications explicitly accepted; see official careers page.",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "evonik",
+      "name": "Evonik – AEROSIL / Coating Additives",
+      "city": "Rheinfelden (Baden)",
+      "region": "Baden-Württemberg",
+      "segment": "Silica and specialty additives",
+      "focus": "Fumed silica; dispersibility; rheology and coatings",
+      "research_overlap": "SiO2 and surface functionalization; dispersions; characterization",
+      "screening_gap": "Fumed-silica manufacture and industrial additives experience",
+      "roles": [
+        "R&D Scientist",
+        "Application Technology",
+        "Development Chemist"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.evonik.com/en/news/press-releases/2024/06/evonik-commissions-new-plant-for-aerosil--easy-to-disperse-silic.html",
+      "aliases": [
+        "Evonik",
+        "Evonik Industries",
+        "Evonik Operations"
+      ],
+      "careers_url": "https://www.evonik.com/de/karriere/jobs.html?jobCountries=Germany",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "wacker",
+      "name": "WACKER – HDK / Silicones / Polymers",
+      "city": "Burghausen",
+      "region": "Bavaria",
+      "segment": "Silica and polymers",
+      "focus": "Fumed silica, surface modification, water-based silica dispersions",
+      "research_overlap": "SiO2 systems, surface treatment and colloidal stabilization",
+      "screening_gap": "Industrial silicone chemistry and manufacturing",
+      "roles": [
+        "Entwicklungschemiker",
+        "Materials Scientist",
+        "Application Technology"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.wacker.com/h/medias/7491-EN.pdf",
+      "aliases": [
+        "WACKER",
+        "Wacker Chemie"
+      ],
+      "careers_url": "https://jobs.wacker.com/?locale=de_DE",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "fraunhofer-isc",
+      "name": "Fraunhofer ISC – Particle Technology",
+      "city": "Würzburg",
+      "region": "Bavaria",
+      "segment": "Applied particle research",
+      "focus": "Wet-chemical oxide nanoparticles, sol-gel coatings, functionalization and scale-up",
+      "research_overlap": "Direct synthesis, functionalization, analytical and DoE experience",
+      "screening_gap": "Project funding and industrial collaboration",
+      "roles": [
+        "Wissenschaftlicher Mitarbeiter",
+        "R&D Scientist",
+        "Project Scientist"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.partikel.fraunhofer.de/en/material-development.html",
+      "aliases": [
+        "Fraunhofer ISC",
+        "Fraunhofer-Institut für Silicatforschung"
+      ],
+      "careers_url": "https://www.isc.fraunhofer.de/de/job-und-karriere.html",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "byk",
+      "name": "BYK-Chemie (ALTANA)",
+      "city": "Wesel",
+      "region": "North Rhine-Westphalia",
+      "segment": "Formulation additives",
+      "focus": "Wetting/dispersing agents, rheology modifiers, functional coating additives",
+      "research_overlap": "Surfactants, colloidal stability, process-property relationships",
+      "screening_gap": "Customer-specific coatings/formulation standards",
+      "roles": [
+        "Entwicklungschemiker",
+        "Formulierungsentwickler",
+        "Application Scientist"
+      ],
+      "technical_overlap": "High",
+      "source": "https://local.byk.com/about-us",
+      "aliases": [
+        "BYK",
+        "BYK-Chemie"
+      ],
+      "careers_url": "https://www.altanagroup-careers.com/our-group/byk/",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "muenzing",
+      "name": "MÜNZING CHEMIE",
+      "city": "Heilbronn",
+      "region": "Baden-Württemberg",
+      "segment": "Formulation additives",
+      "focus": "Defoamers, dispersants, emulsifiers, wax emulsions, additives",
+      "research_overlap": "Emulsions, surfactants, dispersion characterization",
+      "screening_gap": "Industrial formulations and production transfer",
+      "roles": [
+        "Formulierungsentwickler",
+        "R&D Chemist",
+        "Anwendungstechniker"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.munzing.com/en/munzing-group/technology-and-innovation/",
+      "aliases": [
+        "MÜNZING CHEMIE",
+        "MÜNZING"
+      ],
+      "careers_url": "https://www.munzing.com/",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "jrs",
+      "name": "JRS – J. Rettenmaier & Söhne",
+      "city": "Rosenberg",
+      "region": "Baden-Württemberg",
+      "segment": "Cellulose and functional fibres",
+      "focus": "Functional cellulose fibres, gels, additives and cellulose derivatives",
+      "research_overlap": "Cellulose processing and functionalization, particle-size control",
+      "screening_gap": "Bulk fibres and application-specific product requirements",
+      "roles": [
+        "Entwicklungschemiker",
+        "Product Development",
+        "Materialentwickler"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.jrs.de/de/industrie/produkte.php",
+      "aliases": [
+        "J. Rettenmaier & Söhne",
+        "JRS"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "zschimmer-schwarz",
+      "name": "Zschimmer & Schwarz",
+      "city": "Lahnstein",
+      "region": "Rhineland-Palatinate",
+      "segment": "Surfactants and industrial additives",
+      "focus": "Surfactants, dispersants, polymers, formulation and application laboratories",
+      "research_overlap": "Surface chemistry, surfactants, dispersion optimization",
+      "screening_gap": "Synthesis platforms and customer/application specificity",
+      "roles": [
+        "R&D Chemist",
+        "Application Technology",
+        "Formulation Scientist"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.zschimmer-schwarz.com/en/company/research-development/translate-to-englisch-about-rd",
+      "aliases": [
+        "Zschimmer & Schwarz"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "lum",
+      "name": "LUM GmbH",
+      "city": "Berlin-Adlershof",
+      "region": "Berlin",
+      "segment": "Particle-analysis instruments",
+      "focus": "Characterization of suspensions, emulsions and particle systems",
+      "research_overlap": "DLS/zeta use, colloidal analysis and result interpretation",
+      "screening_gap": "Proprietary device operation; customer-facing instrument support",
+      "roles": [
+        "Application Scientist",
+        "Analytical Scientist",
+        "Development Scientist"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.lum-gmbh.com/ueber-lum",
+      "aliases": [
+        "LUM"
+      ],
+      "careers_url": "https://www.lum-gmbh.com/",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "particle-metrix",
+      "name": "Particle Metrix GmbH",
+      "city": "Inning am Ammersee",
+      "region": "Bavaria",
+      "segment": "Nanoparticle-analysis instruments",
+      "focus": "Nanoparticle tracking analysis and instrument applications",
+      "research_overlap": "Nanoparticle characterization and experimental troubleshooting",
+      "screening_gap": "NTA-specific hardware and application know-how",
+      "roles": [
+        "Application Scientist",
+        "Technical Application Specialist"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.particle-metrix.com/pages/about-us",
+      "aliases": [
+        "Particle Metrix"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "sympatec",
+      "name": "Sympatec GmbH",
+      "city": "Clausthal-Zellerfeld",
+      "region": "Lower Saxony",
+      "segment": "Particle-analysis instruments",
+      "focus": "Particle size/shape measurement, method development and contract analysis",
+      "research_overlap": "Particle sizing, morphology, method reproducibility",
+      "screening_gap": "Different instrumentation from DLS/zeta; customer work",
+      "roles": [
+        "Applikationswissenschaftler",
+        "Scientist Partikelanalyse"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.sympatec.com/en/in-good-hands/contract-analysis",
+      "aliases": [
+        "Sympatec"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "cff",
+      "name": "CFF GmbH & Co. KG",
+      "city": "Ilmenau (Gehren)",
+      "region": "Thuringia",
+      "segment": "Cellulose functional ingredients",
+      "focus": "Cellulose fibres and powders for industrial and consumer applications",
+      "research_overlap": "Cellulose processing and particle size/concentration controls",
+      "screening_gap": "Industrial fibre processing differs from nanoparticle research",
+      "roles": [
+        "Produktentwickler",
+        "Anwendungsentwicklung",
+        "Chemiker"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.cff.de/en/",
+      "aliases": [
+        "CFF"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "worlee",
+      "name": "Worlée-Chemie GmbH",
+      "city": "Lauenburg / Lübeck",
+      "region": "Schleswig-Holstein",
+      "segment": "Coatings resins and additives",
+      "focus": "Waterborne resins, emulsions and customer-specific coating additives",
+      "research_overlap": "Emulsions, colloids, surface-functional materials",
+      "screening_gap": "Resin synthesis and coating qualification methods",
+      "roles": [
+        "Entwicklungschemiker",
+        "Application Technology"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.worlee.de/en/products-services/chemicals",
+      "aliases": [
+        "Worlée-Chemie",
+        "Worlée"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "basf",
+      "name": "BASF – Dispersions & Resins",
+      "city": "Ludwigshafen",
+      "region": "Rhineland-Palatinate",
+      "segment": "Polymer dispersions and formulation ingredients",
+      "focus": "Polymer dispersions, resins, dispersants, additives for coatings and paper",
+      "research_overlap": "Colloidal systems, formulation/DoE, measurement",
+      "screening_gap": "Polymerization chemistry and large-scale production may be required",
+      "roles": [
+        "R&D Scientist",
+        "Formulation",
+        "Dispersions Development"
+      ],
+      "technical_overlap": "High",
+      "source": "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/segments/industrial-solutions/dispersions-and-resins",
+      "aliases": [
+        "BASF"
+      ],
+      "careers_url": "https://karriere.basf.com/de/en",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "cht",
+      "name": "CHT Germany GmbH",
+      "city": "Tübingen",
+      "region": "Baden-Württemberg",
+      "segment": "Functional specialty chemicals",
+      "focus": "Silicones, textile chemicals, wetting/coating additives, functional chemicals",
+      "research_overlap": "Surfactants, functionalization and formulation experiments",
+      "screening_gap": "Textile finishing industrial specifics",
+      "roles": [
+        "Entwicklungschemiker",
+        "Produktentwicklung",
+        "Applikation"
+      ],
+      "technical_overlap": "Medium–High",
+      "source": "https://www.cht.com/en/cht-group/company",
+      "aliases": [
+        "CHT Germany",
+        "CHT"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "rudolf",
+      "name": "RUDOLF GmbH",
+      "city": "Geretsried",
+      "region": "Bavaria",
+      "segment": "Textile and surface finishing chemicals",
+      "focus": "Textile finishing, hydrophobing, coatings, wetting agents",
+      "research_overlap": "Surface modification and wetting, formulation screening",
+      "screening_gap": "Textile performance standards and process equipment",
+      "roles": [
+        "Produktentwicklung",
+        "Anwendungstechniker",
+        "Formulierungsentwickler"
+      ],
+      "technical_overlap": "Medium–High",
+      "source": "https://rudolf.com/global-network",
+      "aliases": [
+        "RUDOLF"
+      ],
+      "careers_url": "https://rudolf.jobs.personio.de",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "kelheim",
+      "name": "Kelheim Fibres GmbH",
+      "city": "Kelheim",
+      "region": "Bavaria",
+      "segment": "Cellulosic fibres",
+      "focus": "Viscose specialty fibres and customized fibre performance",
+      "research_overlap": "Experience with cellulose properties and processing",
+      "screening_gap": "Industrial viscose spinning and fibre manufacturing absent",
+      "roles": [
+        "R&D Scientist",
+        "Product Development",
+        "Materials Engineer"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.biopark-regensburg.de/de/akteure/firmen-institute?firmenID=1316",
+      "aliases": [
+        "Kelheim Fibres"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "fibrecoat",
+      "name": "FibreCoat GmbH",
+      "city": "Aachen",
+      "region": "North Rhine-Westphalia",
+      "segment": "Functional fibre materials",
+      "focus": "Advanced functional fibres and coating/scale-up processes",
+      "research_overlap": "Surface modification, process optimization, materials testing",
+      "screening_gap": "Continuous production processes and equipment specifics",
+      "roles": [
+        "Junior R&D Engineer",
+        "Materials Development",
+        "Process Development"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://fibrecoat.de/careers/",
+      "aliases": [
+        "FibreCoat"
+      ],
+      "careers_url": "https://fibrecoat.de/careers/",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "netzsch",
+      "name": "NETZSCH-Gerätebau",
+      "city": "Selb",
+      "region": "Bavaria",
+      "segment": "Materials-analysis instruments",
+      "focus": "Thermal analysis; materials testing; application laboratory",
+      "research_overlap": "TGA/thermal characterization; method interpretation",
+      "screening_gap": "Instrument-specific service, calibration and application expertise",
+      "roles": [
+        "Application Scientist",
+        "Analytical Scientist",
+        "Product Specialist"
+      ],
+      "technical_overlap": "Medium–High",
+      "source": "https://analyzing-testing.netzsch.com/en/services/contract-testing/",
+      "aliases": [
+        "NETZSCH-Gerätebau",
+        "NETZSCH Analyzing & Testing"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "kruss",
+      "name": "KRÜSS Scientific",
+      "city": "Hamburg",
+      "region": "Hamburg",
+      "segment": "Surface-analysis instruments",
+      "focus": "Surface tension, contact angle, interfacial and foam characterization",
+      "research_overlap": "Surface and interface science; surfactant and colloid systems",
+      "screening_gap": "Device-specific methods and customer consulting",
+      "roles": [
+        "Application Scientist",
+        "Scientific Support",
+        "Product Specialist"
+      ],
+      "technical_overlap": "Medium–High",
+      "source": "https://www.kruss-scientific.com/en/company/about-us",
+      "aliases": [
+        "KRÜSS Scientific",
+        "KRÜSS"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "henkel",
+      "name": "Henkel – Adhesive Technologies",
+      "city": "Düsseldorf",
+      "region": "North Rhine-Westphalia",
+      "segment": "Adhesives and functional coatings",
+      "focus": "Industrial adhesives, sealants and coatings; formulation R&D",
+      "research_overlap": "Surface chemistry, formulation optimization and material testing",
+      "screening_gap": "Adhesive chemistry, customer qualification and scale-up",
+      "roles": [
+        "Formulation Scientist",
+        "R&D Chemist",
+        "Product Development"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.henkel.com/our-businesses/adhesive-technologies/research-and-development",
+      "aliases": [
+        "Henkel"
+      ],
+      "careers_url": "https://www.henkel.de/karriere/finde-deinen-job-und-bewirb-dich",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "follmann",
+      "name": "Follmann GmbH & Co. KG",
+      "city": "Minden",
+      "region": "North Rhine-Westphalia",
+      "segment": "Coatings and encapsulation",
+      "focus": "Waterborne inks, adhesives, coatings, microencapsulation",
+      "research_overlap": "Formulation and particle-based materials",
+      "screening_gap": "Commercial ink/coating requirements and polymer chemistry",
+      "roles": [
+        "R&D Chemist",
+        "Formulation Development",
+        "Technical Service"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.follmann.com/en/about-us",
+      "aliases": [
+        "Follmann"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "klueber",
+      "name": "Klüber Lubrication",
+      "city": "Munich",
+      "region": "Bavaria",
+      "segment": "Specialty industrial formulations",
+      "focus": "Greases, oils, waxes, coatings, customer-specific lubrication",
+      "research_overlap": "Formulation screening, colloid-related testing and process optimization",
+      "screening_gap": "Tribology and industrial lubricant qualification",
+      "roles": [
+        "Formulierungsentwickler",
+        "Application Scientist"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.klueber.com/de/en/products-and-service/",
+      "aliases": [
+        "Klüber Lubrication"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "clariant",
+      "name": "Clariant – Catalysts",
+      "city": "Bruckmühl-Heufeld",
+      "region": "Bavaria",
+      "segment": "Catalysts and specialty chemistry",
+      "focus": "Catalyst R&D/production, adsorption and chemical process materials",
+      "research_overlap": "Inorganic materials, porosity, chemical surface analysis",
+      "screening_gap": "Catalyst process chemistry and scale-up",
+      "roles": [
+        "Materialentwickler",
+        "R&D Chemist",
+        "Catalyst Scientist"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.clariant.com/en/Business-Units/Catalysts/Europe",
+      "aliases": [
+        "Clariant"
+      ],
+      "careers_url": "https://careers.clariant.com/?locale=de_DE",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "kuraray",
+      "name": "Kuraray Europe GmbH",
+      "city": "Hattersheim am Main",
+      "region": "Hesse",
+      "segment": "Functional polymers",
+      "focus": "Polyvinyl alcohol, PVB films, specialty materials and fibres",
+      "research_overlap": "Polymeric dispersions and material characterization",
+      "screening_gap": "Industrial polymer synthesis and film processes",
+      "roles": [
+        "Product Development",
+        "Application Technology"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.kuraray.eu/detailed-news/kuraray-performs-lcas-to-make-the-sustainability-of-its-products-more-transparent",
+      "aliases": [
+        "Kuraray Europe",
+        "Kuraray"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "covestro",
+      "name": "Covestro – Coatings & Adhesives",
+      "city": "Leverkusen",
+      "region": "North Rhine-Westphalia",
+      "segment": "Polymer and coating raw materials",
+      "focus": "Coatings/adhesives raw materials, specialty films, application development",
+      "research_overlap": "Surface properties and materials characterization",
+      "screening_gap": "Polyurethane/polymer production background",
+      "roles": [
+        "R&D Scientist",
+        "Material Development",
+        "Application Technology"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.covestro.com",
+      "aliases": [
+        "Covestro"
+      ],
+      "careers_url": "https://www.covestro.com/de/career/locations/germany",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "heraeus",
+      "name": "Heraeus Electronics",
+      "city": "Hanau",
+      "region": "Hesse",
+      "segment": "Electronic materials",
+      "focus": "Electronics packaging materials, functional pastes, substrates, joining materials",
+      "research_overlap": "Particle and material characterization; surface/interface work",
+      "screening_gap": "Electronics reliability and industrial electronic assembly",
+      "roles": [
+        "Materials Development",
+        "R&D Scientist"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.heraeus.com/en/",
+      "aliases": [
+        "Heraeus Electronics"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "merck",
+      "name": "Merck – Electronics",
+      "city": "Darmstadt",
+      "region": "Hesse",
+      "segment": "Electronic and specialty materials",
+      "focus": "Semiconductor/display materials and specialty chemistry",
+      "research_overlap": "Materials chemistry and characterization",
+      "screening_gap": "Semiconductor product-specific process requirements",
+      "roles": [
+        "Materials Scientist",
+        "R&D Scientist",
+        "Product Development"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.merckgroup.com/",
+      "aliases": [
+        "Merck KGaA",
+        "Merck"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "schott",
+      "name": "SCHOTT AG",
+      "city": "Mainz",
+      "region": "Rhineland-Palatinate",
+      "segment": "Glass and glass ceramics",
+      "focus": "Special glass, glass-ceramic and materials R&D",
+      "research_overlap": "Oxide/inorganic materials and lab characterization",
+      "screening_gap": "High-temperature glass manufacturing and glass-specific expertise",
+      "roles": [
+        "Materialentwickler",
+        "Development Scientist"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.schott.com/en-gb/about-us/company/regions-and-locations/mainz",
+      "aliases": [
+        "SCHOTT"
+      ],
+      "careers_url": "https://www.schott.com/de-de/karriere",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "eckart",
+      "name": "ECKART (ALTANA)",
+      "city": "Hartenstein",
+      "region": "Bavaria",
+      "segment": "Functional pigments",
+      "focus": "Metallic/effect pigments and coatings applications",
+      "research_overlap": "Particle morphology and surface/dispersion characterization",
+      "screening_gap": "Metal powder and pigment-process specialization",
+      "roles": [
+        "R&D Chemist",
+        "Application Technology",
+        "Materials Development"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.altana.com/divisions/eckart.html",
+      "aliases": [
+        "ECKART"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "nabaltec",
+      "name": "Nabaltec AG",
+      "city": "Schwandorf",
+      "region": "Bavaria",
+      "segment": "Inorganic functional fillers",
+      "focus": "Aluminium hydroxide/oxide, boehmite, specialty alumina",
+      "research_overlap": "Inorganic particle characterization and structure-property relationships",
+      "screening_gap": "Industrial powder processing and ceramics production",
+      "roles": [
+        "Materialentwickler",
+        "Product Development",
+        "Application Engineer"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.nabaltec.de/en/",
+      "aliases": [
+        "Nabaltec"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "ceramtec",
+      "name": "CeramTec",
+      "city": "Plochingen",
+      "region": "Baden-Württemberg",
+      "segment": "Technical ceramics",
+      "focus": "Advanced ceramics, industrial and medical components",
+      "research_overlap": "Inorganic material characterization; microstructure relationships",
+      "screening_gap": "Ceramic shaping, firing, sintering experience",
+      "roles": [
+        "Materials Scientist",
+        "Ceramic Product Development"
+      ],
+      "technical_overlap": "Medium",
+      "source": "https://www.ceramtec-group.com/en/",
+      "aliases": [
+        "CeramTec"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "fraunhofer-ivv",
+      "name": "Fraunhofer IVV",
+      "city": "Freising",
+      "region": "Bavaria",
+      "segment": "Applied packaging and polymer materials",
+      "focus": "Functional packaging, coatings, films, raw material/product development",
+      "research_overlap": "Functional nanoparticles, coatings and formulation methodology",
+      "screening_gap": "Packaging performance and film processing specifics",
+      "roles": [
+        "Wissenschaftlicher Mitarbeiter",
+        "Materials R&D"
+      ],
+      "technical_overlap": "Medium–High",
+      "source": "https://www.ivv.fraunhofer.de/en/freising.html",
+      "aliases": [
+        "Fraunhofer IVV"
+      ],
+      "careers_url": "https://www.ivv.fraunhofer.de/de/jobs-karriere.html",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    },
+    {
+      "id": "fraunhofer-ifam",
+      "name": "Fraunhofer IFAM",
+      "city": "Bremen",
+      "region": "Bremen",
+      "segment": "Applied surface and materials research",
+      "focus": "Surface functionalization, bonding technology, advanced materials",
+      "research_overlap": "Surface modification, materials analysis and DoE",
+      "screening_gap": "Industrial adhesive and pilot manufacturing processes",
+      "roles": [
+        "Wissenschaftlicher Mitarbeiter",
+        "R&D Scientist"
+      ],
+      "technical_overlap": "Medium–High",
+      "source": "https://www.ifam.fraunhofer.de/en/Competencies/Surface_Technology.html",
+      "aliases": [
+        "Fraunhofer IFAM"
+      ],
+      "careers_url": "",
+      "application_channel": "Not assessed",
+      "research_updated": "2026-11-16"
+    }
+  ]
+}

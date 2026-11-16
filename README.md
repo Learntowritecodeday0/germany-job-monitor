@@ -33,6 +33,17 @@ A public vacancy monitor for scientific, chemical and materials-related position
 
 GitHub may show an extra confirmation for enabling Actions or Pages. Pages and Actions permissions/policies may differ by account or organization.
 
+## Company research directory
+
+The **Companies** tab contains researched German chemical and materials employer profiles from `docs/companies.json`. Its 34 initial profiles are **research targets**, not confirmed job openings or predictions of hiring fit.
+
+- Each profile records a researched German site, industry/technology focus, technical overlap, important screening gaps, possible job-family search terms, and source links. Search terms are not advertised vacancies.
+- Where an exact employer name matches a monitored source in `docs/jobs.json`, the website displays source health and direct links to that employer's jobs **in the current monitor snapshot**. No linked jobs does not prove that the employer has no vacancies; manual-watchlist companies are not scanned.
+- A **Company profile** button appears on matching vacancy cards. Employer identity matching uses explicit aliases rather than fuzzy name fragments, so unrelated firms and Fraunhofer institutes are not silently combined.
+- Interest status and personal company notes are stored **only in this browser**. They do not upload to GitHub and do not sync across devices; the Companies tab provides JSON export/import for private backups.
+- To add another researched employer, extend the `companies` array in `docs/companies.json` with a unique `id`, official source link, cautious aliases, and clear assessment language. Do not confuse this research database with `config/companies.json`, which configures automated recruitment sources.
+- The published profiles are visible to everyone. Never place personally identifiable information, private application records, or confidential research notes in `docs/companies.json`.
+
 ## Add or remove companies
 
 Open `config/companies.json` and edit the list. Each entry needs the official name, `platform`, `slug`, and public career URL. Supported platforms:
