@@ -29,11 +29,11 @@ class ChemistryEmployersTest(unittest.TestCase):
 
     def test_manual_employers_are_not_falsely_monitored(self):
         # Check the actual watchlist section, not exact explanatory prose.
-        # Heraeus moved to a separate limited automatic source, so it is no
-        # longer required to appear as a manual employer.
+        # Heraeus and DELO now have limited automatic sources, so neither
+        # needs a duplicate link in this manual-employer section.
         self.assertIn('<section class="manual-sources"', HTML)
         section = HTML.split('<section class="manual-sources"', 1)[1].split("</section>", 1)[0]
-        for name in ("BYK", "DELO", "WACKER", "Evonik", "Bruker", "LUM"):
+        for name in ("BYK", "WACKER", "Evonik", "Bruker", "LUM"):
             with self.subTest(name=name):
                 self.assertIn(name, section)
         self.assertIn("manual targets", section)
@@ -41,5 +41,7 @@ class ChemistryEmployersTest(unittest.TestCase):
         self.assertIn("separate automated coverage", section)
         by_name = {company["name"] for company in CONFIG["companies"]}
         self.assertTrue(any(name.startswith("Heraeus") for name in by_name))
+        self.assertIn("DELO", by_name)
+        self.assertEqual(next(x for x in CONFIG["companies"] if x["name"]=="DELO")["platform"], "workday_limited")
 
 if __name__=="__main__":unittest.main()
