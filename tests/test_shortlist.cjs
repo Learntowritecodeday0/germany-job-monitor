@@ -42,11 +42,11 @@ const noPhd={title:'Chemiker Laborentwicklung',description:'keine Promotion; '+g
 const index=fs.readFileSync(path.join(__dirname,'../docs/index.html'),'utf8');
 const app=fs.readFileSync(path.join(__dirname,'../docs/app.js'),'utf8');
 assert(index.indexOf('src="shortlist.js"')>=0 && index.indexOf('src="shortlist.js"')<index.indexOf('src="app.js"'));
-for(const id of ['reviewQueue','degreeFocus','showApplied','pageSize','results','priority'])assert(index.includes(`id="${id}"`),id);
-for(const sn of ['reviewAPI.reviews','reviewAPI.isShortlist','showApplied','applicationStatus','Qualification requirements'])assert(app.includes(sn),sn);
+for(const id of ['reviewQueue','degreeFocus','showApplied','pageSize','results','priority','matches','queueStats'])assert(index.includes(`id="${id}"`),id);
+for(const sn of ['reviewAPI.reviews','reviewAPI.isShortlist','reviewAPI.isDiscovery','showApplied','applicationStatus','Qualification requirements'])assert(app.includes(sn),sn);
 // The number of postings changes on every scan. Do not freeze queue sizes
 // to a historical snapshot: this previously broke deployment on text updates.
-const allowed = new Set(['review','secondary','details','other']);
+const allowed = new Set(['review','secondary','details','explore','other']);
 assert.strictEqual(Object.values(counts).reduce((n,v)=>n+v,0), jobs.length);
 assert(Object.keys(counts).every(tier=>allowed.has(tier)));
 
