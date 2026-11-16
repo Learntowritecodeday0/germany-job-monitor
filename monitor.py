@@ -405,12 +405,13 @@ def enrich_personio_fallback_job(job, page_html):
     if not location:
         location, country = _personio_visible_location(visible)
     if description and len(description) >= 120:
-        return {**job, "description": description, "location": location,
-                "country": country, "published_at": posted,
+        return {**job, "description": description, "location": location or job.get("location", ""),
+                "country": country or job.get("country", ""), "published_at": posted or job.get("published_at"),
                 "source_mode": "html_detail"}
     # Location can be useful even when the source lacks job details; missing
     # description still prevents automatic priority email notification.
-    return {**job, "location": location, "country": country}
+    return {**job, "location": location or job.get("location", ""),
+            "country": country or job.get("country", "")}
 
 
 def enrich_personio_fallback(jobs, *, max_pages=30):
@@ -424,6 +425,39 @@ def enrich_personio_fallback(jobs, *, max_pages=30):
         if index < min(len(jobs), max_pages) - 1:
             time.sleep(0.4)  # Be polite to small company career sites.
     return jobs
+
+
+PERSONIO_INCOMPLETE_SCIENCE_TITLE = re.compile(
+    r'(?:chem|labor|analyt|chromatograph|material|werkstoff|polymer|formul|'
+    r'partikel|r&d|research|scientist|entwickl|technolog|prozesstechn|'
+    r'biotech|bioprocess|food|lebensmittel|qualit[aä]t)', re.I
+)
+
+
+def enrich_personio_incomplete(jobs, *, max_pages=8):
+    """Recover missing XML job descriptions from official public detail pages.
+
+    Check a bounded scientific subset and preserve the original XML result on
+    detail failures. Never invent location, posting date or requirements.
+    """
+    candidates = [
+        (index, job) for index, job in enumerate(jobs)
+        if job.get("platform") == "personio"
+        and job.get("source_mode") != "html_fallback"
+        and len(job.get("description") or "") < 150
+        and PERSONIO_INCOMPLETE_SCIENCE_TITLE.search(job.get("title") or "")
+    ][:max_pages]
+    for pos, (index, job) in enumerate(candidates):
+        try:
+            detail = enrich_personio_fallback_job(job, get_html(job["url"], timeout=12))
+            if len(detail.get("description") or "") >= 120:
+                jobs[index] = detail
+        except (HTTPError, URLError, ValueError, TimeoutError, UnicodeError, OSError) as exc:
+            print(f"XML DETAIL UNAVAILABLE {job['company']} {job['key']}: {type(exc).__name__}", file=sys.stderr)
+        if pos < len(candidates) - 1:
+            time.sleep(0.3)
+    return jobs
+
 
 def normalize_personio(company, position):
     def field(path):
@@ -1255,8 +1289,12 @@ def update(config, state, at):
             if (company["platform"] == "rss" and entry.get("count") == 0
                     and any(j.get("feed_fallback") for j in seen)):
                 was_initialized = False
-            if company["platform"] == "personio" and any(j.get("source_mode") == "html_fallback" for j in seen):
-                seen = enrich_personio_fallback(seen)
+            if company["platform"] == "personio":
+                if any(j.get("source_mode") == "html_fallback" for j in seen):
+                    seen = enrich_personio_fallback(seen)
+                # XML feeds may contain blank descriptions for active vacancies.
+                # Recover selected science-related details with a bounded budget.
+                seen = enrich_personio_incomplete(seen)
             keys = set()
             for job in seen:
                 if job.get("location") is None:
