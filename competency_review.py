@@ -60,7 +60,7 @@ METHODS = [
     ('Electrochemical impedance / cyclic voltammetry', False, [r'\beis\b',r'\belectrochemical impedance\b',r'\bcyclic voltammetr\w*\b',r'\bzyklische voltammetr\w*\b']),
     ('HPLC / LC-MS / GC-MS', False, [r'\bhplc\b',r'\blc[- ]?ms\b',r'\bgc[- ]?ms\b']),
     ('Industrial composite winding techniques', False, [r'\bfilament winding\b',r'\b(?:composite|fiber|fibre) winding\b',r'\bwickelverfahren\b']),
-    ('CAD / finite-element design', False, [r'\b(?:CAD|FEA|CFD|CATIA|SolidWorks|Abaqus|Simulink)\b']),
+    ('CAD / finite-element design', False, [r'(?<!HPLC-)\bCAD\b',r'\b(?:FEA|CFD|CATIA|SolidWorks|Abaqus|Simulink)\b']),
     ('Embedded software / Python SDK programming', False, [r'\bSDK\b',r'\bpython (?:programming|coding|development)\b',r'\bembedded (?:software|programming)\b',r'\bC\+\+\b']),
 ]
 
@@ -90,7 +90,7 @@ def _matched(text: str, catalog: list[tuple[str, bool, list[str]]]) -> dict:
     }
 
 
-PROFILE_HEADING = re.compile(r'\b(?:your profile|your qualifications|what you bring|your requirements|ihr profil|dein profil|anforderungen|qualifikationen)\b\s*:?', re.I)
+PROFILE_HEADING = re.compile(r'\b(?:your profile|your qualifications|what you bring|your requirements|your skills|ihr profil|dein profil|anforderungen|qualifikationen)\b\s*:?', re.I)
 TASK_HEADING = re.compile(r'\b(?:your (?:mission|tasks|day[- ]to[- ]day|responsibilities)|what you(?: will)? do|deine aufgaben|ihre aufgaben|t[aä]tigkeiten)\b\s*:?', re.I)
 
 

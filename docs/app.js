@@ -235,6 +235,9 @@ function render(){
     else if(applied.applied)tags.append(chip('Applied','low'));
     left.append(tags);
     if(review.reason)left.append(el('p','review-reason',`Review note (${review.basis}): ${review.reason}`));
+    if(review.tier==='details' && Array.isArray(job.core_adjacent_experimental_tasks) && job.core_adjacent_experimental_tasks.length){
+      left.append(el('p','core-task-note','Adjacent experimental work to assess (not directly documented): '+job.core_adjacent_experimental_tasks.slice(0,3).join(' · ')));
+    }
     if(['secondary','review','details'].includes(review.tier) && Array.isArray(job.core_documented_tasks) && job.core_documented_tasks.length){
       left.append(el('p','core-task-note','Detected methods in advertised daily tasks (verify scope): '+job.core_documented_tasks.slice(0,3).join(' · ')));
     }
@@ -246,6 +249,7 @@ function render(){
       if(requirementChecks.taskGaps?.length)checks.push({label:'Specialized work in daily duties',text:requirementChecks.taskGaps.join(' · ')});
       if(requirementChecks.essential.length)checks.push({label:'Explicit mandatory requirements to verify',text:requirementChecks.essential.join(' · ')});
       if(requirementChecks.experience.length)checks.push({label:'Explicit experience thresholds',text:requirementChecks.experience.join(' · ')});
+      if(requirementChecks.experienceReview?.length)checks.push({label:'Experience wording to confirm (possibly preferred)',text:requirementChecks.experienceReview.join(' · ')});
       const additionalCore=requirementChecks.core.filter(x=>!requirementChecks.taskGaps?.includes(x));
       if(additionalCore.length)checks.push({label:'Industry specialization to verify',text:additionalCore.join(' · ')});
       if(requirementChecks.preferred.length)checks.push({label:'Preferred, not mandatory by wording',text:requirementChecks.preferred.join(' · ')});

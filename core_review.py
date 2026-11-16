@@ -23,13 +23,30 @@ DOCUMENTED_CORE = [
  ('Design of experiments and experimental optimization', [r'\bDoE\b',r'\bdesign of experiments\b',r'\bversuchsplan\w*\b',r'\bexperimental design\b']),
  ('Laboratory synthesis scale-up', [r'\bscale[- ]?up\b',r'\bupscal\w*\b',r'\blab[- ]?scale\b',r'\bpilot[- ]?scale\b',r'\bskalier\w*\b']),
 ]
+# Adjacent application/measurement work, NOT documented specialist expertise.
+# Strictly require a materials subject AND an experimental task in the explicit
+# tasks section. They trigger manual review, never automatic shortlisting.
+ADJACENT_EXPERIMENTAL = [
+ ('Adhesive application and flow testing',
+   [r'\b(?:klebstoff\w*|klebel[oö]sung\w*|adhesiv\w*|adhesive\w*)\b'],
+   [r'\b(?:versuch\w*|testreih\w*|messans[aä]tz\w*|messtechnisch\w*|'
+    r'flie[ßs]verhalten|flie[ßs]eigenschaft\w*|rheolog\w*|pr[uü]fmethod\w*|'
+    r'prüfreih\w*|materialpr[uü]f\w*)\b']),
+]
+
+def _adjacent_task_matches(tasks: str) -> list[str]:
+    return [label for label, subjects, experiments in ADJACENT_EXPERIMENTAL
+            if any(re.search(p, tasks, re.I) for p in subjects)
+            and any(re.search(p, tasks, re.I) for p in experiments)]
+
+
 # These are core fields that cannot be established by nanoparticle R&D alone.
 SPECIALIZED_CORE = [
  ('Composite winding or layup', [r'\b(?:filament|composite|fibre|fiber) winding\b',r'\bfaserwickel\w*\b',r'\bwickelprozess\w*\b',r'\bprepreg\b']),
  ('Aircraft structures or certification', [r'\baircraft structures?\b',r'\bairframe\b',r'\bairworthiness\b',r'\b(?:CS[- ]?23|DO[- ]?160|EASA Part)\b',r'\baircraft development programs?\b']),
  ('Semiconductor fabrication', [r'\b(?:ALD|CVD|PVD|PECVD|CMP)\b',r'\blithograph\w*\b',r'\bwafer (?:fabricat\w*|manufactur\w*|process\w*)\b',r'\bepitaxy\b']),
  ('Battery electrochemistry and cells', [r'\belectrochem\w*\b',r'\belektrochem\w*\b',r'\belectrode slurr\w*\b',r'\b(?:battery|lithium[- ]ion) (?:cells?|chemistry)\b',r'\bcathode\b',r'\banode\b']),
- ('Mechanical design and CAD', [r'\b(?:CATIA|SolidWorks|Autocad|Abaqus|ANSYS)\b',r'\b(?:CAD|FEA|CFD)\b',r'\bmechanical design\b',r'\bfinite element\b']),
+ ('Mechanical design and CAD', [r'\b(?:CATIA|SolidWorks|Autocad|Abaqus|ANSYS)\b',r'(?<!HPLC-)\bCAD\b',r'\b(?:FEA|CFD)\b',r'\bmechanical design\b',r'\bfinite element\b']),
  ('Scientific instrument or fluidic-system construction', [r'\b(?:build|design|develop)\w* (?:of )?(?:scientific|analytical|measurement) instruments?\b',r'\bfluidic (?:system|design|integration)\b',r'\binstrument (?:architecture|integration|construction)\b']),
  ('Industrial lacquer films and curing', [r'\b(?:lacquer|lackfilm|pigmentierte lacke|paint film)\w*\b',r'\b(?:electron[- ]beam|UV) cur\w*\b',r'\belektronenstrahlh[aä]rt\w*\b']),
  ('Embedded electronics or controls', [r'\b(?:embedded software|PLC|SPS[- ]?programmierung|PCB layout|C\+\+)\b',r'\b(?:hardware[- ]in[- ]the[- ]loop|HiL)\b']),
@@ -39,7 +56,7 @@ SPECIALIZED_CORE = [
 # Split the advertising copy into tasks and formal requirements, retaining
 # unknowns rather than inferring requirements from the employer's product.
 TASK_START = re.compile(r'\b(?:your (?:day[- ]to[- ]day|tasks|responsibilities|mission)|(?:main )?responsibilities|(?:key )?tasks|what you(?: will)? do|deine aufgaben|ihre aufgaben|t[aä]tigkeiten|hauptaufgaben|zust[aä]ndigkeiten)\s*[:\-]', re.I)
-REQ_START = re.compile(r'\b(?:your profile|your qualifications|what you bring|what we expect|your requirements|ihr profil|dein profil|anforderungen|das bringen sie mit|qualifikationen)\s*[:\-]', re.I)
+REQ_START = re.compile(r'\b(?:your profile|your qualifications|what you bring|what we expect|your requirements|your skills|ihr profil|dein profil|anforderungen|das bringen sie mit|qualifikationen)\s*[:\-]', re.I)
 FOOTER = re.compile(r'\b(?:why us|why join us|what we offer|benefits|perks|we recognize that|equal opportunity|über uns|was wir bieten|wir bieten|unsere benefits|apply now)\s*[:\-]?', re.I)
 
 
@@ -66,13 +83,18 @@ def core_review(job: dict) -> dict:
         return {'core_review':'Outside preferred job families','core_documented_tasks':[],
                 'core_specializations_to_verify':[], 'core_task_specializations_to_verify':[],
                 'core_qualification_specializations_to_verify':[],
+                'core_adjacent_experimental_tasks':[],
                 'core_review_basis':'Excluded by selected job-family preferences'}
     if len(description) < 120 or job.get('source_mode') == 'html_fallback':
         return {'core_review':'Insufficient role details','core_documented_tasks':[],
                 'core_specializations_to_verify':[], 'core_task_specializations_to_verify':[],
                 'core_qualification_specializations_to_verify':[],
+                'core_adjacent_experimental_tasks':[],
                 'core_review_basis':'Tasks or qualifications unavailable'}
     tasks,requirements,has_req=split_role(description)
+    # Only an explicitly labelled tasks section is accepted for adjacent
+    # non-documented methods, to avoid employer boilerplate false positives.
+    adjacent = _adjacent_task_matches(tasks) if TASK_START.search(description) else []
     # Use the role's main task section for evidence, and qualification section
     # for specialization requirements. Do not turn a generic title into a match.
     direct_tasks = _catalog_match(tasks, DOCUMENTED_CORE)
@@ -95,6 +117,7 @@ def core_review(job: dict) -> dict:
     return {
         'core_review':label,
         'core_documented_tasks':direct_tasks[:4],
+        'core_adjacent_experimental_tasks':adjacent[:3],
         'core_specializations_to_verify':gaps[:4],
         # Keep primary daily duties distinct from qualifications or preferences.
         # Missing direct industry expertise is not proven inability to learn it.
