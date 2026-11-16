@@ -170,6 +170,9 @@
       job.core_documented_tasks.some(x=>directCoreTasks.has(x));
     const hasAdjacent=Array.isArray(job?.core_adjacent_experimental_tasks) &&
       job.core_adjacent_experimental_tasks.length>0;
+    if(!hasCore && !labVocational &&
+       /(?:factory equipment maintenance|manufacturing operations|production shifts|manufacturing line maintenance|ERP rollout)/i.test(description))
+      return null;
     const specific=specificScientificTitle.test(title) && discoveryRole.test(title);
     const domain=discoveryDomain.test(title) && discoveryRole.test(title);
     const general=generalDevelopmentTitle.test(title) && (hasCore || hasAdjacent);
