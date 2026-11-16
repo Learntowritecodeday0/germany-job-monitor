@@ -38,6 +38,7 @@ jobs:
       - name: Test shortlist evidence and review rules
         run: |
           node tests/test_shortlist_primary_duties.cjs
+          node tests/test_discovery_queue.cjs
           node tests/test_shortlist.cjs
       - name: Check public job feeds
         run: python monitor.py
