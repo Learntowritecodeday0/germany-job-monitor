@@ -55,6 +55,12 @@ check('details', {
   core_specializations_to_verify:['Battery electrochemistry and cells']
 }, 'Mixed battery-cell core duties deserve a separate verification');
 
+check('details', {
+  core_documented_tasks:['Formulation and dispersion experiments','Materials and particle characterization'],
+  core_task_specializations_to_verify:['Semiconductor fabrication'],
+  core_specializations_to_verify:['Semiconductor fabrication']
+}, 'Several transferable laboratory methods still do not establish wafer-fabrication readiness');
+
 // Preferred battery specialization should not be misread as mandatory.
 check('secondary', {
   core_specializations_to_verify:['Battery electrochemistry and cells'],
