@@ -69,6 +69,20 @@ class QualificationPriorityTests(unittest.TestCase):
         self.assertIn('Sol-gel synthesis',[x['name'] for x in p['preferred']])
         self.assertEqual(len(p['experience_flags']),1)
 
+    def test_5_plus_years_is_explicit_but_ideally_is_not(self):
+        mandatory = ('Your Tasks: Develop formulations for nanoparticles in the laboratory. '
+                     'Your Profile: 5+ years of industrial formulation R&D experience required. '
+                     'Experience with FTIR desirable.')
+        p = priority_review(job('Formulation Scientist', mandatory))['qualification_priority']
+        self.assertEqual(len(p['experience_flags']), 1)
+        self.assertIn('5+ years', p['experience_flags'][0]['text'])
+
+        preferred = ('Your Tasks: Develop formulations for nanoparticles in the laboratory. '
+                     'Your Profile: Ideally 5+ years of materials formulation R&D experience. '
+                     'Experience with FTIR desirable.')
+        p = priority_review(job('Formulation Scientist', preferred))['qualification_priority']
+        self.assertEqual(p['experience_flags'], [])
+
     def test_qualification_unknown_without_profile_heading(self):
         p=priority_review(job('Research Scientist','Develop silica materials and study FTIR and SEM in the lab. '*6))['qualification_priority']
         self.assertEqual(p['status'],'unavailable')
